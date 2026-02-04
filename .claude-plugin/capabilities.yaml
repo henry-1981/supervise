@@ -1,0 +1,64 @@
+schema_version: "1.0"
+plugin_id: cowork-supervisor
+domains:
+  - orchestration
+  - multi-plugin
+  - coordination
+
+capabilities:
+  - name: intent_clarification
+    description: Transform vague requests into precise specifications through iterative questioning
+    keywords:
+      - clarify
+      - understand
+      - specify
+      - requirements
+
+  - name: capability_discovery
+    description: Discover available plugins and their capabilities
+    keywords:
+      - discover
+      - find plugins
+      - available
+      - capabilities
+
+  - name: execution_planning
+    description: Create execution plans mapping tasks to plugins
+    keywords:
+      - plan
+      - strategy
+      - organize
+      - coordinate
+
+  - name: multi_plugin_orchestration
+    description: Coordinate multiple plugins in parallel/sequential execution
+    keywords:
+      - orchestrate
+      - coordinate
+      - multi-plugin
+      - parallel
+
+  - name: result_aggregation
+    description: Combine results from multiple plugins into coherent responses
+    keywords:
+      - aggregate
+      - combine
+      - synthesize
+      - merge
+
+entry_points:
+  commands:
+    - /supervise
+  agents:
+    - supervisor
+    - intent-clarifier
+    - capability-discoverer
+    - supervisor-planner
+    - orchestra
+    - aggregator
+  skills:
+    - cowork-supervisor
+
+constraints:
+  max_concurrent_plugins: 10
+  requires_authentication: false
