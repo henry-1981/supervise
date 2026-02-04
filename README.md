@@ -14,34 +14,42 @@ Cowork Supervisor is a Claude Code plugin that acts as an intelligent orchestrat
 
 ## Installation
 
-### Method 1: Plugin Marketplace (Recommended)
+### Via Claude Code UI (Recommended)
+
+1. Open Claude Code Settings
+2. Go to **Plugins → Marketplaces**
+3. Ensure `team-attention-plugins` is added:
+   - If not present, add: `https://github.com/team-attention/plugins-for-claude-natives.git`
+4. Go to **Plugins** list
+5. Find **"cowork-supervisor"** and enable it
+6. Restart Claude Code
+
+### Manual Installation
+
+1. Ensure team-attention-plugins marketplace is installed:
 
 ```bash
-# Add the marketplace
-/plugin marketplace add team-attention/cowork-supervisor
-
-# Install the plugin
-/plugin install cowork-supervisor
+ls ~/.claude/plugins/marketplaces/team-attention-plugins
 ```
 
-### Method 2: Direct Installation
+2. If not present, clone it:
 
 ```bash
-# Clone the repository
-git clone https://github.com/team-attention/cowork-supervisor.git
-
-# Navigate to Claude Code plugins directory
-cd ~/.claude/plugins/
-
-# Create symlink or copy
-ln -s /path/to/cowork-supervisor .
+git clone https://github.com/team-attention/plugins-for-claude-natives.git \
+  ~/.claude/plugins/marketplaces/team-attention-plugins
 ```
 
-### Method 3: Manual
+3. Enable in `~/.claude/settings.json`:
 
-1. Download or clone this repository
-2. Copy to `~/.claude/plugins/cowork-supervisor/`
-3. Restart Claude Code
+```json
+{
+  "enabledPlugins": {
+    "cowork-supervisor@team-attention-plugins": true
+  }
+}
+```
+
+4. Restart Claude Code
 
 ## Quick Start
 
