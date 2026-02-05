@@ -14,42 +14,57 @@ Cowork Supervisor is a Claude Code plugin that acts as an intelligent orchestrat
 
 ## Installation
 
-### Via Claude Code UI (Recommended)
+### Standalone Installation (Recommended)
 
-1. Open Claude Code Settings
-2. Go to **Plugins → Marketplaces**
-3. Ensure `team-attention-plugins` is added:
-   - If not present, add: `https://github.com/team-attention/plugins-for-claude-natives.git`
-4. Go to **Plugins** list
-5. Find **"cowork-supervisor"** and enable it
-6. Restart Claude Code
-
-### Manual Installation
-
-1. Ensure team-attention-plugins marketplace is installed:
+1. **Clone the plugin**:
 
 ```bash
-ls ~/.claude/plugins/marketplaces/team-attention-plugins
+git clone https://github.com/henry-1981/supervise.git \
+  ~/.claude/plugins/local/cowork-supervisor
 ```
 
-2. If not present, clone it:
+2. **Register in `~/.claude/plugins/installed_plugins.json`**:
+
+```json
+{
+  "plugins": {
+    "cowork-supervisor@local": [{
+      "scope": "user",
+      "installPath": "~/.claude/plugins/local/cowork-supervisor",
+      "version": "1.0.0",
+      "installedAt": "2026-02-05T00:00:00Z",
+      "lastUpdated": "2026-02-05T00:00:00Z"
+    }]
+  }
+}
+```
+
+> Note: If the file already has other plugins, add the `cowork-supervisor@local` entry to the existing `plugins` object.
+
+3. **Enable in `~/.claude/settings.json`**:
+
+```json
+{
+  "enabledPlugins": {
+    "cowork-supervisor@local": true
+  }
+}
+```
+
+> Note: Add to the existing `enabledPlugins` object if other plugins are already enabled.
+
+4. **Restart Claude Code**
+
+### Via Marketplace (Alternative)
+
+If you have `team-attention-plugins` marketplace installed:
 
 ```bash
 git clone https://github.com/team-attention/plugins-for-claude-natives.git \
   ~/.claude/plugins/marketplaces/team-attention-plugins
 ```
 
-3. Enable in `~/.claude/settings.json`:
-
-```json
-{
-  "enabledPlugins": {
-    "cowork-supervisor@team-attention-plugins": true
-  }
-}
-```
-
-4. Restart Claude Code
+Then enable `cowork-supervisor@team-attention-plugins` in settings.json
 
 ## Quick Start
 
