@@ -362,6 +362,11 @@ For now, please:
 - Advanced analytics
 - Multi-product project management
 
+For regulatory content contributions:
+- Cite specific standards (e.g., ISO 13485:2016 Section 4.2.3)
+- Include regulatory source references
+- Ensure VALID framework compliance
+
 ## License
 
 Apache-2.0 License - see [LICENSE](LICENSE) file for details
