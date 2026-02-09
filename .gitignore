@@ -35,3 +35,15 @@ out/
 tmp/
 temp/
 *.tmp
+
+# MoAI - Cache & Logs
+.moai/cache/
+.moai/logs/
+.moai-backups/
+.moai/memory/*.json
+.moai/announcements/
+.claude/plans/
+
+# User local files
+supervise/
+현황보기
