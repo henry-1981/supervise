@@ -138,7 +138,14 @@ git clone https://github.com/henry-1981/ARIA-Phase2.git ~/.claude/plugins/local/
 
 > Note: Add to existing `plugins` object if other plugins are present.
 
-3. **Enable in `~/.claude/settings.json`**:
+- Notion workspace 및 API 키
+- Google Workspace 계정
+- Node.js (MCP 서버 실행)
+- Claude Code with MCP support
+
+### MCP 서버 설정
+
+`.mcp.json` 파일에 MCP 서버를 추가합니다:
 
 ```json
 {
@@ -165,7 +172,7 @@ ARIA will:
 
 > Note: The marketplace plugin uses the legacy Cowork Supervisor name. ARIA v2.0+ rebrands to the specialized RA/QA focus.
 
-## Quick Start
+### 초기화 명령어
 
 3. **Execute the task**:
 ```
@@ -211,6 +218,52 @@ ARIA executes:
 
 ### Design Control Documentation
 
+## 워크플로우
+
+### Brief-Execute-Deliver 방법론
+
+**Brief Phase:**
+1. 사용자 요청 분석 및 규제 도메인 식별
+2. 핵심 요구사항 및 제약조건 추출
+3. 적용 가능한 규정 식별 (FDA, MDR, MFDS, ISO 13485)
+4. 전달물 및 수락 기준 정의
+
+**Execute Phase:**
+1. 적절한 도메인 전문가 에이전트에 위임
+2. MCP 통합 조정 (Notion, Google, Context7)
+3. 작업 완료 및 품질 게이트 모니터링
+
+**Deliver Phase:**
+1. 추적 가능성을 포함한 전달물 컴파일
+2. Notion DB 감사 추적 업데이트
+3. 컴플라이언스 문서 생성
+
+### VALID 품질 프레임워크
+
+모든 전달물은 VALID 프레임워크를 충족해야 합니다:
+
+- **Verified:** 규정 출처에서 요구사항 검증
+- **Accurate:** 규정 해석 정확성 보장
+- **Linked:** 구체적 규정 조항과 연결
+- **Inspectable:** 감사 준비 형식 제공
+- **Deliverable:** 제출 준비 전달물 생성
+
+## 사용 예시
+
+### 예시 1: 510(k) 제출 준비
+
+```bash
+# Brief Phase
+/aria search "510(k) submission requirements for software medical device"
+
+# Execute Phase
+# aria-submission 에이전트가 자동으로 위임됨
+# Notion Submission Tracker DB 업데이트
+# Google Calendar에 데드라인 추가
+
+# Deliver Phase
+/aria status submission
+/aria audit search --entity submission
 ```
 /aria "Create Design History File for new software medical device"
 ```
@@ -326,7 +379,11 @@ supervise/
 - **[ARCHITECTURE-REDESIGN.md](docs/specs/ARCHITECTURE-REDESIGN.md)**: Complete system architecture, agent catalog, workflow design, implementation roadmap
 - **[CHANGELOG.md](CHANGELOG.md)**: Version history and changes
 
-## Contributing
+1. Fork 하세요
+2. 기능 브랜치를 만드세요 (`git checkout -b feature/AmazingFeature`)
+3. 커밋하세요 (`git commit -m 'Add some AmazingFeature'`)
+4. 푸시하세요 (`git push origin feature/AmazingFeature`)
+5. Pull Request를 여세요
 
 ARIA is under active architecture redesign. Contributions will be welcomed after Phase 1 implementation.
 
@@ -367,7 +424,7 @@ For regulatory content contributions:
 - Include regulatory source references
 - Ensure VALID framework compliance
 
-## License
+## 연락처
 
 Apache-2.0 License - see [LICENSE](LICENSE) file for details
 
@@ -378,7 +435,7 @@ For issues, questions, or contributions:
 - Documentation: https://aria-phase2.readthedocs.io/
 - Community: https://discord.gg/aria-community
 
-## Acknowledgments
+---
 
 - Built for [Claude Code](https://claude.ai/claude-code)
 - Inspired by [MoAI-ADK](https://github.com/henry-1981/Agent-RA) principles

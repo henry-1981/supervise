@@ -54,7 +54,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Orchestra agent for multi-plugin coordination
 - Aggregator agent for result synthesis
 - `/supervise` command for easy invocation
-- Comprehensive README with installation and usage docs
 
 ### Features
 - Multi-plugin orchestration with parallel/sequential execution
