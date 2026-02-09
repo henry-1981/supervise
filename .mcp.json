@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/.mcp.schema.json",
+  "mcpServers": {
+    "context7": {
+      "$comment": "Up-to-date documentation and code examples via Context7",
+      "command": "/bin/bash",
+      "args": ["-l", "-c", "exec npx -y @upstash/context7-mcp@latest"]
+    },
+    "sequential-thinking": {
+      "$comment": "Step-by-step reasoning for complex problems",
+      "command": "/bin/bash",
+      "args": ["-l", "-c", "exec npx -y @modelcontextprotocol/server-sequential-thinking"]
+    },
+    "notion": {
+      "$comment": "ARIA Notion MCP integration for regulatory database management",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notion"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}",
+        "NOTION_DATABASE_ID": "${NOTION_DATABASE_ID}"
+      }
+    },
+    "google-workspace": {
+      "$comment": "ARIA Google Workspace MCP integration for collaboration tools",
+      "command": "npx",
+      "args": ["-y", "@anthropic/google-workspace-mcp"],
+      "env": {
+        "GOOGLE_CREDENTIALS": "${GOOGLE_CREDENTIALS}",
+        "GOOGLE_TOKEN_PATH": "${GOOGLE_TOKEN_PATH}"
+      }
+    }
+  },
+  "staggeredStartup": {
+    "enabled": true,
+    "delayMs": 500,
+    "connectionTimeout": 15000
+  }
+}
