@@ -1,0 +1,147 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-02-09T00:00:00Z",
+  "metadata": {
+    "total_patterns": 0,
+    "high_confidence_patterns": 0,
+    "automatable_patterns": 0,
+    "pattern_tags": [
+      "quarterly",
+      "audit",
+      "submission",
+      "surveillance",
+      "clinical"
+    ]
+  },
+  "patterns": [],
+  "pattern_library": {
+    "common_sequences": [
+      {
+        "id": "PAT-001",
+        "name": "Quarterly Audit Preparation",
+        "description": "Standard quarterly internal audit preparation workflow",
+        "occurrence_threshold": 3,
+        "steps": [
+          {
+            "order": 1,
+            "action": "schedule_audit",
+            "description": "Schedule audit date and notify stakeholders",
+            "agent": "orchestrator"
+          },
+          {
+            "order": 2,
+            "action": "generate_agenda",
+            "description": "Generate audit agenda based on previous findings",
+            "agent": "expert-audit"
+          },
+          {
+            "order": 3,
+            "action": "prepare_checklist",
+            "description": "Prepare ISO 13485 compliance checklist",
+            "agent": "expert-audit"
+          },
+          {
+            "order": 4,
+            "action": "review_procedures",
+            "description": "Review relevant QMS procedures",
+            "agent": "expert-analyst"
+          },
+          {
+            "order": 5,
+            "action": "execute_audit",
+            "description": "Execute audit and document findings",
+            "agent": "expert-audit"
+          }
+        ],
+        "estimated_duration_hours": 8,
+        "automatable": true
+      },
+      {
+        "id": "PAT-002",
+        "name": "PSUR Generation",
+        "description": "Periodic Safety Update Report generation for EU MDR",
+        "occurrence_threshold": 2,
+        "steps": [
+          {
+            "order": 1,
+            "action": "collect_pms_data",
+            "description": "Collect post-market surveillance data",
+            "agent": "expert-clinical"
+          },
+          {
+            "order": 2,
+            "action": "analyze_trends",
+            "description": "Analyze complaint and incident trends",
+            "agent": "expert-analyst"
+          },
+          {
+            "order": 3,
+            "action": "assess_benefit_risk",
+            "description": "Assess benefit-risk profile changes",
+            "agent": "expert-clinical"
+          },
+          {
+            "order": 4,
+            "action": "generate_psur",
+            "description": "Generate PSUR document per Annex XIII",
+            "agent": "expert-writer"
+          },
+          {
+            "order": 5,
+            "action": "review_and_submit",
+            "description": "Review and submit to competent authority",
+            "agent": "orchestrator"
+          }
+        ],
+        "estimated_duration_hours": 16,
+        "automatable": true
+      },
+      {
+        "id": "PAT-003",
+        "name": "Complaint Trend Analysis",
+        "description": "Monthly complaint trend analysis and alerting",
+        "occurrence_threshold": 3,
+        "steps": [
+          {
+            "order": 1,
+            "action": "aggregate_complaints",
+            "description": "Aggregate complaint data by month and category",
+            "agent": "expert-analyst"
+          },
+          {
+            "order": 2,
+            "action": "calculate_baseline",
+            "description": "Calculate statistical baseline (mean ± 2σ)",
+            "agent": "expert-analyst"
+          },
+          {
+            "order": 3,
+            "action": "detect_anomalies",
+            "description": "Flag data points exceeding baseline",
+            "agent": "expert-analyst"
+          },
+          {
+            "order": 4,
+            "action": "correlate_events",
+            "description": "Correlate trends with product changes",
+            "agent": "expert-analyst"
+          },
+          {
+            "order": 5,
+            "action": "generate_alerts",
+            "description": "Generate alerts with recommendations",
+            "agent": "expert-writer"
+          }
+        ],
+        "estimated_duration_hours": 4,
+        "automatable": true
+      }
+    ]
+  },
+  "learning_state": {
+    "detection_enabled": true,
+    "automation_threshold": 3,
+    "confidence_threshold": 0.7,
+    "pattern_variations_allowed": 0.2
+  }
+}

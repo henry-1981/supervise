@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-02-09T00:00:00Z",
+  "metadata": {
+    "total_decisions": 1,
+    "active_decisions": 1,
+    "regulatory_domains": ["FDA", "EU MDR", "MFDS"],
+    "company_specific_count": 0
+  },
+  "decisions": [
+    {
+      "decision_id": "DEC-2026-001",
+      "question": "Is software as a medical device (SaMD) subject to FDA 510(k) for minor bug fixes?",
+      "answer": "Bug fixes that do not affect device safety or effectiveness are typically not subject to 510(k) submission requirements. However, changes that address software defects, including those that affect safety or effectiveness, may require submission depending on the risk level and documentation.",
+      "regulation": "21 CFR 807.81(a)",
+      "section": "807.81(a)",
+      "rationale": "FDA guidance on SaMD updates distinguishes between enhancements (requiring submission) and bug fixes (typically not requiring submission). The determination depends on whether the change could affect safety or effectiveness.",
+      "applicability": [
+        "SaMD",
+        "Software Updates",
+        "Bug Fixes",
+        "510(k) Submission"
+      ],
+      "regulatory_domain": "FDA",
+      "company_specific": false,
+      "confidence_score": 0.95,
+      "valid_until": null,
+      "created_at": "2026-01-15T10:30:00Z",
+      "last_reviewed": "2026-01-15T10:30:00Z",
+      "created_by": "system",
+      "usage_count": 0,
+      "last_used_at": null,
+      "tags": [
+        "SaMD",
+        "510k-exemption",
+        "software-validation"
+      ],
+      "related_decisions": [],
+      "evidence_citations": [
+        "FDA Guidance: Software as a Medical Device (SaMD)",
+        "21 CFR 807.81(a) - 510(k) Exemption"
+      ],
+      "is_valid": true
+    }
+  ],
+  "index": {
+    "by_regulation": {
+      "21 CFR 807.81(a)": ["DEC-2026-001"]
+    },
+    "by_domain": {
+      "FDA": ["DEC-2026-001"],
+      "EU MDR": [],
+      "MFDS": []
+    },
+    "by_applicability": {
+      "SaMD": ["DEC-2026-001"],
+      "Software Updates": ["DEC-2026-001"]
+    }
+  }
+}

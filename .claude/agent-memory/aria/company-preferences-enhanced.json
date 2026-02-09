@@ -1,0 +1,89 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-02-09T00:00:00Z",
+  "metadata": {
+    "total_companies": 1,
+    "active_companies": 1,
+    "preference_categories": [
+      "formatting",
+      "terminology",
+      "templates",
+      "regulatory_framework",
+      "workflow",
+      "rejected_suggestions"
+    ]
+  },
+  "companies": {
+    "default": {
+      "company_id": "default",
+      "company_name": "Default Company",
+      "preferences": {
+        "formatting": {
+          "document_template": "standard-regulatory",
+          "date_format": "MM/DD/YYYY",
+          "number_format": "1,234.56",
+          "language": "en-US",
+          "terminology_style": "formal",
+          "citation_style": "regulatory-standard",
+          "heading_style": "numbered"
+        },
+        "terminology": {
+          "device": "medical device",
+          "manufacturer": "manufacturer",
+          "intended_use": "intended use",
+          "indications_for_use": "indications for use",
+          "contraindications": "contraindications",
+          "adverse_events": "adverse events",
+          "risk_analysis": "risk analysis",
+          "clinical_evaluation": "clinical evaluation"
+        },
+        "templates": {
+          "510k": "traditional-510k",
+          "510k_abridged": "special-510k",
+          "510k_substantial_equivalence": "traditional-510k",
+          "technical_file": "eu-mdr-annex-ii",
+          "cer": "meddev-2.7.1-rev-4",
+          "psur": "eu-mdr-annex-xiii",
+          "capa": "iso-13485-capa",
+          "internal_audit": "iso-13485-audit"
+        },
+        "regulatory_framework": {
+          "primary": "FDA",
+          "secondary": ["EU MDR", "MFDS"],
+          "notified_body": null,
+          "iec_standards": ["ISO 13485", "IEC 62304", "ISO 14971"],
+          "quality_standard": "ISO 13485:2016"
+        },
+        "workflow": {
+          "default_reviewer": null,
+          "approval_required": true,
+          "version_control": "git",
+          "document_lifecycle": "draft-review-approved-released",
+          "signature_requirements": "21-cfr-part-11"
+        }
+      },
+      "suggestion_history": {
+        "accepted": [],
+        "rejected": [],
+        "modified": []
+      },
+      "created_at": "2026-01-01T00:00:00Z",
+      "updated_at": "2026-02-09T00:00:00Z",
+      "preference_conflicts": [],
+      "user_overrides": {}
+    }
+  },
+  "global_standards": {
+    "citation_format": "{regulation} {section} [{version}]",
+    "date_format_standards": {
+      "FDA": "MM/DD/YYYY",
+      "EU MDR": "DD/MM/YYYY",
+      "MFDS": "YYYY-MM-DD"
+    },
+    "number_format_standards": {
+      "FDA": "1,234.56",
+      "EU MDR": "1.234,56",
+      "MFDS": "1,234.56"
+    }
+  }
+}

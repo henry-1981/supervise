@@ -1,0 +1,105 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-02-09T00:00:00Z",
+  "metadata": {
+    "first_tracked": "2026-01-01T00:00:00Z",
+    "tracking_period_days": 40,
+    "data_retention_days": 365,
+    "system_version": "SPEC-ARIA-005"
+  },
+  "adoption": {
+    "total_interactions": 0,
+    "unique_sessions": 0,
+    "feature_usage": {
+      "regulatory_decisions": {
+        "access_count": 0,
+        "contribution_count": 1,
+        "last_accessed": null
+      },
+      "company_preferences": {
+        "access_count": 0,
+        "contribution_count": 0,
+        "last_accessed": null
+      },
+      "task_patterns": {
+        "suggestions_shown": 0,
+        "suggestions_accepted": 0,
+        "last_suggested": null
+      }
+    },
+    "session_metrics": {
+      "avg_session_duration_minutes": 0,
+      "most_used_features": [],
+      "feature_adoption_rate": 0.0
+    }
+  },
+  "effectiveness": {
+    "pattern_accuracy": {
+      "correct": 0,
+      "incorrect": 0,
+      "ignored": 0
+    },
+    "decision_relevance": {
+      "relevant": 0,
+      "not_relevant": 0,
+      "neutral": 0
+    },
+    "preference_application": {
+      "applied": 0,
+      "overridden": 0,
+      "conflicts": 0
+    },
+    "automation_savings": {
+      "hours_saved": 0,
+      "tasks_automated": 0,
+      "patterns_recognized": 0
+    }
+  },
+  "learning": {
+    "new_patterns_learned": 0,
+    "preferences_extracted": 0,
+    "decisions_stored": 1,
+    "confidence_updates": 0,
+    "regulation_changes_processed": 0,
+    "knowledge_base_updates": 0
+  },
+  "quality": {
+    "memory_integrity": 100,
+    "schema_validations": {
+      "passed": 4,
+      "failed": 0
+    },
+    "merge_conflicts_resolved": 0,
+    "data_consistency_score": 100,
+    "backup_success_rate": 100
+  },
+  "performance": {
+    "avg_decision_retrieval_time_ms": 0,
+    "avg_pattern_detection_time_ms": 0,
+    "avg_preference_application_time_ms": 0,
+    "notion_sync_success_rate": 100,
+    "cache_hit_rate": 0.0
+  },
+  "regulatory_coverage": {
+    "domains_active": [
+      "FDA"
+    ],
+    "decisions_by_domain": {
+      "FDA": 1,
+      "EU MDR": 0,
+      "MFDS": 0
+    },
+    "regulation_change_monitoring": {
+      "last_check": null,
+      "changes_detected": 0,
+      "decisions_flagged": 0
+    }
+  },
+  "user_feedback": {
+    "total_suggestions": 0,
+    "accepted_suggestions": 0,
+    "rejected_suggestions": 0,
+    "modified_suggestions": 0,
+    "average_satisfaction_score": null
+  }
+}
