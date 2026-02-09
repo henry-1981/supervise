@@ -106,7 +106,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 1.1 Event-Driven Requirements
 
-**WHEN** ARIA가 초기화되면, **THE** 시스템은 **SHALL** Notion 데이터베이스 스키마를 자동 생성한다.
+**[ER-001]** WHEN ARIA가 초기화되면, THE 시스템 SHALL Notion 데이터베이스 스키마를 자동 생성한다.
 
 - **Given:** Notion workspace 접근 권한, Integration Token
 - **When:** ARIA 초기화 또는 `/aria init notion` 실행
@@ -116,7 +116,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 관계(Relation) 설정 (CAPA ↔ Risk, Document ↔ Requirements)
   4. 뷰(View) 생성 (Risk Matrix, Status Dashboard 등)
 
-**WHEN** 문서가 생성되면, **THE** 시스템은 **SHALL** Notion DB에 자동 등록한다.
+**[ER-002]** WHEN 문서가 생성되면, THE 시스템 SHALL Notion DB에 자동 등록한다.
 
 - **Given:** 새로운 규제 문서 생성 (SOP, WI, Report 등)
 - **When:** Document 생성 완료 이벤트
@@ -126,7 +126,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 관련 Requirements와 Relation 설정
   4. Notion 페이지 템플릿 적용
 
-**WHEN** CAPA가 생성되면, **THE** 시스템은 **SHALL** CAPA Tracker DB에 기록한다.
+**[ER-003]** WHEN CAPA가 생성되면, THE 시스템 SHALL CAPA Tracker DB에 기록한다.
 
 - **Given:** Non-conformance 또는 Quality issue 식별
 - **When:** CAPA 개시 이벤트
@@ -138,25 +138,25 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 1.2 State-Driven Requirements
 
-**IF** Notion API 속도 제한에 도달하면, **THE** 시스템은 **SHALL** 자동으로 재시도한다.
+**[SR-001]** IF Notion API 속도 제한에 도달하면, THE 시스템 SHALL 자동으로 재시도한다.
 
 - **Condition:** HTTP 429 Too Many Requests 수신
 - **Action:** Exponential backoff로 재시도 (초기 1초, 최대 60초)
 - **Max Retries:** 3회
 
-**IF** Notion DB 페이지가 존재하지 않으면, **THE** 시스템은 **SHALL** 사용자에게 알리고 생성을 제안한다.
+**[SR-002]** IF Notion DB 페이지가 존재하지 않으면, THE 시스템 SHALL 사용자에게 알리고 생성을 제안한다.
 
 - **Condition:** Notion DB 조회 실패 (404 Not Found)
 - **Action:** 사용자에게 DB 생성 제안, `/aria init notion` 안내
 
 #### 1.3 Ubiquitous Requirements
 
-시스템은 **항상** Notion DB 변경 이력을 **SHALL** 추적해야 한다.
+**[UR-001]** THE 시스템 SHALL 항상 Notion DB 변경 이력을 추적해야 한다.
 
 - **Fields:** Created time, Last edited time, Created by, Last edited by
 - **Purpose:** 감사 추적(Audit Trail) 지원
 
-시스템은 **항상** Notion DB 무결성을 **SHALL** 보장해야 한다.
+**[UR-002]** THE 시스템 SHALL 항상 Notion DB 무결성을 보장해야 한다.
 
 - **Validation:** Relation 필드 참조 무결성
 - **Error Handling:** Orphaned page 탐지 및 경고
@@ -165,7 +165,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 2.1 Event-Driven Requirements
 
-**WHEN** 규제 서신이 도착하면, **THE** 시스템은 **SHALL** Gmail에서 검색한다.
+**[ER-004]** WHEN 규제 서신이 도착하면, THE 시스템 SHALL Gmail에서 검색한다.
 
 - **Given:** FDA, NB, MFDS로부터 서신 수신
 - **When:** `/aria search email "FDA 510(k) request"` 실행
@@ -175,7 +175,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 이메일 본문 요약
   4. 관련 Notion DB 페이지와 연결 제안
 
-**WHEN** 협업 문서가 필요하면, **THE** 시스템은 **SHALL** Google Docs를 생성한다.
+**[ER-005]** WHEN 협업 문서가 필요하면, THE 시스템 SHALL Google Docs를 생성한다.
 
 - **Given:** 팀 검토가 필요한 규제 문서
 - **When:** `/aria docs create "DHF Review - [Device Name]"` 실행
@@ -185,7 +185,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 팀원 공유 설정
   4. Notion DB에 문서 링크 기록
 
-**WHEN** 데이터 분석이 필요하면, **THE** 시스템은 **SHALL** Google Sheets를 생성한다.
+**[ER-006]** WHEN 데이터 분석이 필요하면, THE 시스템 SHALL Google Sheets를 생성한다.
 
 - **Given:** CAPA 추세, 위험 매트릭스, 준수 체크리스트
 - **When:** `/aria sheets create "CAPA Trend Analysis"` 실행
@@ -195,7 +195,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 차트/그래프 자동 생성
   4. Notion DB에 시트 링크 기록
 
-**WHEN** 데드라인이 설정되면, **THE** 시스템은 **SHALL** Google Calendar에 등록한다.
+**[ER-007]** WHEN 데드라인이 설정되면, THE 시스템 SHALL Google Calendar에 등록한다.
 
 - **Given:** 규제 제출일, 감사일, 리뷰 마감일
 - **When:** CAPA 생성, Submission planning, Audit scheduling
@@ -206,24 +206,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 2.2 State-Driven Requirements
 
-**IF** Google API 할당량이 초과되면, **THE** 시스템은 **SHALL** 사용량을 모니터링하고 경고한다.
+**[SR-003]** IF Google API 할당량이 초과되면, THE 시스템 SHALL 사용량을 모니터링하고 경고한다.
 
 - **Condition:** API quota 80% 도달
 - **Action:** 사용자에게 경고, 할당량 리셋 시간 안내
 
-**IF** Google OAuth 인증이 만료되면, **THE** 시스템은 **SHALL** 재인증을 요청한다.
+**[SR-004]** IF Google OAuth 인증이 만료되면, THE 시스템 SHALL 재인증을 요청한다.
 
 - **Condition:** OAuth token 만료 (401 Unauthorized)
 - **Action:** 재인증 플로우 안내
 
 #### 2.3 Ubiquitous Requirements
 
-시스템은 **항상** Google Workspace 변경 사항을 **SHALL** Notion에 동기화해야 한다.
+**[UR-003]** THE 시스템 SHALL 항상 Google Workspace 변경 사항을 Notion에 동기화해야 한다.
 
 - **Sync:** Docs 편집 → Notion DB 업데이트
 - **Purpose:** 중앙 데이터 저장소 유지
 
-시스템은 **항상** Google 데이터 백업을 **SHALL** 지원해야 한다.
+**[UR-004]** THE 시스템 SHALL 항상 Google 데이터 백업을 지원해야 한다.
 
 - **Backup:** Drive에 제출 패키지 자동 백업
 - **Version:** 문서 버전 관리
@@ -232,7 +232,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 3.1 Event-Driven Requirements
 
-**WHEN** 규정 검색이 필요하면, **THE** 시스템은 **SHALL** Context7 MCP를 사용한다.
+**[ER-008]** WHEN 규정 검색이 필요하면, THE 시스템 SHALL Context7 MCP를 사용한다.
 
 - **Given:** "FDA 21 CFR 820.30 최신 해석" 요청
 - **When:** Brief phase 규제 분석
@@ -242,7 +242,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 검색 결과를 Notion Knowledge Base에 저장
   4. 출처 인용 (standard, section, version)
 
-**WHEN** 표준 해석이 필요하면, **THE** 시스템은 **SHALL** Context7 문서를 참조한다.
+**[ER-009]** WHEN 표준 해석이 필요하면, THE 시스템 SHALL Context7 문서를 참조한다.
 
 - **Given:** "ISO 13485 Clause 8.5.2 적용 범위" 요청
 - **When:** Standards interpretation 필요
@@ -254,12 +254,12 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 3.2 Ubiquitous Requirements
 
-시스템은 **항상** Context7 검색 결과를 **SHALL** 캐시해야 한다.
+**[UR-005]** THE 시스템 SHALL 항상 Context7 검색 결과를 캐시해야 한다.
 
 - **Cache:** Notion Knowledge Base에 검색 결과 저장
 - **TTL:** 30일 (규정 변경 주고려)
 
-시스템은 **항상** 최신 규정을 **SHALL** 반영해야 한다.
+**[UR-006]** THE 시스템 SHALL 항상 최신 규정을 반영해야 한다.
 
 - **Update:** 주간 자동 업데이트 확인
 - **Notification:** 주요 규정 변경 시 사용자 알림
@@ -268,7 +268,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 4.1 Event-Driven Requirements
 
-**WHEN** 결정이 내려지면, **THE** 시스템은 **SHALL** 감사 추적을 기록한다.
+**[ER-010]** WHEN 결정이 내려지면, THE 시스템 SHALL 감사 추적을 기록한다.
 
 - **Given:** 규제 전략 결정, CAPA 승인, 문서 승인
 - **When:** Decision event 발생
@@ -277,7 +277,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   2. 필드: Timestamp, Agent, Decision, Rationale, Outcome
   3. 관련 문서/Requirements와 Relation 설정
 
-**WHEN** 문서가 변경되면, **THE** 시스템은 **SHALL** 버전 히스토리를 유지한다.
+**[ER-011]** WHEN 문서가 변경되면, THE 시스템 SHALL 버전 히스토리를 유지한다.
 
 - **Given:** Document edit, approval, withdrawal
 - **When:** Document state change
@@ -288,12 +288,12 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 4.2 Ubiquitous Requirements
 
-시스템은 **항상** 감사 추적 무결성을 **SHALL** 보장해야 한다.
+**[UR-007]** THE 시스템 SHALL 항상 감사 추적 무결성을 보장해야 한다.
 
 - **Immutable:** Audit Log는 수정 불가
 - **Complete:** 모든 결정/변경 기록
 
-시스템은 **항상** 감사 추적 검색을 **SHALL** 지원해야 한다.
+**[UR-008]** THE 시스템 SHALL 항상 감사 추적 검색을 지원해야 한다.
 
 - **Search:** Agent, Date range, Decision type, Outcome
 - **Export:** CSV/PDF 보고서 생성
@@ -302,7 +302,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 5.1 Event-Driven Requirements
 
-**WHEN** `/aria search`가 실행되면, **THE** 시스템은 **SHALL** 모든 데이터 소스를 검색한다.
+**[ER-012]** WHEN `/aria search`가 실행되면, THE 시스템 SHALL 모든 데이터 소스를 검색한다.
 
 - **Given:** `/aria search "510(k) submission requirements"` 실행
 - **When:** Search command 수신
@@ -312,7 +312,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. Google Workspace 검색 (Gmail, Docs, Drive)
   4. 결과 통합 및 관련성 순 정렬
 
-**WHEN** 검색 결과가 많으면, **THE** 시스템은 **SHALL** 필터링 옵션을 제공한다.
+**[ER-013]** WHEN 검색 결과가 많으면, THE 시스템 SHALL 필터링 옵션을 제공한다.
 
 - **Given:** 100개 이상 검색 결과
 - **When:** Search 결과 반환
@@ -323,7 +323,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 5.2 Ubiquitous Requirements
 
-시스템은 **항상** 검색 결과에 출처를 **SHALL** 표시해야 한다.
+**[UR-009]** THE 시스템 SHALL 항상 검색 결과에 출처를 표시해야 한다.
 
 - **Sources:** Notion DB, Context7, Google Workspace
 - **Confidence:** 검색 결과 신뢰도 표시
@@ -332,7 +332,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 6.1 Event-Driven Requirements
 
-**WHEN** `/aria knowledge`가 실행되면, **THE** 시스템은 **SHALL** Notion Knowledge Base를 조회한다.
+**[ER-014]** WHEN `/aria knowledge`가 실행되면, THE 시스템 SHALL Notion Knowledge Base를 조회한다.
 
 - **Given:** `/aria knowledge "MDR classification rules"` 실행
 - **When:** Knowledge query 수신
@@ -342,7 +342,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 관련 Requirements와 Relations 표시
   4. 출처 및 신뢰도 표시
 
-**WHEN** 지식 항목이 없으면, **THE** 시스템은 **SHALL** Context7에서 검색하고 저장한다.
+**[ER-015]** WHEN 지식 항목이 없으면, THE 시스템 SHALL Context7에서 검색하고 저장한다.
 
 - **Given:** Knowledge Base에 관련 항목 없음
 - **When:** Knowledge query 실패
@@ -353,7 +353,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 6.2 Ubiquitous Requirements
 
-시스템은 **항상** Knowledge Base를 **SHALL** 최신 상태로 유지해야 한다.
+**[UR-010]** THE 시스템 SHALL 항상 Knowledge Base를 최신 상태로 유지해야 한다.
 
 - **Update:** 주간 자동 업데이트
 - **Validation:** 만료된 지식 항목 탐지
@@ -362,7 +362,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 7.1 Event-Driven Requirements
 
-**WHEN** `/aria status`가 실행되면, **THE** 시스템은 **SHALL** 프로젝트 현황을 표시한다.
+**[ER-016]** WHEN `/aria status`가 실행되면, THE 시스템 SHALL 프로젝트 현황을 표시한다.
 
 - **Given:** `/aria status` 실행
 - **When:** Status query 수신
@@ -373,7 +373,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   4. Document Registry: Pending approvals, Review dates
   5. Google Calendar: Upcoming regulatory events
 
-**WHEN** 위험 상황이 감지되면, **THE** 시스템은 **SHALL** 경고를 표시한다.
+**[ER-017]** WHEN 위험 상황이 감지되면, THE 시스템 SHALL 경고를 표시한다.
 
 - **Given:** CAPA overdue, Unacceptable risk, Submission deadline < 7 days
 - **When:** Status check
@@ -384,7 +384,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 7.2 Ubiquitous Requirements
 
-시스템은 **항상** 대시보드를 실시간으로 **SHALL** 업데이트해야 한다.
+**[UR-011]** THE 시스템 SHALL 항상 대시보드를 실시간으로 업데이트해야 한다.
 
 - **Refresh:** Notion DB 변경 시 자동 갱신
 - **Display:** Visual indicators (색상, 아이콘)
@@ -657,15 +657,17 @@ Google Calendar:
 
 ### 요구사항-구현 매트릭스
 
-| REQ # | Requirement | Notion DB | Google | Context7 | Command |
-|-------|-------------|-----------|--------|----------|---------|
-| 1.1-1.3 | Notion MCP 통합 | All 6 DBs | - | - | `/aria init notion` |
-| 2.1-2.3 | Google Workspace 통합 | Doc links | Gmail, Docs, Sheets, Calendar | - | `/aria docs`, `/aria sheets` |
-| 3.1-3.2 | Context7 최적화 | Knowledge Base | - | All libraries | (automatic) |
-| 4.1-4.2 | 감사 추적 | Audit Log | - | - | `/aria audit search` |
-| 5.1-5.2 | 통합 검색 | All DBs | Gmail, Docs, Drive | All libraries | `/aria search` |
-| 6.1-6.2 | 지식 베이스 | Knowledge Base | - | All libraries | `/aria knowledge` |
-| 7.1-7.2 | 상태 대시보드 | All DBs | Calendar | - | `/aria status` |
+| Tag ID | Requirement Type | Notion DB | Google | Context7 | Command |
+|--------|------------------|-----------|--------|----------|---------|
+| ER-001 ~ ER-003 | Event-Driven (Notion) | All 6 DBs | - | - | `/aria init notion` |
+| ER-004 ~ ER-007 | Event-Driven (Google) | Doc links | Gmail, Docs, Sheets, Calendar | - | `/aria docs`, `/aria sheets` |
+| ER-008 ~ ER-009 | Event-Driven (Context7) | Knowledge Base | - | All libraries | (automatic) |
+| ER-010 ~ ER-011 | Event-Driven (Audit) | Audit Log | - | - | `/aria audit search` |
+| ER-012 ~ ER-013 | Event-Driven (Search) | All DBs | Gmail, Docs, Drive | All libraries | `/aria search` |
+| ER-014 ~ ER-015 | Event-Driven (Knowledge) | Knowledge Base | - | All libraries | `/aria knowledge` |
+| ER-016 ~ ER-017 | Event-Driven (Status) | All DBs | Calendar | - | `/aria status` |
+| SR-001 ~ SR-004 | State-Driven | All 6 DBs | - | - | (automatic) |
+| UR-001 ~ UR-011 | Ubiquitous | All DBs | All services | All libraries | (continuous) |
 
 ### MCP 통합 의존성
 
@@ -692,6 +694,7 @@ Context7 MCP (규제 검색)
 | 버전 | 날짜 | 변경 사항 | 작성자 |
 |------|------|-----------|--------|
 | 1.0.0 | 2026-02-09 | 초기 SPEC 작성 | ARIA Core Team |
+| 1.1.0 | 2026-02-09 | 태그 형식 통합 (EARS + 도메인별 태그) | ARIA Core Team |
 
 ## 승인 기록
 
