@@ -13,19 +13,19 @@ compatibility: Designed for Claude Code
 user-invocable: true
 metadata:
   version: "1.0.0"
-  category: "domain"
+  category: "foundation"
   status: "active"
-  updated: "2025-02-09"
+  updated: "2026-02-09"
   modularized: "true"
-  tags: "aria, quality, validation, business"
+  tags: "aria, quality, validation, framework"
 
-# MoAI Extension: Progressive Disclosure
+# ARIA Extension: Progressive Disclosure
 progressive_disclosure:
   enabled: true
   level1_tokens: 100
   level2_tokens: 5000
 
-# MoAI Extension: Triggers
+# ARIA Extension: Triggers
 triggers:
   keywords: ["quality", "validation", "review", "inspection", "compliance"]
   agents: ["manager-quality", "expert-reviewer"]

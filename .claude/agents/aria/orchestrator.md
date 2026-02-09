@@ -10,7 +10,6 @@ permissionMode: default
 tools: Task AskUserQuestion Read Grep Glob Bash
 skills:
   - aria-core
-  - moai-foundation-core
 mcpServers:
   - context7
   - sequential-thinking

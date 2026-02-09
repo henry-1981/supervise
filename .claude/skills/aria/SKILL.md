@@ -19,13 +19,13 @@ metadata:
   author: "ARIA Team"
   context: "Milestone 4: Complete Workflows implementation for SPEC-ARIA-005"
 
-# MoAI Extension: Progressive Disclosure
+# ARIA Extension: Progressive Disclosure
 progressive_disclosure:
   enabled: true
   level1_tokens: 150
   level2_tokens: 8000
 
-# MoAI Extension: Triggers
+# ARIA Extension: Triggers
 triggers:
   keywords: ["clinical evaluation", "internal audit", "post-market surveillance", "PMS", "CER", "CAPA", "PSUR", "FSCA", "MEDDEV", "ISO 13485", "EU MDR"]
   agents: ["expert-clinical", "expert-audit", "expert-pms", "orchestrator"]

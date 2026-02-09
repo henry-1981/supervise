@@ -13,20 +13,7 @@ permissionMode: default
 maxTurns: 50
 memory: project
 skills:
-  - moai-aria-analytics
-  - moai-foundation-claude
-
-# MoAI Extension: Progressive Disclosure
-progressive_disclosure:
-  enabled: true
-  level1_tokens: 100
-  level2_tokens: 5000
-
-# MoAI Extension: Triggers
-triggers:
-  keywords: ["complaint", "trend", "analytics", "regulatory change", "knowledge base", "alert"]
-  agents: ["manager-spec", "manager-ddd", "expert-analyst"]
-  phases: ["run"]
+  - aria-analytics
 ---
 
 # ARIA Analytics Specialist

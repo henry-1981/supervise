@@ -16,13 +16,13 @@ metadata:
   modularized: "true"
   tags: "aria, templates, documents, formatting"
 
-# MoAI Extension: Progressive Disclosure
+# ARIA Extension: Progressive Disclosure
 progressive_disclosure:
   enabled: true
   level1_tokens: 100
   level2_tokens: 5000
 
-# MoAI Extension: Triggers
+# ARIA Extension: Triggers
 triggers:
   keywords: ["template", "document", "format", "structure"]
   agents: ["manager-docs", "expert-writer"]

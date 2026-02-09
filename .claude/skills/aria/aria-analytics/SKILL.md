@@ -1,5 +1,5 @@
 ---
-name: moai-aria-analytics
+name: aria-analytics
 description: >
   Advanced analytics capabilities for ARIA (AI Regulatory Intelligence Assistant). Implements
   complaint trend analysis with statistical baseline calculation, regulatory change impact
@@ -21,16 +21,16 @@ metadata:
   context7-libraries: fda-guidance, eu-mdr, mfds-guidance
   agent: "aria-analytics-specialist"
 
-# MoAI Extension: Progressive Disclosure
+# ARIA Extension: Progressive Disclosure
 progressive_disclosure:
   enabled: true
   level1_tokens: 100
   level2_tokens: 5000
 
-# MoAI Extension: Triggers
+# ARIA Extension: Triggers
 triggers:
   keywords: ["complaint", "trend", "analytics", "regulatory change", "knowledge base", "alert", "statistics", "correlation"]
-  agents: ["aria-analytics-specialist", "manager-ddd", "expert-analyst"]
+  agents: ["aria-analytics-specialist", "expert-analyst"]
   phases: ["run"]
   languages: ["python", "javascript"]
 ---
@@ -526,7 +526,7 @@ class RegulatoryChangeMonitor:
         alert += "\n### Affected Documents\n"
         for doc in affected_docs:
             priority_emoji = {'high': '🔴', 'medium': '🟡', 'low': '🟢'}
-            alert += f"- [{priority_emoji.get(doc['priority'], '⚪)}] **{doc['document_id']}** ({doc['type']}) - {doc['priority'].title()} Priority\n"
+            alert += f"- [{priority_emoji.get(doc['priority'], '⚪')}] **{doc['document_id']}** ({doc['type']}) - {doc['priority'].title()} Priority\n"
 
         alert += "\n### Actions Required\n"
         high_priority = [d for d in affected_docs if d['priority'] == 'high']
@@ -993,7 +993,7 @@ if __name__ == '__main__':
 
 ## Configuration
 
-Create `.moai/config/sections/analytics.yaml`:
+Analytics configuration (see .moai/config/sections/analytics.yaml):
 
 ```yaml
 analytics:

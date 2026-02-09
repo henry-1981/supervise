@@ -21,12 +21,6 @@ mcpServers:
   context7:
     command: npx
     args: ["-y", "@upstash/context7-mcp@latest"]
-hooks:
-  SubagentStop:
-    - hooks:
-        - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" aria-labeling-completion"
-          timeout: 10
 ---
 
 # ARIA Labeling Expert

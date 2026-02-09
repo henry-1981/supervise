@@ -11,17 +11,17 @@ metadata:
   version: "1.0.0"
   category: "domain"
   status: "active"
-  updated: "2025-02-09"
+  updated: "2026-02-09"
   modularized: "true"
-  tags: "aria, business, documentation, writing, style"
+  tags: "aria, technical-writing, documentation, style, regulatory"
 
-# MoAI Extension: Progressive Disclosure
+# ARIA Extension: Progressive Disclosure
 progressive_disclosure:
   enabled: true
   level1_tokens: 100
   level2_tokens: 5000
 
-# MoAI Extension: Triggers
+# ARIA Extension: Triggers
 triggers:
   keywords: ["documentation", "writing", "style", "technical writing", "regulatory document"]
   agents: ["manager-docs", "expert-writer"]
