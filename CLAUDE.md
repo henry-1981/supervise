@@ -61,15 +61,32 @@ ARIA operates as a Claude Code plugin, enabling RA/QA professionals to perform c
 - **expert-reviewer**: Document review and compliance verification
 - **expert-researcher**: Regulatory information research
 
-### RA/QA Domain Agents (8)
-- **expert-regulatory**: Regulatory strategy (FDA, EU MDR, MFDS)
-- **expert-standards**: Standards interpretation (ISO 13485, IEC 62304, etc.)
-- **expert-risk**: Risk management (ISO 14971)
-- **expert-design-control**: Design control process (DHF/DMR/DHR)
-- **expert-capa**: CAPA lifecycle management
-- **expert-clinical**: Clinical evaluation and post-market surveillance
-- **expert-submission**: Submission package preparation (510(k), PMA, CE)
-- **expert-audit**: Audit management and response
+### RA/QA Domain Agents (8) - Phase 3
+
+| Agent | Model | Focus | Skills |
+|-------|-------|-------|--------|
+| expert-regulatory | Opus | Regulatory strategy (FDA, EU MDR, MFDS) | aria-domain-raqa, aria-knowledge-fda, aria-knowledge-eumdr |
+| expert-standards | Opus | Standards interpretation (ISO 13485, IEC 62304, ISO 14971) | aria-domain-raqa, aria-knowledge-standards |
+| expert-risk | Opus | Risk management (ISO 14971, FMEA, FTA) | aria-domain-raqa, aria-risk-management |
+| expert-design-control | Sonnet | Design control process (DHF/DMR/DHR, 21 CFR 820.30) | aria-domain-raqa, aria-design-control |
+| expert-capa | Sonnet | CAPA lifecycle management (ISO 13485) | aria-domain-raqa, aria-capa-process |
+| expert-clinical | Opus | Clinical evaluation and post-market surveillance | aria-domain-raqa, aria-knowledge-fda, aria-knowledge-eumdr |
+| expert-submission | Sonnet | Submission package preparation (510(k), PMA, CE) | aria-domain-raqa, aria-submission-templates |
+| expert-audit | Sonnet | Audit management and response (ISO 13485, QMS) | aria-domain-raqa, aria-knowledge-standards |
+
+### Phase 3 Knowledge Skills (9)
+
+| Skill | Focus | Progressive Disclosure |
+|-------|--------|------------------------|
+| aria-domain-raqa | RA/QA domain overview, regulatory hierarchy | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-knowledge-fda | FDA regulations (21 CFR 820, 510(k), PMA, De Novo) | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-knowledge-eumdr | EU MDR (2017/745), CE marking, Technical Files | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-knowledge-standards | ISO/IEC standards (13485, 14971, 62304) | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-knowledge-mfds | Korea MFDS regulations (Medical Device Act) | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-risk-management | ISO 14971 risk analysis, FMEA, FTA, ALARP | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-design-control | FDA 21 CFR 820.30, DHF/DMR/DHR, IEC 62304 | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-capa-process | ISO 13485 CAPA, corrective/preventive actions | Level 1: ~100 tokens, Level 2: ~5000 tokens |
+| aria-submission-templates | 510(k), PMA, CE Technical File templates | Level 1: ~100 tokens, Level 2: ~5000 tokens |
 
 ---
 
@@ -125,10 +142,34 @@ ARIA operates as a Claude Code plugin, enabling RA/QA professionals to perform c
 
 ## 7. MCP Server Integration
 
+### Primary MCP Servers
 - **Notion MCP**: Central knowledge hub, document registry, CAPA tracker, risk register
 - **Context7 MCP**: Up-to-date regulatory and standards documentation lookup
 - **Sequential Thinking MCP**: Complex regulatory pathway analysis and multi-market strategy
 - **Google Workspace MCP**: Collaboration features (Phase 4)
+
+### Knowledge Skills Integration (Phase 3)
+Phase 3 introduces 9 specialized knowledge skills using Progressive Disclosure system:
+
+**Domain Overview:**
+- `aria-domain-raqa`: RA/QA domain foundation, regulatory hierarchy, terminology
+
+**Regional Regulations:**
+- `aria-knowledge-fda`: FDA 21 CFR 820, 510(k), PMA, De Novo pathways
+- `aria-knowledge-eumdr`: EU MDR 2017/745, CE marking, Technical Files, EUDAMED
+- `aria-knowledge-mfds`: Korea MFDS, Medical Device Act, product classification
+
+**Standards & Processes:**
+- `aria-knowledge-standards`: ISO 13485, IEC 62304, ISO 14971, harmonized standards
+- `aria-risk-management`: ISO 14971 risk analysis, FMEA, FTA, ALARP principles
+- `aria-design-control`: FDA 21 CFR 820.30, DHF/DMR/DHR, design transfer
+- `aria-capa-process`: ISO 13485 CAPA, root cause analysis, effectiveness checks
+- `aria-submission-templates`: eCopy, PMA, CE Technical File templates
+
+**Progressive Disclosure Levels:**
+- **Level 1 (Metadata, ~100 tokens):** Skill name, description, triggers - always loaded
+- **Level 2 (Body, ~5000 tokens):** Full regulatory content, code examples - loaded on trigger
+- **Level 3 (Bundled):** Reference documents, modules, examples - on-demand access
 
 ---
 
@@ -142,7 +183,13 @@ Errors are communicated in plain language with actionable next steps:
 
 ---
 
-Version: 1.0.0 (Phase 1 Scaffold)
+Version: 3.0.0 (Phase 3 - Universal Business Agents)
 Last Updated: 2026-02-09
 Language: English
 Core Rule: ARIA is an orchestrator; direct implementation is prohibited
+
+Phase 3 Capabilities:
+- 8 RA/QA Domain Expert Agents with specialized regulatory knowledge
+- 9 Knowledge Skills with Progressive Disclosure system
+- VALID Quality Framework integration
+- MCP server integration for real-time regulatory updates

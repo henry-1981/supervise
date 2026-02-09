@@ -1,0 +1,157 @@
+{
+  "database_name": "CAPA Tracker",
+  "description": "ISO 13485 Section 8.5.2 CAPA lifecycle tracking for Medical Device RA/QA",
+  "parent_page_id": "NOTION_PAGE_ID",
+  "properties": {
+    "CAPA ID": {
+      "type": "title",
+      "auto_increment": true,
+      "prefix": "CAPA-"
+    },
+    "Issue Date": {
+      "type": "date",
+      "required": true
+    },
+    "Source": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Internal audit",
+        "Customer complaint",
+        "Non-conformance",
+        "Regulatory finding"
+      ]
+    },
+    "Problem Description": {
+      "type": "text",
+      "required": true
+    },
+    "Root Cause": {
+      "type": "text",
+      "required": true
+    },
+    "Corrective Action": {
+      "type": "text",
+      "required": true
+    },
+    "Preventive Action": {
+      "type": "text",
+      "required": true
+    },
+    "Responsible Person": {
+      "type": "person",
+      "required": true
+    },
+    "Target Date": {
+      "type": "date",
+      "required": true
+    },
+    "Actual Completion Date": {
+      "type": "date",
+      "required": true
+    },
+    "Effectiveness Verification": {
+      "type": "checkbox",
+      "required": true
+    },
+    "Status": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Open",
+        "In Progress",
+        "Verified",
+        "Closed"
+      ]
+    },
+    "Related Risk ID": {
+      "type": "relation",
+      "required": false,
+      "database": "Risk Register"
+    },
+    "Related Document ID": {
+      "type": "relation",
+      "required": false,
+      "database": "Document Registry"
+    },
+    "Cost of Quality": {
+      "type": "number",
+      "required": false,
+      "format": "currency"
+    }
+  },
+  "relations": {
+    "Related Risk ID": {
+      "database": "Risk Register",
+      "type": "dual_property",
+      "property_name": "Related CAPA ID"
+    },
+    "Related Document ID": {
+      "database": "Document Registry",
+      "type": "dual_property",
+      "property_name": "Related CAPA ID"
+    }
+  },
+  "views": {
+    "By Status": {
+      "type": "table",
+      "group_by": "Status",
+      "sort": [
+        {
+          "property": "CAPA ID",
+          "direction": "descending"
+        }
+      ]
+    },
+    "By Responsible Person": {
+      "type": "board",
+      "group_by": "Responsible Person"
+    },
+    "Calendar": {
+      "type": "calendar",
+      "date_field": "Target Date"
+    },
+    "Effectiveness Check": {
+      "type": "table",
+      "filter": {
+        "property": "Status",
+        "value": "Verified"
+      }
+    }
+  },
+  "automations": {
+    "due_date_alert": {
+      "trigger": "Target Date",
+      "condition": "within 3 days",
+      "action": "send_notification",
+      "message": "CAPA approaching target completion date"
+    },
+    "overdue_alert": {
+      "trigger": "Target Date",
+      "condition": "past due",
+      "action": "send_notification",
+      "message": "CAPA is overdue"
+    },
+    "status_transition": {
+      "from": "Verified",
+      "to": "Closed",
+      "condition": "Effectiveness Verification = true AND Actual Completion Date is not empty"
+    },
+    "auto_assign_capa_id": {
+      "trigger": "new_record",
+      "action": "generate_id",
+      "format": "CAPA-{YYYY}-{MM}-{####}"
+    }
+  },
+  "validation_rules": {
+    "root_cause_required": "Root Cause must be provided before Status can change to In Progress",
+    "actions_required": "Both Corrective Action and Preventive Action must be provided before Status can change to Verified",
+    "completion_date_required": "Actual Completion Date must be provided before Status can change to Verified",
+    "effectiveness_check": "Effectiveness Verification must be checked before Status can change to Closed"
+  },
+  "compliance_references": {
+    "iso_13485": "Section 8.5.2 - Corrective action",
+    "iso_13485_3": "Section 8.5.3 - Preventive action",
+    "21_cfr_820": "820.100 - Corrective and preventive action"
+  }
+}

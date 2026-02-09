@@ -1,0 +1,271 @@
+{
+  "database_name": "Document Registry",
+  "description": "ISO 13485 document control and lifecycle management for Medical Device RA/QA",
+  "parent_page_id": "NOTION_PAGE_ID",
+  "properties": {
+    "Document ID": {
+      "type": "title",
+      "auto_increment": true,
+      "prefix": "DOC-"
+    },
+    "Document Type": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "SOP",
+        "WI",
+        "Form",
+        "Record",
+        "Report",
+        "Technical File"
+      ]
+    },
+    "Document Title": {
+      "type": "text",
+      "required": true
+    },
+    "Version": {
+      "type": "number",
+      "required": true,
+      "format": "decimal",
+      "default": 1.0
+    },
+    "Effective Date": {
+      "type": "date",
+      "required": true
+    },
+    "Review Date": {
+      "type": "date",
+      "required": true
+    },
+    "Author": {
+      "type": "person",
+      "required": true
+    },
+    "Approver": {
+      "type": "person",
+      "required": true
+    },
+    "Status": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Draft",
+        "Under Review",
+        "Approved",
+        "Superseded",
+        "Withdrawn"
+      ]
+    },
+    "Document Link": {
+      "type": "files",
+      "required": true,
+      "description": "Link to actual document file"
+    },
+    "Related CAPA ID": {
+      "type": "relation",
+      "required": false,
+      "database": "CAPA Tracker"
+    },
+    "Related Risk ID": {
+      "type": "relation",
+      "required": false,
+      "database": "Risk Register"
+    },
+    "Applicable Standard": {
+      "type": "text",
+      "required": false,
+      "description": "ISO 13485, 21 CFR 820, or other applicable standard"
+    },
+    "Change Description": {
+      "type": "text",
+      "required": false,
+      "description": "Description of changes from previous version"
+    },
+    "Superseded By": {
+      "type": "relation",
+      "required": false,
+      "database": "Document Registry",
+      "symmetric": true
+    }
+  },
+  "relations": {
+    "Related CAPA ID": {
+      "database": "CAPA Tracker",
+      "type": "single_property",
+      "property_name": "Related Document ID"
+    },
+    "Related Risk ID": {
+      "database": "Risk Register",
+      "type": "single_property",
+      "property_name": "Related Document ID"
+    },
+    "Superseded By": {
+      "database": "Document Registry",
+      "type": "dual_property",
+      "property_name": "Supersedes"
+    }
+  },
+  "views": {
+    "All Documents": {
+      "type": "table",
+      "sort": [
+        {
+          "property": "Document ID",
+          "direction": "descending"
+        }
+      ]
+    },
+    "By Document Type": {
+      "type": "board",
+      "group_by": "Document Type"
+    },
+    "By Status": {
+      "type": "board",
+      "group_by": "Status"
+    },
+    "Active Documents": {
+      "type": "table",
+      "filter": {
+        "property": "Status",
+        "value": "Approved"
+      },
+      "sort": [
+        {
+          "property": "Document Title",
+          "direction": "ascending"
+        }
+      ]
+    },
+    "Documents Under Review": {
+      "type": "table",
+      "filter": {
+        "property": "Status",
+        "value": "Under Review"
+      }
+    },
+    "Review Calendar": {
+      "type": "calendar",
+      "date_field": "Review Date"
+    },
+    "Draft Documents": {
+      "type": "table",
+      "filter": {
+        "property": "Status",
+        "value": "Draft"
+      }
+    },
+    "Superseded Documents": {
+      "type": "table",
+      "filter": {
+        "property": "Status",
+        "value": "Superseded"
+      }
+    }
+  },
+  "automations": {
+    "auto_generate_doc_id": {
+      "trigger": "new_record",
+      "action": "generate_id",
+      "format": "DOC-{YYYY}-{MM}-{####}"
+    },
+    "review_due_alert": {
+      "trigger": "Review Date",
+      "condition": "within 30 days",
+      "action": "send_notification",
+      "message": "Document review is due"
+    },
+    "version_increment": {
+      "trigger": "status_change_to",
+      "from": "Approved",
+      "to": "Draft",
+      "action": "increment_version",
+      "increment_by": 0.1
+    },
+    "auto_approve": {
+      "trigger": "status_change_to",
+      "to": "Approved",
+      "action": "set_effective_date",
+      "date_field": "Effective Date"
+    },
+    "supersede_old_version": {
+      "trigger": "status_change_to",
+      "to": "Approved",
+      "action": "link_old_version",
+      "relation": "Superseded By",
+      "match_criteria": {
+        "Document Title": "same",
+        "Version": "less_than_current"
+      }
+    }
+  },
+  "validation_rules": {
+    "title_required": "Document Title must be provided",
+    "type_required": "Document Type must be selected",
+    "author_required": "Author must be assigned",
+    "approver_required": "Approver must be assigned",
+    "version_required": "Version number must be specified",
+    "effective_date_required": "Effective Date must be set for Approved documents",
+    "link_required": "Document Link must be provided before approval",
+    "change_description": "Change Description required when Version > 1.0"
+  },
+  "document_type_rules": {
+    "SOP": {
+      "requires_approval": true,
+      "review_period": "24 months",
+      "template": "sop-template"
+    },
+    "WI": {
+      "requires_approval": true,
+      "review_period": "12 months",
+      "template": "wi-template"
+    },
+    "Form": {
+      "requires_approval": true,
+      "review_period": "12 months",
+      "template": "form-template"
+    },
+    "Record": {
+      "requires_approval": false,
+      "review_period": "retention_period",
+      "template": null
+    },
+    "Report": {
+      "requires_approval": true,
+      "review_period": "event_based",
+      "template": "report-template"
+    },
+    "Technical File": {
+      "requires_approval": true,
+      "review_period": "12 months",
+      "template": "tech-file-template"
+    }
+  },
+  "version_control": {
+    "major_version_increment": "structural or significant content changes",
+    "minor_version_increment": "minor updates, corrections, or clarifications",
+    "version_format": "X.Y where X is major, Y is minor"
+  },
+  "retention_policy": {
+    "SOP": "current + 2 previous versions",
+    "WI": "current + 1 previous version",
+    "Form": "indefinite",
+    "Record": "per product lifecycle or 5 years minimum",
+    "Report": "per product lifecycle or 5 years minimum",
+    "Technical File": "indefinite"
+  },
+  "compliance_references": {
+    "iso_13485": {
+      "section_4_2": "Control of documents",
+      "section_4_2_3": "Medical device file",
+      "section_4_2_4": "Control of records"
+    },
+    "21_cfr_820": {
+      "section_820_40": "Document controls",
+      "section_820_180": "General requirements concerning records"
+    },
+    "eu_mdr": {
+      "annex_ii": "Technical documentation"
+    }
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "database_name": "Risk Register",
+  "description": "ISO 14971 Risk Management Register for Medical Devices",
+  "parent_page_id": "NOTION_PAGE_ID",
+  "properties": {
+    "Risk ID": {
+      "type": "title",
+      "auto_increment": true,
+      "prefix": "RISK-"
+    },
+    "Hazard": {
+      "type": "text",
+      "required": true,
+      "description": "Potential source of harm"
+    },
+    "Harm": {
+      "type": "text",
+      "required": true,
+      "description": "Physical injury or damage to health"
+    },
+    "Causes": {
+      "type": "text",
+      "required": true,
+      "description": "Sequence of events leading to hazard"
+    },
+    "Initial Severity": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Negligible",
+        "Minor",
+        "Moderate",
+        "Major",
+        "Catastrophic"
+      ],
+      "scores": {
+        "Negligible": 1,
+        "Minor": 2,
+        "Moderate": 3,
+        "Major": 4,
+        "Catastrophic": 5
+      }
+    },
+    "Initial Probability": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Remote",
+        "Low",
+        "Medium",
+        "High",
+        "Frequent"
+      ],
+      "scores": {
+        "Remote": 1,
+        "Low": 2,
+        "Medium": 3,
+        "High": 4,
+        "Frequent": 5
+      }
+    },
+    "Initial Risk Index": {
+      "type": "formula",
+      "expression": "{Initial Severity Score} * {Initial Probability Score}",
+      "required": true
+    },
+    "Initial Risk Level": {
+      "type": "formula",
+      "expression": "IF({Initial Risk Index} >= 15, \"Unacceptable\", IF({Initial Risk Index} >= 5, \"ALARP\", \"Acceptable\"))",
+      "required": true
+    },
+    "Control Measures": {
+      "type": "text",
+      "required": true,
+      "description": "Risk control measures implemented"
+    },
+    "Residual Severity": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Negligible",
+        "Minor",
+        "Moderate",
+        "Major",
+        "Catastrophic"
+      ],
+      "scores": {
+        "Negligible": 1,
+        "Minor": 2,
+        "Moderate": 3,
+        "Major": 4,
+        "Catastrophic": 5
+      }
+    },
+    "Residual Probability": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Remote",
+        "Low",
+        "Medium",
+        "High",
+        "Frequent"
+      ],
+      "scores": {
+        "Remote": 1,
+        "Low": 2,
+        "Medium": 3,
+        "High": 4,
+        "Frequent": 5
+      }
+    },
+    "Residual Risk Index": {
+      "type": "formula",
+      "expression": "{Residual Severity Score} * {Residual Probability Score}",
+      "required": true
+    },
+    "Residual Risk Level": {
+      "type": "formula",
+      "expression": "IF({Residual Risk Index} >= 15, \"Unacceptable\", IF({Residual Risk Index} >= 5, \"ALARP\", \"Acceptable\"))",
+      "required": true
+    },
+    "Risk Acceptability": {
+      "type": "select",
+      "required": true,
+      "options": [
+        "Acceptable",
+        "ALARP",
+        "Unacceptable"
+      ]
+    },
+    "Risk Evaluation Date": {
+      "type": "date",
+      "required": true
+    },
+    "Review Date": {
+      "type": "date",
+      "required": true
+    },
+    "Related CAPA ID": {
+      "type": "relation",
+      "required": false,
+      "database": "CAPA Tracker"
+    },
+    "Related Standard": {
+      "type": "text",
+      "required": false,
+      "description": "ISO 14971 clause reference"
+    },
+    "Benefit-Risk Analysis": {
+      "type": "text",
+      "required": false,
+      "description": "Overall benefit-risk assessment"
+    }
+  },
+  "relations": {
+    "Related CAPA ID": {
+      "database": "CAPA Tracker",
+      "type": "dual_property",
+      "property_name": "Related Risk ID"
+    }
+  },
+  "views": {
+    "All Risks": {
+      "type": "table",
+      "sort": [
+        {
+          "property": "Initial Risk Index",
+          "direction": "descending"
+        }
+      ]
+    },
+    "Unacceptable Risks": {
+      "type": "table",
+      "filter": {
+        "property": "Risk Acceptability",
+        "value": "Unacceptable"
+      }
+    },
+    "ALARP Risks": {
+      "type": "table",
+      "filter": {
+        "property": "Risk Acceptability",
+        "value": "ALARP"
+      }
+    },
+    "Risk Matrix": {
+      "type": "board",
+      "group_by": "Risk Acceptability"
+    },
+    "Review Calendar": {
+      "type": "calendar",
+      "date_field": "Review Date"
+    },
+    "Risk Reduction": {
+      "type": "table",
+      "sort": [
+        {
+          "property": "Initial Risk Index",
+          "direction": "descending"
+        }
+      ],
+      "visible_properties": [
+        "Risk ID",
+        "Hazard",
+        "Harm",
+        "Initial Risk Index",
+        "Residual Risk Index",
+        "Risk Acceptability"
+      ]
+    }
+  },
+  "automations": {
+    "auto_generate_risk_id": {
+      "trigger": "new_record",
+      "action": "generate_id",
+      "format": "RISK-{YYYY}-{####}"
+    },
+    "review_due_alert": {
+      "trigger": "Review Date",
+      "condition": "within 7 days",
+      "action": "send_notification",
+      "message": "Risk review is due soon"
+    },
+    "unacceptable_risk_alert": {
+      "trigger": "Risk Acceptability",
+      "condition": "equals 'Unacceptable'",
+      "action": "send_notification",
+      "message": "Unacceptable risk requires immediate action"
+    },
+    "calculate_initial_risk": {
+      "trigger": "Initial Severity OR Initial Probability",
+      "action": "calculate",
+      "target_field": "Initial Risk Index"
+    },
+    "calculate_residual_risk": {
+      "trigger": "Residual Severity OR Residual Probability",
+      "action": "calculate",
+      "target_field": "Residual Risk Index"
+    }
+  },
+  "validation_rules": {
+    "hazard_required": "Hazard must be identified",
+    "harm_required": "Harm must be described",
+    "causes_required": "Causes must be documented",
+    "initial_assessment_required": "Both Initial Severity and Initial Probability must be assessed before saving",
+    "residual_assessment_required": "Residual assessment required if control measures are implemented",
+    "unacceptable_requires_capa": "CAPA must be linked if Risk Acceptability is 'Unacceptable'"
+  },
+  "risk_matrix": {
+    "1": {
+      "1": "Acceptable",
+      "2": "Acceptable",
+      "3": "ALARP",
+      "4": "ALARP",
+      "5": "ALARP"
+    },
+    "2": {
+      "1": "Acceptable",
+      "2": "ALARP",
+      "3": "ALARP",
+      "4": "ALARP",
+      "5": "Unacceptable"
+    },
+    "3": {
+      "1": "ALARP",
+      "2": "ALARP",
+      "3": "ALARP",
+      "4": "Unacceptable",
+      "5": "Unacceptable"
+    },
+    "4": {
+      "1": "ALARP",
+      "2": "ALARP",
+      "3": "Unacceptable",
+      "4": "Unacceptable",
+      "5": "Unacceptable"
+    },
+    "5": {
+      "1": "ALARP",
+      "2": "Unacceptable",
+      "3": "Unacceptable",
+      "4": "Unacceptable",
+      "5": "Unacceptable"
+    }
+  },
+  "compliance_references": {
+    "iso_14971": "Medical devices - Application of risk management to medical devices",
+    "iso_14971_clauses": [
+      "4.2 - Risk analysis",
+      "4.3 - Risk evaluation",
+      "4.4 - Risk control",
+      "4.5 - Evaluation of overall residual risk acceptability"
+    ],
+    "21_cfr_820": "820.30(g) - Design validation"
+  }
+}
