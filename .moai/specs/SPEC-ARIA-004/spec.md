@@ -38,7 +38,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 ### 기존 시스템 구조
 
 **Phase 1-3 완료 항목:**
-- ARIA 코어/비즈니스/도메인 에이전트 (20개 에이전트)
+- ARIA 코어/비즈니스/도메인 에이전트 (16개 에이전트: Core 4 + Business 4 + Domain 8)
 - Brief-Execute-Deliver 워크플로우
 - VALID 품질 프레임워크
 - Notion DB 스키마 설계 (6개 데이터베이스)
@@ -73,7 +73,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 ### 기술적 가정
 
 1. **MCP 서버:**
-   - Notion MCP 서버: `@notionhq/client` 기반
+   - Notion MCP 서버: `claude_ai_Notion` (built-in MCP)
    - Google Workspace MCP 서버: Google API 기반
    - Context7 MCP: Upstash Context7 서비스
    - Sequential Thinking MCP: Model Context Protocol 공식 서버
@@ -122,7 +122,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 - **When:** Document 생성 완료 이벤트
 - **Then:**
   1. Document Registry DB에 페이지 생성
-  2. 필드 자동填充 (Doc ID, Title, Type, Version, Date)
+  2. 필드 자동 입력 (Doc ID, Title, Type, Version, Date)
   3. 관련 Requirements와 Relation 설정
   4. Notion 페이지 템플릿 적용
 
@@ -132,7 +132,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 - **When:** CAPA 개시 이벤트
 - **Then:**
   1. CAPA Tracker DB에 페이지 생성
-  2. Root Cause, Action Plan 필드填充
+  2. Root Cause, Action Plan 필드 입력
   3. 관련 Risk ID와 Relation 설정 (선택)
   4. Due Date 알림 설정
 
@@ -191,7 +191,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 - **When:** `/aria sheets create "CAPA Trend Analysis"` 실행
 - **Then:**
   1. Google Sheets 스프레드시트 생성
-  2. Notion DB 데이터 추출 및填充
+  2. Notion DB 데이터 추출 및 입력
   3. 차트/그래프 자동 생성
   4. Notion DB에 시트 링크 기록
 
@@ -283,7 +283,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 - **When:** Document state change
 - **Then:**
   1. Notion Page Version History 자동 기록
-  2. Change Description 필드填充
+  2. Change Description 필드 입력
   3. Previous version과 비교 기능 제공
 
 #### 4.2 Ubiquitous Requirements
@@ -415,7 +415,7 @@ Notion DB 생성 프로세스:
   "mcpServers": {
     "notion": {
       "command": "npx",
-      "args": ["-y", "@notionhq/client"],
+      "args": ["-y", "claude_ai_Notion"],
       "env": {
         "NOTION_API_KEY": "${NOTION_API_KEY}",
         "NOTION_DATABASE_ID": "${NOTION_DATABASE_ID}"

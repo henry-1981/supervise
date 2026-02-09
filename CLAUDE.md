@@ -32,6 +32,8 @@ ARIA operates as a Claude Code plugin, enabling RA/QA professionals to perform c
 - **/aria deliver**: Run Deliver phase for final output
 - **/aria search**: Regulatory information search
 - **/aria status**: Current task progress
+- **/aria template**: Template lookup and generation
+- **/aria knowledge**: Knowledge base query
 
 ### Phase 3: Execute
 - Delegate to specialized agents via Task tool

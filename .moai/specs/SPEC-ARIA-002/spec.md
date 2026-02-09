@@ -3,7 +3,7 @@
 **TAG:** SPEC-ARIA-002
 **Status:** Planned
 **Priority:** High
-**Created:** 2025-02-09
+**Created:** 2026-02-09
 **Assigned:** manager-spec, expert-backend, expert-frontend
 
 ---
@@ -41,8 +41,8 @@ ARIA Phase 2의 목적은 다음과 같습니다:
 - MCP 서버 통합 (Context7, Sequential Thinking, Notion)
 
 **제외 (Out of Scope):**
-- RA/QA 전문 도메인 에이전트 (Phase 2.3)
-- 외부 서비스 통합 (Phase 4)
+- RA/QA 전문 도메인 에이전트 (Phase 3, SPEC-ARIA-003)
+- 외부 서비스 통합 (Phase 4, SPEC-ARIA-004)
 - 고급 분석 기능 (Phase 3+)
 
 ---
@@ -53,13 +53,13 @@ ARIA Phase 2의 목적은 다음과 같습니다:
 
 **시스템 환경:**
 - Claude Code v2.1.32+
-- MoAI-ADK v1.3.0+ (SPEC-First DDD, TRUST 5, Progressive Disclosure)
+- MoAI-ADK v1.3.0+ (SPEC-First DDD, VALID, Progressive Disclosure)
 - Git 워크트리 지원
 - 200K 토큰 컨텍스트 윈도우
 
 **개발 환경:**
-- Python 3.13+ (CLI 도구)
-- TypeScript 5.9+ (스킬/에이전트 정의)
+- Claude Code CLI (plugin runtime)
+- Markdown + YAML frontmatter (skill/agent definitions)
 - YAML 프론트매터 스키마 호환
 
 **MCP 서버:**
@@ -92,7 +92,7 @@ ARIA Phase 2의 목적은 다음과 같습니다:
 
 #### **Ubiquitous Requirements (시스템 전체)**
 
-**REQ-001:** 시스템은 **항상** MoAI-ADK의 TRUST 5 품질 프레임워크를 준수해야 한다.
+**REQ-001:** 시스템은 **항상** ARIA의 VALID 품질 프레임워크를 준수해야 한다.
 
 **REQ-002:** 모든 에이전트는 **항상** YAML 프론트매터 스키마를 따라야 한다.
 
@@ -490,7 +490,7 @@ mcpServers:
 ### 6.3 표준 및 프레임워크
 
 - MoAI-ADK SPEC-First DDD 워크플로우
-- MoAI TRUST 5 품질 프레임워크
+- ARIA VALID 품질 프레임워크
 - EARS (Easy Approach to Requirements Syntax)
 - Agent Skills Open Standard (agentskills.io)
 
@@ -509,7 +509,7 @@ mcpServers:
 
 | 버전 | 날짜 | 변경 사항 | 작성자 |
 |------|------|----------|--------|
-| 1.0.0 | 2025-02-09 | 초기 SPEC 작성 | manager-spec |
+| 1.0.0 | 2026-02-09 | 초기 SPEC 작성 | manager-spec |
 
 ---
 

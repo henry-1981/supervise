@@ -5,7 +5,7 @@
 ```
 SPEC-ID: SPEC-ARIA-005
 Title: Advanced Features Implementation
-Created: 2025-02-09
+Created: 2026-02-09
 Status: Planned
 Priority: High
 Assigned: manager-spec
@@ -397,7 +397,7 @@ ARIA (AI Regulatory Intelligence Assistant) is a Claude Code plugin specialized 
 **Memory Entry Schema** (regulatory-decisions.json):
 ```json
 {
-  "decision_id": "DEC-2025-001",
+  "decision_id": "DEC-2026-001",
   "question": "Is software as a medical device (SaMD) subject to FDA 510(k) for minor bug fixes?",
   "answer": "Bug fixes that do not affect device safety or effectiveness are typically not subject to 510(k)...",
   "regulation": "21 CFR 807.81(a)",
@@ -405,8 +405,8 @@ ARIA (AI Regulatory Intelligence Assistant) is a Claude Code plugin specialized 
   "applicability": ["SaMD", "Software Updates"],
   "company_specific": false,
   "valid_until": null,
-  "created_at": "2025-01-15T10:30:00Z",
-  "last_reviewed": "2025-01-15T10:30:00Z",
+  "created_at": "2026-01-15T10:30:00Z",
+  "last_reviewed": "2026-01-15T10:30:00Z",
   "confidence_score": 0.95
 }
 ```

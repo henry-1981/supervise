@@ -2,7 +2,7 @@
 
 **TAG:** SPEC-ARIA-002
 **Related:** spec.md, acceptance.md
-**Created:** 2025-02-09
+**Created:** 2026-02-09
 
 ---
 
@@ -32,7 +32,7 @@ ARIA Phase 2는 3개의 하위 단계로 나누어 구현합니다:
 1. **MoAI-ADK 호환성**: 모든 에이전트/스킬은 MoAI 표준 준수
 2. **Progressive Disclosure**: 스킬 모듈화 및 레벨별 로딩
 3. **YAML 스키마 준수**: 에이전트 정의 표준화
-4. **품질 우선**: TRUST 5 및 VALID 프레임워크 적용
+4. **품질 우선**: VALID 프레임워크 적용
 
 ---
 
@@ -213,7 +213,7 @@ metadata:
   version: "1.0.0"
   category: "domain"
   status: "active"
-  updated: "2025-02-09"
+  updated: "2026-02-09"
   modularized: "true"
   tags: "aria, business, {specific-tags}"
 progressive_disclosure:
@@ -368,7 +368,7 @@ notion.create_page(
 
 ## 5. 품질 보증 (Quality Assurance)
 
-### 5.1 TRUST 5 적용
+### 5.1 VALID 적용
 
 **Tested:**
 - 모든 에이전트 단위 테스트

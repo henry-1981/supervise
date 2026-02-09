@@ -53,7 +53,7 @@
 
 ### Milestone 2: Notion DB 고급 기능 (Priority High)
 
-**목표:** Traceability Matrix, 자동填充, 관계 설정 구현
+**목표:** Traceability Matrix, 자동 입력, 관계 설정 구현
 
 **작업:**
 1. Traceability Matrix 구현
@@ -108,7 +108,7 @@
 
 4. Google Sheets 통합
    - 데이터 분석 시트 생성
-   - Notion DB 데이터 추출 및填充
+   - Notion DB 데이터 추출 및 입력
    - 차트/그래프 자동 생성
 
 5. Google Calendar 통합
@@ -218,7 +218,7 @@
 ### 기술 스택
 
 **MCP 서버:**
-- Notion: `@notionhq/client` (v2.2.3+)
+- Notion: `claude_ai_Notion` (built-in MCP)
 - Google Workspace: `@anthropic/google-workspace-mcp`
 - Context7: `@upstash/context7-mcp@latest`
 - Sequential Thinking: `@modelcontextprotocol/server-sequential-thinking`
