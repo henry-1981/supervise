@@ -98,13 +98,13 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 1.1 Event-Driven Requirements
 
-**WHEN** 사용자가 규제 전략을 요청하면, **THE** 시스템은 **SHALL** 적용 시장별 요구사항을 분석한다.
+**[ER-001]** **WHEN** 사용자가 규제 전략을 요청하면, 시스템은 **SHALL** 적용 시장별 요구사항을 분석한다.
 
 - **Given:** 사용자가 "미국 시장 진입을 위한 규제 전략" 요청
 - **When:** expert-regulatory 에이전트가 요청 수신
 - **Then:** FDA 21 CFR Part 820, 510(k) vs PMA 경로 분석 제공
 
-**WHEN** 규제 변경사항이 발생하면, **THE** 시스템은 **SHALL** 영향받는 문서를 식별한다.
+**[ER-002]** **WHEN** 규제 변경사항이 발생하면, 시스템은 **SHALL** 영향받는 문서를 식별한다.
 
 - **Given:** EU MDR 2017/745 개정안 발효
 - **When:** 변경사항 감지
@@ -112,24 +112,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 1.2 State-Driven Requirements
 
-**IF** 제품이 Class III 의료기기이면, **THE** 시스템은 **SHALL** PMA (Pre-Market Approval) 경로를 제안한다.
+**[SR-001]** **IF** 제품이 Class III 의료기기이면, 시스템은 **SHALL** PMA (Pre-Market Approval) 경로를 제안한다.
 
 - **Condition:** FDA 분류 기준 확인
 - **Action:** PMA 제출 요구사항 체크리스트 생성
 
-**IF** 복수국 시장 진입이 계획되면, **THE** 시스템은 **SHALL** 국가별 요구사항 매트릭스를 제공한다.
+**[SR-002]** **IF** 복수국 시장 진입이 계획되면, 시스템은 **SHALL** 국가별 요구사항 매트릭스를 제공한다.
 
 - **Condition:** 미국, 유럽, 한국 동시 진입
 - **Action:** FDA MDR, MFDS 요구사항 비교표 생성
 
 #### 1.3 Ubiquitous Requirements
 
-시스템은 **항상** 모든 규제 주장에 출처를 **SHALL** 인용해야 한다.
+**[UR-001]** 시스템은 **항상** 모든 규제 주장에 출처를 **SHALL** 인용해야 한다.
 
 - **Format:** [Standard] Section [Number] (예: FDA 21 CFR 820.30)
 - **Verification:** Context7 MCP를 통한 규정 원문 대조
 
-시스템은 **항상** 최신 규정을 **SHALL** 반영해야 한다.
+**[UR-002]** 시스템은 **항상** 최신 규정을 **SHALL** 반영해야 한다.
 
 - **Source:** Federal Register, Official Journal of the EU, MFDS 공고
 - **Update:** 주간 자동 업데이트 확인
@@ -138,13 +138,13 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 2.1 Event-Driven Requirements
 
-**WHEN** 표준 해석을 요청하면, **THE** 시스템은 **SHALL** 관련 조항을 상세히 분석한다.
+**[ER-003]** **WHEN** 표준 해석을 요청하면, 시스템은 **SHALL** 관련 조항을 상세히 분석한다.
 
 - **Given:** "ISO 13485 Section 8.5.2 수정 조치" 요청
 - **When:** expert-standards 에이전트가 요청 수신
 - **Then:** 조항별 적용 범위, 문서화 요구사항, 증거 자료 상세 설명
 
-**WHEN** 여러 표준이 충돌하면, **THE** 시스템은 **SHALL** 우선순위를 제안한다.
+**[ER-004]** **WHEN** 여러 표준이 충돌하면, 시스템은 **SHALL** 우선순위를 제안한다.
 
 - **Given:** ISO 14971 위험관리 vs IEC 62304 소프트웨어 안전
 - **When:** 충돌 감지
@@ -152,24 +152,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 2.2 State-Driven Requirements
 
-**IF** QMS가 ISO 13485 인증을 준비 중이면, **THE** 시스템은 **SHALL** 인증 체크리스트를 제공한다.
+**[SR-003]** **IF** QMS가 ISO 13485 인증을 준비 중이면, 시스템은 **SHALL** 인증 체크리스트를 제공한다.
 
 - **Condition:** ISO 13485:2016 인증 예정
 - **Action:** CB (Certification Body) 문서 요구사항 목록 생성
 
-**IF** 소프트웨어가 포함된 의료기기이면, **THE** 시스템은 **SHALL** IEC 62304 Safety Class 분석을 제공한다.
+**[SR-004]** **IF** 소프트웨어가 포함된 의료기기이면, 시스템은 **SHALL** IEC 62304 Safety Class 분석을 제공한다.
 
 - **Condition:** SaMD (Software as Medical Device)
 - **Action:** Class A/B/C 분석 및 문서화 요구사항
 
 #### 2.3 Ubiquitous Requirements
 
-시스템은 **항상** 표준 버전을 **SHALL** 명시해야 한다.
+**[UR-003]** 시스템은 **항상** 표준 버전을 **SHALL** 명시해야 한다.
 
 - **Format:** [Standard Number]:[Year] (예: ISO 13485:2016)
 - **Verification:** 만료된 표준 사용 방지
 
-시스템은 **항상** 표준 간 참조 관계를 **SHALL** 유지해야 한다.
+**[UR-004]** 시스템은 **항상** 표준 간 참조 관계를 **SHALL** 유지해야 한다.
 
 - **Example:** ISO 14971 → ISO 13485 Section 8.2.3
 - **Traceability:** 표준 매트릭스 자동 생성
@@ -178,7 +178,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 3.1 Event-Driven Requirements
 
-**WHEN** 위험 분석을 요청하면, **THE** 시스템은 **SHALL** ISO 14971 절차를 따른다.
+**[ER-005]** **WHEN** 위험 분석을 요청하면, 시스템은 **SHALL** ISO 14971 절차를 따른다.
 
 - **Given:** 새로운 의료기기 위험 평가 요청
 - **When:** expert-risk 에이전트가 요청 수신
@@ -189,7 +189,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   4. 위험 경감 (Risk Control)
   5. 잔여 위험 평가 (Residual Risk Evaluation)
 
-**WHEN** 위험이 허용 불가능하면, **THE** 시스템은 **SHALL** 추가 경감 조치를 제안한다.
+**[ER-006]** **WHEN** 위험이 허용 불가능하면, 시스템은 **SHALL** 추가 경감 조치를 제안한다.
 
 - **Given:** 위험 점수 > 허용 기준 (Acceptability Threshold)
 - **When:** 위험 평가 완료
@@ -197,24 +197,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 3.2 State-Driven Requirements
 
-**IF** 위험 경감 조치가 구현되면, **THE** 시스템은 **SHALL** 효성 검증을 요구한다.
+**[SR-005]** **IF** 위험 경감 조치가 구현되면, 시스템은 **SHALL** 효성 검증을 요구한다.
 
 - **Condition:** Risk control measure 구현 완료
 - **Action:** Verification test plan 자동 생성
 
-**IF** 잔여 위험이 존재하면, **THE** 시스템은 **SHALL** 경보 라벨링을 제안한다.
+**[SR-006]** **IF** 잔여 위험이 존재하면, 시스템은 **SHALL** 경보 라벨링을 제안한다.
 
 - **Condition:** All risks reduced as far as possible (AFAP)
 - **Action:** Labeling warning, Contraindications
 
 #### 3.3 Ubiquitous Requirements
 
-시스템은 **항상** Risk Register를 Notion DB에 **SHALL** 동기화해야 한다.
+**[UR-005]** 시스템은 **항상** Risk Register를 Notion DB에 **SHALL** 동기화해야 한다.
 
 - **Fields:** Risk ID, Hazard, Harm, Severity, Probability, Risk Index, Control Measures
 - **Update:** 위험 상태 변경 시 실시간 동기화
 
-시스템은 **항상** 위험-이익 분석 (Risk-Benefit Analysis)을 **SHALL** 지원해야 한다.
+**[UR-006]** 시스템은 **항상** 위험-이익 분석 (Risk-Benefit Analysis)을 **SHALL** 지원해야 한다.
 
 - **Format:** Clinical benefit vs Risk weighting
 - **Threshold:** Benefit > Risk for market approval
@@ -223,13 +223,13 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 4.1 Event-Driven Requirements
 
-**WHEN** 설계 통제 프로세스를 시작하면, **THE** 시스템은 **SHALL** DHF (Design History File) 구조를 생성한다.
+**[ER-007]** **WHEN** 설계 통제 프로세스를 시작하면, 시스템은 **SHALL** DHF (Design History File) 구조를 생성한다.
 
 - **Given:** 새로운 설계 프로젝트 개시
 - **When:** expert-design-control 에이전트가 요청 수신
 - **Then:** FDA 21 CFR 820.30 기반 DHF 템플릿 생성
 
-**WHEN** 설계 검증이 완료되면, **THE** 시스템은 **SHALL** DMR (Device Master Record)를 업데이트한다.
+**[ER-008]** **WHEN** 설계 검증이 완료되면, 시스템은 **SHALL** DMR (Device Master Record)를 업데이트한다.
 
 - **Given:** Design verification 성공
 - **When:** 검증 결과 입력
@@ -237,24 +237,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 4.2 State-Driven Requirements
 
-**IF** 설계 변경이 발생하면, **THE** 시스템은 **SHALL** 변경 영향도를 분석한다.
+**[SR-007]** **IF** 설계 변경이 발생하면, 시스템은 **SHALL** 변경 영향도를 분석한다.
 
 - **Condition:** Design change proposal
 - **Action:** Validation vs Verification 범위 식별
 
-**IF** 설계 이관이 발생하면, **THE** 시스템은 **SHALL** DHR (Device History Record)를 생성한다.
+**[SR-008]** **IF** 설계 이관이 발생하면, 시스템은 **SHALL** DHR (Device History Record)를 생성한다.
 
 - **Condition:** Design to production transfer
 - **Action:** Production lot 추적용 DHR 생성
 
 #### 4.3 Ubiquitous Requirements
 
-시스템은 **항상** 설계 입력-추적성 매트릭스를 **SHALL** 유지해야 한다.
+**[UR-007]** 시스템은 **항상** 설계 입력-추적성 매트릭스를 **SHALL** 유지해야 한다.
 
 - **Format:** Design Input → Design Output → Verification → Validation
 - **Traceability:** 요구사항별 시험 결과 링크
 
-시스템은 **항상** FDA Design Control 점검 체크리스트를 **SHALL** 지원해야 한다.
+**[UR-008]** 시스템은 **항상** FDA Design Control 점검 체크리스트를 **SHALL** 지원해야 한다.
 
 - **Checklist:** 21 CFR 820.30(a)-(g) 항목별 준수 여부
 
@@ -262,7 +262,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 5.1 Event-Driven Requirements
 
-**WHEN** 불일치가 식별되면, **THE** 시스템은 **SHALL** CAPA 절차를 개시한다.
+**[ER-009]** **WHEN** 불일치가 식별되면, 시스템은 **SHALL** CAPA 절차를 개시한다.
 
 - **Given:** Non-conformance report 제출
 - **When:** expert-capa 에이전트가 요청 수신
@@ -272,7 +272,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 예방 조치 (Preventive Action)
   4. 효성 검증 (Effectiveness Check)
 
-**WHEN** 근본 원인이 확인되면, **THE** 시스템은 **SHALL** 5 Whys 기법을 적용한다.
+**[ER-010]** **WHEN** 근본 원인이 확인되면, 시스템은 **SHALL** 5 Whys 기법을 적용한다.
 
 - **Given:** Quality issue 발생
 - **When:** 원인 분석 단계
@@ -280,24 +280,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 5.2 State-Driven Requirements
 
-**IF** CAPA가 효과적이지 않으면, **THE** 시스템은 **SHALL** 재평가를 요구한다.
+**[SR-009]** **IF** CAPA가 효과적이지 않으면, 시스템은 **SHALL** 재평가를 요구한다.
 
 - **Condition:** Effectiveness check 실패 (재발)
 - **Action:** 새로운 근본 원인 분석 및 조치 계획
 
-**IF** CAPA가 마감되면, **THE** 시스템은 **SHALL** 관련 문서를 업데이트한다.
+**[SR-010]** **IF** CAPA가 마감되면, 시스템은 **SHALL** 관련 문서를 업데이트한다.
 
 - **Condition:** CAPA close-out
 - **Action:** Quality manual, Procedure update 제안
 
 #### 5.3 Ubiquitous Requirements
 
-시스템은 **항상** CAPA를 Notion DB에 **SHALL** 추적해야 한다.
+**[UR-009]** 시스템은 **항상** CAPA를 Notion DB에 **SHALL** 추적해야 한다.
 
 - **Fields:** CAPA ID, Issue Description, Root Cause, Actions, Due Date, Status
 - **Alert:** 마감일 미준비 시 알림
 
-시스템은 **항상** CAPA 추세 분석을 **SHALL** 제공해야 한다.
+**[UR-010]** 시스템은 **항상** CAPA 추세 분석을 **SHALL** 제공해야 한다.
 
 - **Analysis:** 부서별, 유형별, 기간별 추이
 - **Output:** Management Review 보고서
@@ -306,13 +306,13 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 6.1 Event-Driven Requirements
 
-**WHEN** 임상 평가를 요청하면, **THE** 시스템은 **SHALL** MDR 요구사항을 따른다.
+**[ER-011]** **WHEN** 임상 평가를 요청하면, 시스템은 **SHALL** MDR 요구사항을 따른다.
 
 - **Given:** CER (Clinical Evaluation Report) 작성 요청
 - **When:** expert-clinical 에이전트가 요청 수신
 - **Then:** Annex XV MDR 요구사항 기반 CER 생성
 
-**WHEN** 시판 후 조사가 필요하면, **THE** 시스템은 **SHALL** PMCF (Post-Market Clinical Follow-up) 계획을 수립한다.
+**[ER-012]** **WHEN** 시판 후 조사가 필요하면, 시스템은 **SHALL** PMCF (Post-Market Clinical Follow-up) 계획을 수립한다.
 
 - **Given:** PMS 데이터 신호 감지
 - **When:** PMCF 필요성 확인
@@ -320,24 +320,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 6.2 State-Driven Requirements
 
-**IF** 임상 데이터가 부족하면, **THE** 시스템은 **SHALL** 추가 임상 연구를 제안한다.
+**[SR-011]** **IF** 임상 데이터가 부족하면, 시스템은 **SHALL** 추가 임상 연구를 제안한다.
 
 - **Condition:** Equivalence not demonstrated
 - **Action:** Clinical study protocol 제안
 
-**IF** 유사 장치가 존재하면, **THE** 시스템은 **SHALL** equivalent device 분석을 제공한다.
+**[SR-012]** **IF** 유사 장치가 존재하면, 시스템은 **SHALL** equivalent device 분석을 제공한다.
 
 - **Condition:** Predicate device 식별
 - **Action:** Technical, biological, clinical 비교 분석
 
 #### 6.3 Ubiquitous Requirements
 
-시스템은 **항상** 임상 문헌 검색을 **SHALL** 지원해야 한다.
+**[UR-011]** 시스템은 **항상** 임상 문헌 검색을 **SHALL** 지원해야 한다.
 
 - **Sources:** PubMed, Cochrane, ClinicalTrials.gov
 - **Format:** PRISMA flow diagram
 
-시스템은 **항상** 임상 안전성/유효성 데이터를 **SHALL** 요약해야 한다.
+**[UR-012]** 시스템은 **항상** 임상 안전성/유효성 데이터를 **SHALL** 요약해야 한다.
 
 - **Metrics:** Sensitivity, Specificity, PPV, NPV
 - **Visualization:** Forest plot for meta-analysis
@@ -346,13 +346,13 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 7.1 Event-Driven Requirements
 
-**WHEN** 510(k) 제출을 준비하면, **THE** 시스템은 **SHALL** eCopy 형식을 생성한다.
+**[ER-013]** **WHEN** 510(k) 제출을 준비하면, 시스템은 **SHALL** eCopy 형식을 생성한다.
 
 - **Given:** 510(k) submission 준비 요청
 - **When:** expert-submission 에이전트가 요청 수신
 - **Then:** FDA eCopy requirements 기반 문서 구조 생성
 
-**WHEN** PMA 제출을 준비하면, **THE** 시스템은 **SHALL** Original PMA 서식을 따른다.
+**[ER-014]** **WHEN** PMA 제출을 준비하면, 시스템은 **SHALL** Original PMA 서식을 따른다.
 
 - **Given:** Class III device PMA 요청
 - **When:** PMA 준비 단계
@@ -360,24 +360,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 7.2 State-Driven Requirements
 
-**IF** 규제 기관이 정보를 요청하면, **THE** 시스템은 **SHALL** AI (Additional Information) 답변을 준비한다.
+**[SR-013]** **IF** 규제 기관이 정보를 요청하면, 시스템은 **SHALL** AI (Additional Information) 답변을 준비한다.
 
 - **Condition:** FDA AI Request 수신
 - **Action:** 30일 이내 답변 초안 작성
 
-**IF** 제출이 승인되면, **THE** 시스템은 **SHALL** post-approval 요구사항을 식별한다.
+**[SR-014]** **IF** 제출이 승인되면, 시스템은 **SHALL** post-approval 요구사항을 식별한다.
 
 - **Condition:** 510(k) clearance or PMA approval
 - **Action:** PMS report, Special controls requirements
 
 #### 7.3 Ubiquitous Requirements
 
-시스템은 **항상** 제출 체크리스트를 **SHALL** 유지해야 한다.
+**[UR-013]** 시스템은 **항상** 제출 체크리스트를 **SHALL** 유지해야 한다.
 
 - **Checklist:** FDA Refuse to Accept (RTA) criteria
 - **Verification:** 제출 전 RTA pass 확인
 
-시스템은 **항상** 제출 수수료를 **SHALL** 계산해야 한다.
+**[UR-014]** 시스템은 **항상** 제출 수수료를 **SHALL** 계산해야 한다.
 
 - **Fees:** User fee, 510(k) fee, PMA fee
 - **Update:** FY (Fiscal Year)별 요금 업데이트
@@ -386,13 +386,13 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 8.1 Event-Driven Requirements
 
-**WHEN** 감사 계획을 수립하면, **THE** 시스템은 **SHALL** 체크리스트를 생성한다.
+**[ER-015]** **WHEN** 감사 계획을 수립하면, 시스템은 **SHALL** 체크리스트를 생성한다.
 
 - **Given:** notified body audit 예정
 - **When:** expert-audit 에이전트가 요청 수신
 - **Then:** ISO 13485 + MDR 기반 감사 체크리스트 생성
 
-**WHEN** 비적합(NC)이 발견되면, **THE** 시스템은 **SHALL** 대응 전략을 제안한다.
+**[ER-016]** **WHEN** 비적합(NC)이 발견되면, 시스템은 **SHALL** 대응 전략을 제안한다.
 
 - **Given:** Major/Minor NC 발행
 - **When:** NC 수신
@@ -400,24 +400,24 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 8.2 State-Driven Requirements
 
-**IF** 감사가 예정되어 있으면, **THE** 시스템은 **SHALL** 준비 상태를 모니터링한다.
+**[SR-015]** **IF** 감사가 예정되어 있으면, 시스템은 **SHALL** 준비 상태를 모니터링한다.
 
 - **Condition:** Upcoming audit within 30 days
 - **Action:** Readiness assessment, Missing documents 식별
 
-**IF** 감사 결과가 부정적이면, **THE** 시스템은 **SHALL** 이의 제기 절차를 안내한다.
+**[SR-016]** **IF** 감사 결과가 부정적이면, 시스템은 **SHALL** 이의 제기 절차를 안내한다.
 
 - **Condition:** Audit failure recommendation
 - **Action:** Appeal process, Corrective action timeline
 
 #### 8.3 Ubiquitous Requirements
 
-시스템은 **항상** 감사 추적성을 **SHALL** 유지해야 한다.
+**[UR-015]** 시스템은 **항상** 감사 추적성을 **SHALL** 유지해야 한다.
 
 - **Fields:** Audit date, Auditor, Findings, CAPA link, Status
 - **Dashboard:** Open items, Due dates
 
-시스템은 **항상** 감사 문서를 **SHALL** 구성해야 한다.
+**[UR-016]** 시스템은 **항상** 감사 문서를 **SHALL** 구성해야 한다.
 
 - **Documents:** Procedures, Records, Forms, CAPA logs
 - **Organization:** Digital audit room (Notion)
@@ -428,41 +428,41 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 9.1 Context7 MCP
 
-**WHEN** 규정 검색이 필요하면, **THE** 시스템은 **SHALL** Context7 MCP를 사용한다.
+**[ER-017]** **WHEN** 규정 검색이 필요하면, 시스템은 **SHALL** Context7 MCP를 사용한다.
 
 - **Library:** FDA, EU MDR, ISO standards
 - **Usage:** Latest regulation version verification
 
-**WHEN** 표준 해석이 필요하면, **THE** 시스템은 **SHALL** Context7 문서를 참조한다.
+**[ER-018]** **WHEN** 표준 해석이 필요하면, 시스템은 **SHALL** Context7 문서를 참조한다.
 
 - **Libraries:** ISO 13485, IEC 62304, ISO 14971
 - **Output:** Official standard text + interpretation
 
 #### 9.2 Notion MCP
 
-**WHEN** CAPA를 생성하면, **THE** 시스템은 **SHALL** Notion DB에 기록한다.
+**[ER-019]** **WHEN** CAPA를 생성하면, 시스템은 **SHALL** Notion DB에 기록한다.
 
 - **Database:** CAPA Tracker
 - **Fields:** ID, Description, Root Cause, Actions, Status, Due Date
 
-**WHEN** 위험을 식별하면, **THE** 시스템은 **SHALL** Risk Register를 업데이트한다.
+**[ER-020]** **WHEN** 위험을 식별하면, 시스템은 **SHALL** Risk Register를 업데이트한다.
 
 - **Database:** Risk Register
 - **Fields:** Risk ID, Hazard, Severity, Probability, Risk Index, Controls
 
-**WHEN** 문서가 생성되면, **THE** 시스템은 **SHALL** Document Registry에 등록한다.
+**[ER-021]** **WHEN** 문서가 생성되면, 시스템은 **SHALL** Document Registry에 등록한다.
 
 - **Database:** Document Registry
 - **Fields:** Doc ID, Type, Version, Date, Approved by, Link
 
 #### 9.3 Sequential Thinking MCP
 
-**WHEN** 복잡한 규제 전략이 필요하면, **THE** 시스템은 **SHALL** Sequential Thinking을 사용한다.
+**[ER-022]** **WHEN** 복잡한 규제 전략이 필요하면, 시스템은 **SHALL** Sequential Thinking을 사용한다.
 
 - **Use Case:** Multi-market regulatory pathway optimization
 - **Output:** Structured reasoning with trade-off analysis
 
-**WHEN** 위험-이익 분석이 필요하면, **THE** 시스템은 **SHALL** 체계적 분석을 수행한다.
+**[ER-023]** **WHEN** 위험-이익 분석이 필요하면, 시스템은 **SHALL** 체계적 분석을 수행한다.
 
 - **Process:** Assumption audit → First principles → Alternative generation → Trade-off analysis
 - **Output:** Justified risk-benefit decision
@@ -471,7 +471,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 10.1 aria-domain-raqa 스킬
 
-**WHERE** RA/QA 도메인 지식이 필요하면, **THE** 시스템은 **SHALL** aria-domain-raqa 스킬을 로드한다.
+**[WR-001]** **WHERE** RA/QA 도메인 지식이 필요하면, 시스템은 **SHALL** aria-domain-raqa 스킬을 로드한다.
 
 - **Level 1:** Metadata (~100 tokens)
   - Name, description, triggers (regulatory, standards, risk, capa)
@@ -488,35 +488,35 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 10.2 전문 지식 스킬 (8개)
 
-**WHERE** FDA 지식이 필요하면, **THE** 시스템은 **SHALL** aria-knowledge-fda 스킬을 로드한다.
+**[WR-002]** **WHERE** FDA 지식이 필요하면, 시스템은 **SHALL** aria-knowledge-fda 스킬을 로드한다.
 
 - **Structure:** modules/21cfr820.md, modules/510k.md, modules/pma.md
 
-**WHERE** EU MDR 지식이 필요하면, **THE** 시스템은 **SHALL** aria-knowledge-eumdr 스킬을 로드한다.
+**[WR-003]** **WHERE** EU MDR 지식이 필요하면, 시스템은 **SHALL** aria-knowledge-eumdr 스킬을 로드한다.
 
 - **Structure:** modules/annex-i.md, modules/annex-ix.md, modules/clinical-evaluation.md
 
-**WHERE** 표준 지식이 필요하면, **THE** 시스템은 **SHALL** aria-knowledge-standards 스킬을 로드한다.
+**[WR-004]** **WHERE** 표준 지식이 필요하면, 시스템은 **SHALL** aria-knowledge-standards 스킬을 로드한다.
 
 - **Structure:** modules/iso13485.md, modules/iec62304.md, modules/iso14971.md
 
-**WHERE** MFDS 지식이 필요하면, **THE** 시스템은 **SHALL** aria-knowledge-mfds 스킬을 로드한다.
+**[WR-005]** **WHERE** MFDS 지식이 필요하면, 시스템은 **SHALL** aria-knowledge-mfds 스킬을 로드한다.
 
 - **Structure:** modules/korea-mdr.md, modules/device-approval.md
 
-**WHERE** 위험관리가 필요하면, **THE** 시스템은 **SHALL** aria-risk-management 스킬을 로드한다.
+**[WR-006]** **WHERE** 위험관리가 필요하면, 시스템은 **SHALL** aria-risk-management 스킬을 로드한다.
 
 - **Structure:** modules/risk-analysis.md, modules/fmea.md, modules/fsta.md
 
-**WHERE** 설계통제가 필요하면, **THE** 시스템은 **SHALL** aria-design-control 스킬을 로드한다.
+**[WR-007]** **WHERE** 설계통제가 필요하면, 시스템은 **SHALL** aria-design-control 스킬을 로드한다.
 
 - **Structure:** modules/dhf.md, modules/dmr.md, modules/dhr.md
 
-**WHERE** CAPA가 필요하면, **THE** 시스템은 **SHALL** aria-capa-process 스킬을 로드한다.
+**[WR-008]** **WHERE** CAPA가 필요하면, 시스템은 **SHALL** aria-capa-process 스킬을 로드한다.
 
 - **Structure:** modules/root-cause-analysis.md, modules/corrective-action.md, modules/preventive-action.md
 
-**WHERE** 제출 준비가 필요하면, **THE** 시스템은 **SHALL** aria-submission-templates 스킬을 로드한다.
+**[WR-009]** **WHERE** 제출 준비가 필요하면, 시스템은 **SHALL** aria-submission-templates 스킬을 로드한다.
 
 - **Structure:** modules/510k-template.md, modules/pma-template.md, modules/ce-marking.md
 
@@ -524,7 +524,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 11.1 CAPA Tracker
 
-**WHEN** CAPA가 생성되면, **THE** 시스템은 **SHALL** 다음 필드를 포함해야 한다.
+**[ER-024]** **WHEN** CAPA가 생성되면, 시스템은 **SHALL** 다음 필드를 포함해야 한다.
 
 - **Required Fields:**
   - CAPA ID (Auto-increment)
@@ -547,7 +547,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 11.2 Risk Register
 
-**WHEN** 위험이 식별되면, **THE** 시스템은 **SHALL** 다음 필드를 포함해야 한다.
+**[ER-025]** **WHEN** 위험이 식별되면, 시스템은 **SHALL** 다음 필드를 포함해야 한다.
 
 - **Required Fields:**
   - Risk ID (Auto-increment)
@@ -572,7 +572,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 11.3 Document Registry
 
-**WHEN** 문서가 생성되면, **THE** 시스템은 **SHALL** 다음 필드를 포함해야 한다.
+**[ER-026]** **WHEN** 문서가 생성되면, 시스템은 **SHALL** 다음 필드를 포함해야 한다.
 
 - **Required Fields:**
   - Document ID (Auto-increment)
@@ -596,65 +596,65 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 12.1 Verified (검증됨)
 
-**WHEN** 규제 주장을 하면, **THE** 시스템은 **SHALL** 규정 원문을 대조한다.
+**[ER-027]** **WHEN** 규제 주장을 하면, 시스템은 **SHALL** 규정 원문을 대조한다.
 
 - **Requirement:** All regulatory claims cite source
 - **Verification:** Context7 MCP cross-reference
 - **Evidence:** [Standard] Section [Number] (예: FDA 21 CFR 820.30(a))
 
-**IF** 규정이 만료되었으면, **THE** 시스템은 **SHALL** 경고를 표시한다.
+**[SR-017]** **IF** 규정이 만료되었으면, 시스템은 **SHALL** 경고를 표시한다.
 
 - **Condition:** Outdated standard reference detected
 - **Action:** Warning + Latest version suggestion
 
 #### 12.2 Accurate (정확함)
 
-**WHEN** 데이터를 제시하면, **THE** 시스템은 **SHALL** 출처를 검증한다.
+**[ER-028]** **WHEN** 데이터를 제시하면, 시스템은 **SHALL** 출처를 검증한다.
 
 - **Requirement:** All data sources validated
 - **Verification:** Source credibility check
 - **Evidence:** Date, URL, Authoritative source
 
-**IF** 데이터 모순이 발견되면, **THE** 시스템은 **SHALL** 사용자에게 확인을 요청한다.
+**[SR-018]** **IF** 데이터 모순이 발견되면, 시스템은 **SHALL** 사용자에게 확인을 요청한다.
 
 - **Condition:** Conflicting information from multiple sources
 - **Action:** Present conflict + Request resolution
 
 #### 12.3 Linked (연결됨)
 
-**WHEN** 문서를 생성하면, **THE** 시스템은 **SHALL** 추적성을 확보한다.
+**[ER-029]** **WHEN** 문서를 생성하면, 시스템은 **SHALL** 추적성을 확보한다.
 
 - **Requirement:** Requirements ↔ Documents ↔ Evidence
 - **Verification:** Traceability matrix generation
 - **Evidence:** Bidirectional links in Notion DB
 
-**IF** 추적성이 끊기면, **THE** 시스템은 **SHALL** 누락된 링크를 식별한다.
+**[SR-019]** **IF** 추적성이 끊기면, 시스템은 **SHALL** 누락된 링크를 식별한다.
 
 - **Condition:** Orphaned document or unreferenced requirement
 - **Action:** Link missing alert
 
 #### 12.4 Inspectable (검증 가능함)
 
-**WHEN** 결정을 내리면, **THE** 시스템은 **SHALL** 근거를 문서화한다.
+**[ER-030]** **WHEN** 결정을 내리면, 시스템은 **SHALL** 근거를 문서화한다.
 
 - **Requirement:** Decision rationale documented
 - **Verification:** Audit trail completeness
 - **Evidence:** Timestamp, Agent, Reasoning, Outcome
 
-**IF** 감사 추적이 불충분하면, **THE** 시스템은 **SHALL** 추가 문서화를 요구한다.
+**[SR-020]** **IF** 감사 추적이 불충분하면, 시스템은 **SHALL** 추가 문서화를 요구한다.
 
 - **Condition:** Missing decision rationale
 - **Action:** Prompt for rationale documentation
 
 #### 12.5 Deliverable (전달 가능함)
 
-**WHEN** 제출 패키지를 준비하면, **THE** 시스템은 **SHALL** 형식 요구사항을 충족한다.
+**[ER-031]** **WHEN** 제출 패키지를 준비하면, 시스템은 **SHALL** 형식 요구사항을 충족한다.
 
 - **Requirement:** Submission format compliance
 - **Verification:** Template conformance check
 - **Evidence:** eCopy format, PDF structure, File naming
 
-**IF** 형식 오류가 있으면, **THE** 시스템은 **SHALL** 제출 전 수정을 제안한다.
+**[SR-021]** **IF** 형식 오류가 있으면, 시스템은 **SHALL** 제출 전 수정을 제안한다.
 
 - **Condition:** Template non-compliance
 - **Action:** Pre-submission format check
@@ -663,13 +663,13 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 13.1 Parallel Execution
 
-**WHEN** 복수의 도메인 에이전트가 필요하면, **THE** 시스템은 **SHALL** 병렬 실행을 지원한다.
+**[ER-032]** **WHEN** 복수의 도메인 에이전트가 필요하면, 시스템은 **SHALL** 병렬 실행을 지원한다.
 
 - **Use Case:** Regulatory + Standards + Risk 동시 분석
 - **Execution:** 3개 에이전트 동시 호출
 - **Synthesis:** 결과 통합 및 충돌 해결
 
-**WHEN** 의존성이 존재하면, **THE** 시스템은 **SHALL** 순차 실행을 사용한다.
+**[ER-033]** **WHEN** 의존성이 존재하면, 시스템은 **SHALL** 순차 실행을 사용한다.
 
 - **Use Case:** Risk analysis → CAPA creation (Risk ID 필요)
 - **Execution:** 순차적 에이전트 호출
@@ -677,7 +677,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 
 #### 13.2 Result Synthesis
 
-**WHEN** 병렬 실행이 완료되면, **THE** 시스템은 **SHALL** 결과를 통합한다.
+**[ER-034]** **WHEN** 병렬 실행이 완료되면, 시스템은 **SHALL** 결과를 통합한다.
 
 - **Process:**
   1. 각 에이전트 결과 수집
@@ -685,7 +685,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
   3. 우선순위 결정 (Regulatory hierarchy)
   4. 통합 보고서 생성
 
-**IF** 결과가 충돌하면, **THE** 시스템은 **SHALL** 사용자에게 해결을 요청한다.
+**[SR-022]** **IF** 결과가 충돌하면, 시스템은 **SHALL** 사용자에게 해결을 요청한다.
 
 - **Condition:** Conflicting recommendations from multiple agents
 - **Action:** Present conflict + Request resolution
