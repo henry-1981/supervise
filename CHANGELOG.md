@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### SPEC-ARIA-009: MCP 서버 및 Config 파일 ARIA 잔여물 정리
+
+#### Fixed
+- Removed ARIA-specific MCP servers (notion, google-workspace) from `.mcp.json`
+- Removed ARIA-specific server references from `.claude/settings.local.json`
+- Deleted ARIA plugin directory (`.claude-plugin/`) completely
+- Normalized MCP server descriptions to generic MoAI-ADK terminology
+- Removed ARIA-specific configuration from `.moai/config/sections/output.yaml`
+- Removed ARIA analytics configuration from `.moai/config/sections/analytics.yaml`
+- Removed ARIA-specific triggers from `.moai/config/multilingual-triggers.yaml`
+
+#### Documentation
+- Created SPEC-ARIA-009 implementation documentation (`.moai/docs/SPEC-ARIA-009/IMPLEMENTATION.md`)
+- Created EARS requirement validation checklist (`.moai/docs/SPEC-ARIA-009/VALIDATION.md`)
+- Created post-implementation next steps guide (`.moai/docs/SPEC-ARIA-009/NEXT_STEPS.md`)
+
+#### Details
+- **SPEC ID**: SPEC-ARIA-009
+- **Status**: In Progress → Completed
+- **Domain**: configuration-cleanup
+- **Related**: SPEC-ARIA-008 (ARIA file removal)
+- **Target Branch**: moai/develop
+
+---
+
 ## [2.6.0] - 2026-02-10
 
 ### Phase 6: Environment Separation Implementation
