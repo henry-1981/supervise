@@ -6,12 +6,11 @@
 SPEC_ID: SPEC-ARIA-001
 TITLE: ARIA Phase 1 - Core Framework Implementation
 VERSION: 1.0.0
-STATUS: Completed
+STATUS: Planned
 PRIORITY: High
 DOMAIN: aria-core
 PHASE: 1
 CREATED: 2026-02-09
-COMPLETED: 2026-02-09
 AUTHOR: ARIA Architect
 ASSIGNED: orchestrator
 RELATED_SPECS:

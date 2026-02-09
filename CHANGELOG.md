@@ -7,37 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0] - 2026-02-09
 
+### Major Changes
+- **Project Rebranding**: Cowork Supervisor → ARIA (AI Regulatory Intelligence Assistant)
+- **Domain Specialization**: Generic multi-plugin orchestrator → Medical Device RA/QA specialist
+- **Architecture Redesign**: 5-stage pipeline → Brief-Execute-Deliver workflow
+
 ### Added
-- **ARIA (AI Regulatory Intelligence Assistant)** - Complete Phase 1 implementation
-- Plugin structure with `.claude-plugin/plugin.json` and `capabilities.yaml`
-- Orchestrator agent for central coordination and intent classification
-- `/aria` command with natural language interface for RA/QA professionals
-- ARIA core skill with Brief-Execute-Deliver workflow modules
-- VALID quality framework skeleton (Verified, Accurate, Linked, Inspectable, Deliverable)
-- `aria.yaml` configuration file with language, workflow, and quality settings
-- MCP server integration (Context7, Sequential Thinking)
+- Read-Think-Write-Verify universal workflow pattern documentation
+- MoAI-ADK benchmarking analysis with principle borrowing strategy
+- Cowork plugin ecosystem relationship definition (independence/compatibility)
+- Brief-centered token budget allocation (60%-30%-10% vs MoAI's 15%-75%-10%)
+- Gatekeeper approval checkpoint between Brief and Execute phases
+- Wave Parallelism model for database-centric regulatory analysis
+- Dynamic Team Composition model replacing fixed file ownership
+- MFDS regulatory classification correction (Class I/II/III/IV)
+- Statutory law distinction (Medical Device Act / In Vitro Diagnostic Device Act / Digital Therapeutics Act)
+- VALID quality framework (Verified, Accurate, Linked, Inspectable, Deliverable)
+- 3-tier agent architecture (Core 4 + Business 4 + Domain 8 = 16 agents)
+- Comprehensive architecture design documentation (ARCHITECTURE-REDESIGN.md)
+- Project context documentation (CONTEXT.md)
 
-### Features
-- **Brief-Execute-Deliver Workflow**: Three-phase regulatory task execution with 60%-30%-10% token allocation
-- **Intent Classification**: Automatic categorization into document drafting, analysis, review, or search
-- **User Interaction**: Korean language support with plain language error messages
-- **Approval Checkpoints**: User approval required before Execute phase
-- **Error Handling**: Plain language error messages with next-step guidance
-- **Regulatory Citation**: Source citation for all regulatory claims
-- **Quality Gates**: VALID framework for regulatory compliance
-
-### Technical
-- Plugin manifest v2.0.0 with Claude Code minVersion 1.0.0
-- Orchestrator agent with Opus model, 300-second timeout
-- Skill-based architecture with progressive disclosure
-- MCP integration for regulatory research and complex analysis
-- Configuration management with aria.yaml
+### Changed
+- Plan-Run-Sync → Brief-Execute-Deliver workflow terminology
+- TRUST 5 → VALID quality framework adaptation for regulatory compliance
+- Token budget: 60% Brief (regulatory analysis) vs MoAI's 15% Plan
+- Target users: Developers → RA/QA practitioners (non-developers)
+- Output: Code/test/artifacts → Regulatory documents/reports/submissions
+- Version control: Git → Notion DB with traceability matrix
 
 ### Documentation
-- Complete SPEC-ARIA-001 with EARS format requirements
-- CLAUDE.md with ARIA execution directives
-- Comprehensive README.md (updated for ARIA)
-- CHANGELOG.md entry for Phase 1 completion
+- Added comprehensive CONTEXT.md (599 lines) covering project background, MoAI-ADK benchmarking, design decisions, domain selection rationale, implementation strategy
+- Added ARCHITECTURE-REDESIGN.md (2,168 lines) with complete system architecture, agent catalog, workflow design, MCP integration, RA/QA domain design, plugin ecosystem, implementation roadmap
+
+### Removed
+- Original 5-stage pipeline (Intent Clarification → Capability Discovery → Planning → Orchestration → Aggregation)
+- Generic plugin orchestration focus
+- Cowork Supervisor branding
 
 ## [1.0.0] - 2026-02-05
 
