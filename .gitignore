@@ -50,3 +50,10 @@ supervise/
 *.pyc
 __pycache__/
 개선사항
+
+# ARIA Environment Management
+# Pure test environment excludes (managed by create-worktree.sh)
+# .claude/agents/aria/
+# .claude/skills/aria-*/
+# .claude/commands/aria.md
+# .moai/config/aria.yaml

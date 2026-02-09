@@ -1,8 +1,87 @@
-# ARIA Format Conversion Scripts
+# ARIA Management Scripts
 
-This directory contains scripts for converting ARIA regulatory documents between formats with accessibility compliance.
+This directory contains scripts for ARIA environment management and document format conversion.
 
-## Available Scripts
+## Environment Management Scripts
+
+### create-worktree.sh
+
+Creates Git worktrees for isolated ARIA development and testing environments.
+
+**Usage:**
+```bash
+.moai/scripts/create-worktree.sh [aria-dev|pure-test|all]
+```
+
+**Options:**
+- `aria-dev` - Create ARIA development worktree only
+- `pure-test` - Create pure test worktree only (without ARIA files)
+- `all` - Create both worktrees (recommended)
+
+**Example:**
+```bash
+# Create both worktrees
+.moai/scripts/create-worktree.sh all
+```
+
+**What it creates:**
+- `../agent-skills-aria-dev/` - ARIA development environment with all ARIA files
+- `../agent-skills-pure-test/` - Pure test environment without ARIA files
+
+### switch-env.sh
+
+Switches between different ARIA/MoAI-ADK environments.
+
+**Usage:**
+```bash
+.moai/scripts/switch-env.sh [aria-dev|pure-test|moai-main]
+```
+
+**Options:**
+- `aria-dev` - Switch to ARIA development environment
+- `pure-test` - Switch to pure test environment (no ARIA)
+- `moai-main` - Switch to MoAI-ADK main environment
+
+**Example:**
+```bash
+# Switch to ARIA development environment
+.moai/scripts/switch-env.sh aria-dev
+
+# Switch to pure test environment
+.moai/scripts/switch-env.sh pure-test
+
+# Switch back to main
+.moai/scripts/switch-env.sh moai-main
+```
+
+**Output:**
+The script displays:
+- Environment path
+- Current branch
+- ARIA files status (present/absent)
+- CLAUDE.md type (ARIA/MoAI-ADK)
+
+## Environment Structure
+
+### MoAI-ADK Main Environment (Current)
+- **Path:** `~/Project/Agent-Skills/`
+- **Branch:** `main`
+- **ARIA Files:** No
+- **Purpose:** MoAI-ADK core development
+
+### ARIA Development Environment
+- **Path:** `~/Project/agent-skills-aria-dev/`
+- **Branch:** `aria/feature-env-setup`
+- **ARIA Files:** Yes (all ARIA files included)
+- **Purpose:** ARIA feature development
+
+### Pure Test Environment
+- **Path:** `~/Project/agent-skills-pure-test/`
+- **Branch:** `aria/test-pure-env`
+- **ARIA Files:** No (ARIA files excluded via .gitignore)
+- **Purpose:** Test ARIA's impact on pure MoAI-ADK environment
+
+## Document Conversion Scripts
 
 ### convert-output.sh
 

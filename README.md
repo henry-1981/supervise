@@ -434,6 +434,14 @@ For now, please:
 - ✓ Hook system integration for quality gates
 - ✓ Output styles & format conversion (PDF, HTML, Word)
 
+### Phase 6: Environment Separation (Completed - v2.6.0)
+- ✓ Git worktree-based environment separation
+- ✓ Environment switch scripts (.moai/scripts/switch-env.sh)
+- ✓ Worktree creation scripts (.moai/scripts/create-worktree.sh)
+- ✓ Pure environment cleanup scripts
+- ✓ Complete ARIA/MoAI-ADK environment isolation
+- ✓ Environment management documentation
+
 For regulatory content contributions:
 - Cite specific standards (e.g., ISO 13485:2016 Section 4.2.3)
 - Include regulatory source references

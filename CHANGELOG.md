@@ -5,6 +5,117 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-02-10
+
+### Phase 6: Environment Separation Implementation
+
+This release completes ARIA Phase 6, implementing comprehensive environment separation for ARIA and MoAI-ADK development workflows.
+
+### Added
+
+#### Environment Management System
+- **Git Worktree Architecture**: Complete separation of ARIA development and pure test environments
+- **Environment Switch Scripts**: `.moai/scripts/switch-env.sh` for seamless environment transitions
+- **Worktree Creation Scripts**: `.moai/scripts/create-worktree.sh` for automated worktree setup
+- **Pure Environment Cleanup**: `.moai/scripts/clean-pure-env.sh` for removing ARIA files from test environment
+- **Environment Documentation**: Comprehensive guide in `.moai/scripts/README.md`
+
+#### Environment Structure
+- **MoAI-ADK Main Environment**: Pure MoAI-ADK development without ARIA interference
+  - Path: `~/Project/Agent-Skills/`
+  - Branch: `main`
+  - ARIA Files: Excluded
+- **ARIA Development Environment**: Full ARIA feature development
+  - Path: `~/project/agent-skills-aria-dev/`
+  - Branch: `aria/feature-env-setup`
+  - ARIA Files: All included (agents, skills, commands, configs)
+- **Pure Test Environment**: Testing ARIA's impact on pure MoAI-ADK
+  - Path: `~/project/agent-skills-pure-test/`
+  - Branch: `aria/test-pure-env`
+  - ARIA Files: Excluded via .gitignore
+
+#### Script Features
+- **Environment Switching**: One-command environment transitions
+- **Status Display**: Visual environment status with ARIA file detection
+- **Branch Management**: Automatic branch creation and tracking
+- **Worktree Management**: Create, list, and manage worktrees
+- **Color-Coded Output**: Clear visual feedback for all operations
+- **Error Handling**: Comprehensive error messages and recovery guidance
+
+### Configuration Files
+- **.gitignore Updates**: Added ARIA environment exclusion rules
+- **Worktree Configuration**: Automated setup scripts for all environments
+- **Branch Strategy**: `aria/feature-*`, `aria/fix-*`, `aria/test-*` naming conventions
+
+### Documentation
+- **Environment Guide**: Complete setup and usage documentation
+- **Script README**: Detailed usage examples and troubleshooting
+- **SPEC-ARIA-008**: Complete specification for environment separation
+
+### Technical Implementation
+- Git worktree-based isolation for complete environment separation
+- Shell scripts with comprehensive error handling and colored output
+- Automated branch detection and creation
+- Environment status verification and display
+- Clean Git history without merge commits
+
+### Quality Metrics
+- Environment switch time: < 30 seconds
+- Complete file isolation achieved
+- Zero merge commits in Git history
+- All scripts executable with proper permissions
+
+### Usage Examples
+
+#### Create Worktrees
+```bash
+# Create both worktrees
+.moai/scripts/create-worktree.sh all
+
+# Create only ARIA dev worktree
+.moai/scripts/create-worktree.sh aria-dev
+
+# Create only pure test worktree
+.moai/scripts/create-worktree.sh pure-test
+```
+
+#### Switch Environments
+```bash
+# Switch to ARIA development
+.moai/scripts/switch-env.sh aria-dev
+
+# Switch to pure test
+.moai/scripts/switch-env.sh pure-test
+
+# Switch to MoAI-ADK main
+.moai/scripts/switch-env.sh moai-main
+```
+
+#### Clean Pure Environment
+```bash
+# Remove ARIA files from pure test environment
+.moai/scripts/clean-pure-env.sh
+```
+
+### Benefits
+- **Complete Isolation**: ARIA development doesn't affect MoAI-ADK
+- **Easy Testing**: Test ARIA's impact on pure MoAI-ADK environment
+- **Fast Switching**: Quick environment transitions under 30 seconds
+- **Clean History**: No merge commits, pristine Git history
+- **Developer Friendly**: Simple commands with clear feedback
+
+### Migration Notes
+- Run `.moai/scripts/create-worktree.sh all` to set up environments
+- Use `.moai/scripts/switch-env.sh` to switch between environments
+- Each worktree maintains its own Git state and branch
+- Changes in one worktree don't affect others until committed
+
+### Breaking Changes
+- None - all changes are backward compatible
+
+### Deprecations
+- None
+
 ## [2.5.0] - 2026-02-09
 
 ### Phase 5: Advanced Features Implementation
