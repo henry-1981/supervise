@@ -1,5 +1,5 @@
 # Analytics Configuration
-# ARIA Advanced Analytics Features Configuration
+# MoAI-ADK Analytics Configuration
 
 analytics:
   # Complaint Trend Analysis Settings
@@ -67,76 +67,13 @@ analytics:
         - Hardware Failure
         - Battery Issue
 
-  # Regulatory Change Monitoring Settings
-  regulatory_monitoring:
-    # Check interval in hours
-    check_interval: 24
-
-    # Regulatory domains to monitor
-    domains:
-      - name: FDA
-        enabled: true
-        search_queries:
-          - "FDA guidance updates"
-          - "FDA medical device guidance"
-          - "21 CFR updates"
-          - "FDA SaMD guidance"
-
-      - name: EU MDR
-        enabled: true
-        search_queries:
-          - "EU MDR updates"
-          - "European Commission medical device"
-          - "MDR amendment"
-          - "EUDAMED updates"
-
-      - name: MFDS
-        enabled: true
-        search_queries:
-          - "MFDS guidance updates"
-          - "Korea medical device regulation"
-          - "MFDS announcement"
-
-    # Auto-flag affected documents
-    auto_flag: true
-
-    # Decision validation settings
-    decision_validation:
-      # Enable automatic decision validation
-      enabled: true
-
-      # Check interval for stored decisions
-      check_interval_days: 7
-
-      # Action when obsolete decision found
-      obsolete_action: flag
-
-    # Impact assessment settings
-    impact_assessment:
-      # Priority calculation weights
-      priority_weights:
-        pending_status: 3
-        recent_update: 2
-        direct_reference: 1
-
-      # "Recent" threshold in days
-      recent_threshold_days: 180
-
-      # Maximum documents to flag per change
-      max_flagged_documents: 50
-
   # Knowledge Base Settings
   knowledge_base:
     # Storage location
-    path: .claude/agent-memory/aria/knowledge-base.json
+    path: .claude/agent-memory/knowledge-base.json
 
     # Storage backend (json, notion, hybrid)
     storage_backend: json
-
-    # Notion configuration (if using notion backend)
-    notion:
-      database_id: ""
-      enabled: false
 
     # Search settings
     search:
@@ -193,32 +130,6 @@ analytics:
       # Resolve library IDs for regulations
       resolve_library_ids: true
 
-    # Notion MCP settings
-    notion:
-      # Enable Notion for knowledge base storage
-      enabled: false
-
-      # Knowledge base database ID
-      knowledge_base_id: ""
-
-      # Regulation mapping database ID
-      regulation_mapping_id: ""
-
-      # Retry settings
-      retry_attempts: 3
-      retry_delay_ms: 1000
-
-    # Google Workspace MCP settings
-    google_workspace:
-      # Enable for complaint data collection
-      enabled: false
-
-      # Complaint data spreadsheet ID
-      spreadsheet_id: ""
-
-      # Sheet name for complaint data
-      sheet_name: "Complaints"
-
   # Performance Settings
   performance:
     # Enable caching
@@ -237,7 +148,6 @@ analytics:
     timeouts:
       web_search: 30
       context7_lookup: 10
-      notion_query: 15
       knowledge_base_search: 5
 
   # Logging Settings

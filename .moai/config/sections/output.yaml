@@ -1,7 +1,6 @@
 # Output Configuration
-# ARIA Regulatory Intelligence Assistant - Output format settings
+# MoAI-ADK Output Configuration
 
-# Output configuration for regulatory documents
 output:
   # Default output format for document generation
   # Options: markdown, html, pdf, word
@@ -27,7 +26,7 @@ formats:
   html:
     extension: ".html"
     encoding: "utf-8"
-    css_theme: "regulatory-standard"  # CSS theme in .moai/templates/css/
+    css_theme: "default"  # CSS theme in .moai/templates/css/
     accessibility: "wcag-2.1-aa"  # WCAG 2.1 AA compliance
     semantic_markup: true  # Use semantic HTML5 elements
     include_outline: true  # Document outline for navigation
@@ -60,7 +59,7 @@ formats:
   # Word format settings
   word:
     extension: ".docx"
-    template: "regulatory-template.dotx"  # Template in .moai/templates/word/
+    template: "default-template.dotx"  # Template in .moai/templates/word/
     toc_enabled: true
     styles_enabled: true
     track_changes: false
@@ -182,7 +181,7 @@ validation:
   # Specific validation checks
   checks:
     - document_structure
-    - regulatory_citations
+    - document_structure
     - hyperlinks
     - formatting_consistency
     - accessibility_compliance
@@ -199,12 +198,12 @@ templates:
   base_path: ".moai/templates"
 
   css:
-    base: "css/regulatory-standard.css"
+    base: "css/default.css"
     print: "css/print.css"
     accessibility: "css/accessibility.css"
 
   word:
-    template: "word/regulatory-template.dotx"
+    template: "word/default-template.dotx"
     styles: "word/styles.xml"
 
   pdf:
@@ -232,32 +231,6 @@ destinations:
 
   # Timestamp format
   timestamp_format: "2006-01-02-15-04"  # YYYY-MM-DD-HH-MM
-
-# Regulatory submission specific settings
-regulatory_submission:
-  # FDA eCopy requirements
-  fda_ecopy:
-    enabled: true
-    pdf_version: "1.7"
-    pdf_a_compliance: "PDF/A-1b"
-    enforce_bookmarks: true
-    enforce_hyperlinks: true
-    enforce_embedded_fonts: true
-
-  # EU MDR requirements
-  eu_mdr:
-    enabled: true
-    table_of_contents_required: true
-    version_control_required: true
-    annex_listing_required: true
-    declaration_of_conformity_format: true
-
-  # MFDS requirements
-  mfds:
-    enabled: true
-    korean_language_required: true
-    specific_format_requirements: true
-    document_structure_requirements: true
 
 # Logging and debugging
 logging:

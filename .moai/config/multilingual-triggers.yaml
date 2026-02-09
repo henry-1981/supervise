@@ -180,13 +180,6 @@ mcp-pencil:
     ja: ["Pencil", "デザイン分析", "デザインtoコード", "デザイントークン", "コンポーネントライブラリ", ".penファイル"]
     zh: ["Pencil", "设计分析", "设计转代码", "设计令牌", "组件库", ".pen文件"]
 
-mcp-notion:
-  triggers:
-    en: ["Notion", "workspace", "database", "knowledge base", "content automation"]
-    ko: ["노션", "워크스페이스", "데이터베이스", "지식베이스", "콘텐츠자동화"]
-    ja: ["Notion", "ワークスペース", "データベース", "ナレッジベース", "コンテンツ自動化"]
-    zh: ["Notion", "工作区", "数据库", "知识库", "内容自动化"]
-
 mcp-sequential-thinking:
   triggers:
     en: ["complex reasoning", "architecture design", "strategic decision", "risk assessment", "deep analysis"]
