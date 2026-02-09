@@ -47,3 +47,5 @@ temp/
 # User local files
 supervise/
 현황보기
+*.pyc
+__pycache__/
