@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0",
+  "team_id": "aria-510k-prep",
+  "team_name": "510(k) Preparation Team",
+  "description": "FDA 510(k) submission preparation team for medical device clearance",
+  "version": "1.0.0",
+  "created": "2025-02-09",
+  "complexity_threshold": {
+    "min_sections": 5,
+    "activation_mode": "auto"
+  },
+  "teammates": [
+    {
+      "name": "fda-researcher",
+      "agent_type": "team-researcher",
+      "model": "haiku",
+      "role": "FDA Requirements Researcher",
+      "description": "Research FDA 510(k) requirements, guidance documents, and predicate device information",
+      "permissions": {
+        "mode": "plan",
+        "tools": ["Read", "Grep", "Glob", "WebSearch", "WebFetch"]
+      },
+      "responsibilities": [
+        "Research FDA 510(k) guidance documents",
+        "Identify applicable predicate devices",
+        "Extract relevant regulatory requirements",
+        "Document device classification information"
+      ],
+      "file_ownership": [
+        ".aria/research/**",
+        ".aria/predicate-devices/**"
+      ],
+      "skills": [
+        "aria-regulatory-knowledge"
+      ]
+    },
+    {
+      "name": "predicate-analyst",
+      "agent_type": "team-analyst",
+      "model": "sonnet",
+      "role": "Predicate Device Analyst",
+      "description": "Analyze predicate devices and establish substantial equivalence",
+      "permissions": {
+        "mode": "plan",
+        "tools": ["Read", "Grep", "Glob", "Write", "Edit"]
+      },
+      "responsibilities": [
+        "Compare device to predicate devices",
+        "Document substantial equivalence analysis",
+        "Identify differences and risk mitigations",
+        "Create comparison matrices"
+      ],
+      "file_ownership": [
+        ".aria/analysis/**",
+        ".aria/comparisons/**"
+      ],
+      "skills": [
+        "aria-substantial-equivalence"
+      ]
+    },
+    {
+      "name": "submission-writer",
+      "agent_type": "team-architect",
+      "model": "sonnet",
+      "role": "Submission Writer",
+      "description": "Draft 510(k) submission sections following eCopy templates",
+      "permissions": {
+        "mode": "acceptEdits",
+        "tools": ["Read", "Grep", "Glob", "Write", "Edit"]
+      },
+      "responsibilities": [
+        "Draft submission sections following eCopy templates",
+        "Ensure regulatory compliance of content",
+        "Coordinate with analyst for technical accuracy",
+        "Format documents for FDA submission"
+      ],
+      "file_ownership": [
+        ".aria/submissions/**",
+        ".aria/drafts/**"
+      ],
+      "skills": [
+        "aria-ecopy-templates",
+        "aria-technical-writing"
+      ]
+    }
+  ],
+  "workflow": {
+    "phases": [
+      {
+        "phase": "research",
+        "teammates": ["fda-researcher", "predicate-analyst"],
+        "parallel": true,
+        "description": "Research FDA requirements and predicate devices"
+      },
+      {
+        "phase": "analysis",
+        "teammates": ["predicate-analyst"],
+        "parallel": false,
+        "depends_on": ["research"],
+        "description": "Analyze substantial equivalence"
+      },
+      {
+        "phase": "drafting",
+        "teammates": ["submission-writer"],
+        "parallel": false,
+        "depends_on": ["analysis"],
+        "description": "Draft submission sections"
+      }
+    ],
+    "task_board": {
+      "enabled": true,
+      "shared_tasks": [
+        {
+          "id": "research-fda-guidance",
+          "subject": "Research FDA 510(k) guidance documents",
+          "assignee": "fda-researcher",
+          "priority": "high"
+        },
+        {
+          "id": "identify-predicates",
+          "subject": "Identify applicable predicate devices",
+          "assignee": "fda-researcher",
+          "priority": "high",
+          "depends_on": ["research-fda-guidance"]
+        },
+        {
+          "id": "analyze-equivalence",
+          "subject": "Analyze substantial equivalence to predicates",
+          "assignee": "predicate-analyst",
+          "priority": "high",
+          "depends_on": ["identify-predicates"]
+        },
+        {
+          "id": "create-comparison-matrix",
+          "subject": "Create device comparison matrix",
+          "assignee": "predicate-analyst",
+          "priority": "medium",
+          "depends_on": ["analyze-equivalence"]
+        },
+        {
+          "id": "draft-cover-letter",
+          "subject": "Draft 510(k) cover letter",
+          "assignee": "submission-writer",
+          "priority": "medium",
+          "depends_on": ["create-comparison-matrix"]
+        },
+        {
+          "id": "draft-device-description",
+          "subject": "Draft device description section",
+          "assignee": "submission-writer",
+          "priority": "high",
+          "depends_on": ["analyze-equivalence"]
+        },
+        {
+          "id": "draft-comparisons",
+          "subject": "Draft substantial equivalence comparison",
+          "assignee": "submission-writer",
+          "priority": "high",
+          "depends_on": ["create-comparison-matrix"]
+        },
+        {
+          "id": "draft-conformity",
+          "subject": "Draft conformity to standards section",
+          "assignee": "submission-writer",
+          "priority": "medium",
+          "depends_on": ["analyze-equivalence"]
+        }
+      ]
+    }
+  },
+  "escalation_paths": [
+    {
+      "condition": "Cross-functional finding requiring clinical expertise",
+      "escalate_to": "clinical-reviewer",
+      "action": "Request clinical input"
+    },
+    {
+      "condition": "Uncertain regulatory requirement interpretation",
+      "escalate_to": "regulatory-affairs",
+      "action": "Request regulatory guidance"
+    },
+    {
+      "condition": "Complex predicate device comparison",
+      "escalate_to": "senior-analyst",
+      "action": "Request detailed technical review"
+    }
+  ],
+  "quality_gates": {
+    "sections_complete": true,
+    "e_copy_format_compliant": true,
+    "references_cited": true,
+    "consistency_check": true
+  },
+  "fallback_strategy": {
+    "enabled": true,
+    "mode": "sequential",
+    "fallback_agents": [
+      "manager-spec",
+      "expert-backend",
+      "manager-docs"
+    ],
+    "resume_point": "last_completed_task"
+  }
+}

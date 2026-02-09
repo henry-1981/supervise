@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "company-preferences-schema.json",
+  "title": "Company Preferences Memory",
+  "description": "Schema for storing company-specific preferences",
+  "type": "object",
+  "required": ["version", "last_updated", "companies", "metadata"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "companies": {
+      "type": "object",
+      "description": "Company preferences keyed by company_id",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["company_id", "preferences", "created_at", "updated_at"],
+        "properties": {
+          "company_id": {
+            "type": "string",
+            "description": "Unique company identifier"
+          },
+          "company_name": {
+            "type": "string",
+            "description": "Company display name"
+          },
+          "preferences": {
+            "type": "object",
+            "properties": {
+              "formatting": {
+                "type": "object",
+                "properties": {
+                  "document_template": {"type": "string"},
+                  "date_format": {"type": "string"},
+                  "number_format": {"type": "string"},
+                  "language": {"type": "string"},
+                  "terminology_style": {"type": "string"}
+                }
+              },
+              "terminology": {
+                "type": "object",
+                "description": "Company-specific terminology mappings"
+              },
+              "regulatory_framework": {
+                "type": "object",
+                "properties": {
+                  "primary": {"type": "string"},
+                  "secondary": {"type": "array", "items": {"type": "string"}},
+                  "notified_body": {"type": "string"},
+                  "iec_standards": {"type": "array", "items": {"type": "string"}}
+                }
+              },
+              "workflow": {
+                "type": "object",
+                "properties": {
+                  "default_reviewer": {"type": "string"},
+                  "approval_required": {"type": "boolean"},
+                  "version_control": {"type": "string"}
+                }
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "preference_conflicts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "conflict_id": {"type": "string"},
+                "preference": {"type": "string"},
+                "detected_at": {"type": "string", "format": "date-time"},
+                "resolved": {"type": "boolean"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "total_companies": {"type": "integer"},
+        "active_companies": {"type": "integer"},
+        "preference_categories": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

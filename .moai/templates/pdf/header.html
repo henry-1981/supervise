@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Header</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #cccccc;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo {
+            max-height: 30px;
+            width: auto;
+        }
+
+        .header-title {
+            font-size: 10pt;
+            font-weight: 600;
+            color: #0066cc;
+        }
+
+        .header-right {
+            font-size: 9pt;
+            color: #666666;
+        }
+
+        .confidential {
+            color: #cc0000;
+            font-weight: 600;
+            font-size: 8pt;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <img src="{{LOGO_PATH}}" alt="Company Logo" class="header-logo">
+            <span class="header-title">ARIA Regulatory Document</span>
+        </div>
+        <div class="header-right">
+            <span class="confidential">CONFIDENTIAL</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -693,87 +693,11 @@ Context7 MCP (규제 검색)
 |------|------|-----------|--------|
 | 1.0.0 | 2026-02-09 | 초기 SPEC 작성 | ARIA Core Team |
 
-## Implementation Notes
-
-**Status:** Completed (2026-02-09)
-
-### Files Created
-
-**Skills (3개):**
-- `.claude/skills/aria-integration-notion/SKILL.md`: Notion MCP 통합 스킬
-- `.claude/skills/aria-integration-google/SKILL.md`: Google Workspace MCP 통합 스킬
-- `.claude/skills/aria-integration-context7/SKILL.md`: Context7 MCP 통합 스킬
-
-**Commands (5개):**
-- `.claude/commands/aria/init.md`: 초기화 명령어
-- `.claude/commands/aria/search.md`: 통합 검색 명령어
-- `.claude/commands/aria/knowledge.md`: 지식 베이스 조회 명령어
-- `.claude/commands/aria/status.md`: 상태 대시보드 명령어
-- `.claude/commands/aria/audit.md`: 감사 추적 명령어
-
-**Agents (9개):**
-- `.claude/agents/aria/aria-orchestrator.md`: 워크플로우 조정 및 MCP 통합 관리
-- `.claude/agents/aria/aria-regulatory.md`: FDA, MDR, MFDS 규정 전문
-- `.claude/agents/aria/aria-clinical.md`: 임상 평가 요구사항 전문
-- `.claude/agents/aria/aria-quality.md`: QMS, CAPA, 감사 준비 전문
-- `.claude/agents/aria/aria-risk.md`: ISO 14971 위험 관리 전문
-- `.claude/agents/aria/aria-postmarket.md`: 시판 후 조사, PMCF, 불만 전문
-- `.claude/agents/aria/aria-document.md`: 기술 문서, 라벨링 전문
-- `.claude/agents/aria/aria-submission.md`: 510(k), CE, PMA 제출 전문
-- `.claude/agents/aria/aria-labeling.md`: IFU, 라벨, UDI 전문
-
-**MCP Config:**
-- `.mcp.json`: Notion, Google Workspace, Context7 MCP 서버 설정
-
-### Scope Alignment
-
-계획된 모든 마일스톤(Milestone 1-5)이 완료되었습니다:
-
-- **Milestone 1: Notion MCP Integration** ✅
-  - 6개 데이터베이스 스키마 정의 완료
-  - CRUD 작업 지원 구현
-  - 관계(Relation) 설정 완료
-  - 감사 추적 기능 구현
-
-- **Milestone 2: Advanced Features** ✅
-  - Traceability Matrix 구현
-  - Relations 설정 완료 (DB 간 연결)
-  - 뷰(View) 생성 기능
-
-- **Milestone 3: Google Workspace Integration** ✅
-  - OAuth 2.0 인증 플로우 구현
-  - Gmail, Docs, Sheets, Calendar, Drive 통합
-  - Notion DB와의 연동
-
-- **Milestone 4: Context7 Optimization** ✅
-  - 규제 검색 패턴 정의 (FDA, ISO, MDR)
-  - Knowledge Base 자동 업데이트
-  - 캐시 전략 구현
-
-- **Milestone 5: /aria commands** ✅
-  - `/aria init`: 초기화 명령어
-  - `/aria search`: 통합 검색
-  - `/aria knowledge`: 지식 베이스 조회
-  - `/aria status`: 상태 대시보드
-  - `/aria audit`: 감사 추적
-
-### Deferred Items
-
-없음 - 계획된 모든 기능이 완료되었습니다.
-
-### Additional Implementation Notes
-
-1. **Language Support**: 한국어(주) + 영어(보조) 이중 언어 지원
-2. **Quality Framework**: VALID 프레임워크 (Verified, Accurate, Linked, Inspectable, Deliverable) 구현
-3. **Workflow Methodology**: Brief-Execute-Deliver 방법론 적용
-4. **Documentation**: README.md, CHANGELOG.md, SPEC 문서 완료
-5. **Audit Trail**: 모든 데이터 변경에 대한 자동 감사 추적 기록
-
 ## 승인 기록
 
 | 역할 | 이름 | 서명 | 날짜 |
 |------|------|------|------|
 | Spec Author | ARIA Core Team | | 2026-02-09 |
-| Technical Reviewer | | | 2026-02-09 |
+| Technical Reviewer | | | |
 | Domain Expert | | | |
 | Approval Authority | | | |

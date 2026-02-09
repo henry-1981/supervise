@@ -1,55 +1,142 @@
-# ARIA Phase 4 - MCP 통합 시스템
+# ARIA - AI Regulatory Intelligence Assistant
 
-> AI Regulatory Intelligence Assistant (ARIA) Phase 4 - MCP (Model Context Protocol) 통합 시스템. 의료기기 규제 담당자(RA)와 품질 보증(QA) 전문가를 위한 AI 기반 규제 준수 관리 시스템입니다.
+> Medical Device RA/QA (Regulatory Affairs / Quality Assurance) specialist powered by AI. Designed for non-developer business professionals.
 
-## 개요
+## Project Overview
 
-ARIA는 Claude Code Plugin 아키텍처를 기반으로 구축된 의료기기 RA/QA 전문가 시스템입니다. Phase 4에서는 MCP 서버 통합을 통해 Notion, Google Workspace, Context7 서비스와 연동하여 규제 정보를 중앙 관리합니다.
+ARIA is a specialized AI assistant for medical device regulatory affairs and quality assurance professionals. Unlike generic AI tools, ARIA understands:
 
-ARIA는 다음과 같은 작업을 수행합니다:
+- **FDA Regulations**: 510(k), PMA, De Novo submissions, 21 CFR Part 820
+- **EU MDR**: CE marking, Technical Documentation, Clinical Evaluation
+- **International Standards**: ISO 13485, IEC 62304, ISO 14971, IEC 60601
+- **MFDS Regulations**: Korean medical device classification and approval pathways
 
-1. **규제 요구사항 분석**: FDA, MDR, MFDS 규정 자동 검색 및 해석
-2. **중앙 데이터 관리**: Notion DB를 통한 규제 문서, CAPA, 위험 관리 통합
-3. **협업 도구 연동**: Google Workspace를 통한 팀 협업 및 문서 관리
-4. **감사 추적**: 모든 규제 활동에 대한 완전한 감사 추적 제공
-5. **지식 베이스**: 최신 규정 정보 자동 업데이트 및 검색
+ARIA follows a **Brief-Execute-Deliver** workflow optimized for regulatory work:
 
-## 주요 기능
+1. **Brief**: Database-driven regulatory strategy analysis with user approval checkpoint
+2. **Execute**: Document preparation with domain expert agents
+3. **Deliver**: Quality-validated output ready for submission
 
-### 1. Notion MCP 통합
-- 6개 데이터베이스 자동 생성 (Regulatory Requirements, Document Registry, CAPA Tracker, Risk Register, Submission Tracker, Knowledge Base)
-- CRUD 작업 지원 (생성, 조회, 수정, 삭제)
-- 관계(Relation) 설정으로 데이터 연결
-- 감사 추적(Audit Trail) 자동 기록
-- 뷰(View) 생성 및 사용자 정의
+## Target Users
 
-### 2. Google Workspace MCP 통합
-- Gmail: 규제 서신 검색 및 요약
-- Google Docs: 협업 문서 생성 및 편집
-- Google Sheets: 데이터 분석 및 시각화
-- Google Calendar: 데드라인 관리 및 알림
-- Google Drive: 파일 저장 및 버전 관리
+ARIA is designed for **RA/QA practitioners**, not developers:
 
-### 3. Context7 MCP 통합
-- 최신 규정 검색 (FDA 21 CFR 820, ISO 13485, EU MDR)
-- 자동 지식 베이스 업데이트
-- 규정 변경 알림
+- **Regulatory Affairs Managers**: Strategy development, submission preparation
+- **QA Engineers**: Quality systems, audits, CAPA management
+- **Design Engineers**: Design controls, risk management, documentation
+- **Clinical Specialists**: Clinical evaluation, post-market surveillance
 
-### 4. 통합 검색
-- 모든 데이터 소스를 통합 검색 (Notion, Google, Context7)
-- 관련성 점수 기반 정렬
-- 필터링 및 정렬 기능
+## Key Features
 
-### 5. 상태 대시보드
-- CAPA 추적 (Open items, Due dates, Overdue items)
-- 위험 등록부 (Unacceptable risks, Review dates)
-- 제출 추적 (Upcoming deadlines, Status)
-- 문서 등록부 (Pending approvals, Review dates)
-- Google Calendar (Upcoming regulatory events)
+### VALID Quality Framework
 
-## 설치
+Every ARIA output passes through the VALID quality gates:
 
-### 사전 요구사항
+- **V**erified: Content verified against original regulations/standards
+- **A**ccurate: Data, figures, and references are current and correct
+- **L**inked: Full traceability between requirements, documents, and evidence
+- **I**nspectable: Audit trail maintained for regulatory inspections
+- **D**eliverable: Output meets submission format requirements
+
+### Specialized Domain Agents
+
+ARIA provides 16 specialized agents across 3 tiers:
+
+**Core Layer (4 agents)**: Orchestration, document management, quality assurance, project tracking
+
+**Business Layer (4 agents)**: Technical writing, data analysis, document review, regulatory research
+
+**Domain Layer (8 agents)**: Regulatory strategy, standards interpretation, risk management, design controls, CAPA, clinical evaluation, submissions, audit management
+
+### Natural Language Interface
+
+No coding required. Simply describe your regulatory task in natural language:
+
+```
+/aria "Prepare a 510(k) submission for our new blood pressure monitor"
+```
+
+ARIA will:
+1. Ask clarifying questions (device classification? predicate device? target market?)
+2. Query regulatory databases and standards
+3. Present regulatory strategy brief for approval
+4. Generate submission documents with proper citations
+5. Validate against VALID quality framework
+6. Deliver submission-ready package
+
+## Architecture
+
+ARIA is built on MoAI-ADK principles, adapted for regulatory workflows:
+
+| Aspect | MoAI-ADK (Development) | ARIA (RA/QA) |
+|--------|----------------------|---------------|
+| **Target Users** | Developers | RA/QA practitioners |
+| **Workflow** | Plan-Run-Sync | Brief-Execute-Deliver |
+| **Quality Framework** | TRUST 5 (code quality) | VALID (regulatory compliance) |
+| **Token Budget** | Balanced (15%-75%-10%) | Brief-heavy (60%-30%-10%) |
+| **Output** | Code, tests, APIs | Regulatory documents, submissions |
+
+### Read-Think-Write-Verify Pattern
+
+ARIA implements the universal knowledge worker pattern:
+
+- **Read**: Regulation/standard documents, precedents, guidelines
+- **Think**: Regulatory interpretation, strategy development, analysis
+- **Write**: Regulatory documents, reports, submission packages
+- **Verify**: Compliance review, quality gates, audit readiness
+
+- **Automate Documentation**: Reduce regulatory document creation time by 60% through AI-assisted writing
+- **Ensure Compliance**: Maintain VALID quality standards across all regulatory submissions
+- **Streamline Workflows**: Orchestrate complex multi-step regulatory processes with minimal manual intervention
+- **Enable Collaboration**: Coordinate cross-functional regulatory teams through intelligent task management
+- **Ensure Quality**: Implement TRUST 5 quality gates for all deliverables
+
+### Standalone Installation
+
+- Regulatory Affairs professionals
+- Quality Assurance specialists
+- Compliance officers
+- Regulatory operations teams
+- Pharmaceutical and medical device companies
+
+```bash
+git clone https://github.com/henry-1981/supervise.git \
+  ~/.claude/plugins/local/aria
+```
+
+**Benefits**:
+- Centralized documentation storage
+- Team collaboration
+- Version tracking
+- Search and retrieval
+
+**Used By**: All agents for documentation persistence
+
+## Quick Start
+
+### Installation
+
+1. **Clone the repository**:
+```bash
+git clone https://github.com/henry-1981/ARIA-Phase2.git ~/.claude/plugins/local/aria-phase2
+```
+
+2. **Register plugin** in `~/.claude/plugins/installed_plugins.json`:
+```json
+{
+  "plugins": {
+    "aria@local": [{
+      "scope": "user",
+      "installPath": "~/.claude/plugins/local/aria",
+      "version": "2.0.0",
+      "installedAt": "2026-02-09T00:00:00Z",
+      "lastUpdated": "2026-02-09T00:00:00Z"
+    }]
+  }
+}
+```
+
+> Note: Add to existing `plugins` object if other plugins are present.
 
 - Notion workspace 및 API 키
 - Google Workspace 계정
@@ -62,153 +149,74 @@ ARIA는 다음과 같은 작업을 수행합니다:
 
 ```json
 {
-  "mcpServers": {
-    "notion": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-notion"],
-      "env": {
-        "NOTION_API_KEY": "${NOTION_API_KEY}",
-        "NOTION_DATABASE_ID": "${NOTION_DATABASE_ID}"
-      }
-    },
-    "google-workspace": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/google-workspace-mcp"],
-      "env": {
-        "GOOGLE_CREDENTIALS": "${GOOGLE_CREDENTIALS}",
-        "GOOGLE_TOKEN_PATH": "${GOOGLE_TOKEN_PATH}"
-      }
-    },
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
-    }
+  "enabledPlugins": {
+    "aria@local": true
   }
 }
 ```
 
-### 환경 변수 설정
+4. **Restart Claude Code**
 
-```bash
-export NOTION_API_KEY="your_notion_integration_token"
-export NOTION_DATABASE_ID="your_parent_database_id"
-export GOOGLE_CREDENTIALS="path_to_credentials.json"
-export GOOGLE_TOKEN_PATH="path_to_token.json"
+## Quick Start
+
+```
+/aria "510(k) submission preparation for my device"
 ```
 
-## 빠른 시작
+ARIA will:
+1. Ask clarifying questions (device type, classification, predicate device)
+2. Analyze regulatory pathway (Brief phase)
+3. Present strategy for your approval
+4. Prepare submission documents (Execute phase)
+5. Deliver quality-validated output (Deliver phase)
 
-### ARIA 초기화
-
-```bash
-/aria init notion   # Notion DB 생성 및 설정
-/aria init google   # Google Workspace OAuth 설정
-/aria init all      # 모든 통합 초기화
-```
-
-### 검색 및 조회
-
-```bash
-# 통합 검색
-/aria search "510(k) submission requirements"
-
-# 지식 베이스 조회
-/aria knowledge "MDR classification rules"
-
-# 상태 대시보드
-/aria status
-```
-
-## 사용법
+> Note: The marketplace plugin uses the legacy Cowork Supervisor name. ARIA v2.0+ rebrands to the specialized RA/QA focus.
 
 ### 초기화 명령어
 
-```bash
-/aria init notion   # Notion 데이터베이스 생성
-/aria init google   # Google Workspace OAuth 설정
-/aria init all      # 모든 통합 초기화
+3. **Execute the task**:
+```
+/aria "Help with 510(k) submission preparation"
 ```
 
-### 검색 명령어
+ARIA will guide you through:
+1. **Brief Phase**: Device classification, predicate device search, regulatory pathway analysis
+2. **Approval Checkpoint**: Review and approve regulatory strategy
+3. **Execute Phase**: Document preparation with domain experts
+4. **Deliver Phase**: VALID-validated submission package
 
-```bash
-/aria search "510(k) submission requirements"
-/aria search email "FDA 510(k) request"
-/aria search docs "DHF Review"
+## Workflow Examples
+
+### 510(k) Submission Preparation
+
+5. **Deliver results**:
+```
+/aria "Prepare 510(k) submission for Class II medical device"
 ```
 
-### 지식 베이스 조회
+ARIA executes:
+- **expert-researcher**: Predicate device database search
+- **expert-regulatory**: Classification and pathway analysis
+- **expert-submission**: Package structure and requirements
+- **expert-writer**: Document section drafts
+- **expert-reviewer**: Compliance verification
+- **manager-quality**: VALID quality gates
 
-```bash
-/aria knowledge "MDR classification rules"
-/aria knowledge "ISO 13485 Clause 8.5.2"
-```
-
-### 상태 대시보드
-
-```bash
-/aria status         # 전체 프로젝트 상태
-/aria status capa    # CAPA 상태만 조회
-/aria status risk    # 위험 상태만 조회
-```
-
-### 감사 추적
-
-```bash
-/aria audit search --agent expert-regulatory --date "2026-01-01:2026-02-09"
-/aria audit export --format csv
-```
-
-## 아키텍처
-
-### MCP 통합 의존성
+### CAPA Management
 
 ```
-Notion MCP (중앙 저장소)
-    ├─ Document Registry ← Google Docs, Drive
-    ├─ CAPA Tracker ← Google Calendar (Due dates)
-    ├─ Risk Register ← Google Sheets (Analysis)
-    ├─ Submission Tracker ← Google Calendar (Deadlines)
-    └─ Knowledge Base ← Context7 MCP (Regulations)
-
-Google Workspace MCP (협업)
-    ├─ Gmail → Notion (Email search)
-    ├─ Docs → Notion (Collaboration)
-    ├─ Sheets → Notion (Data analysis)
-    └─ Calendar → Notion (Deadlines)
-
-Context7 MCP (규제 검색)
-    └─ Knowledge Base ← Search results
+/aria "Open CAPA for nonconforming product complaint"
 ```
 
-### 에이전트 구조
+ARIA executes:
+- **expert-capa**: CAPA form creation
+- **expert-analyst**: Complaint trend analysis
+- **expert-risk**: Risk impact assessment
+- **Root Cause Analysis**: 5 Whys, Fishbone diagrams
+- **Action Planning**: Corrective/preventive measures
+- **manager-project**: Timeline and assignee tracking
 
-**Coordinator:**
-- `aria-orchestrator`: 워크플로우 조정 및 MCP 통합 관리
-
-**Domain Experts (8개):**
-1. `aria-regulatory`: FDA, MDR, MFDS 규정
-2. `aria-clinical`: 임상 평가 요구사항
-3. `aria-quality`: QMS, CAPA, 감사 준비
-4. `aria-risk`: ISO 14971 위험 관리
-5. `aria-postmarket`: 시판 후 조사, PMCF, 불만
-6. `aria-document`: 기술 문서, 라벨링
-7. `aria-submission`: 510(k), CE, PMA 제출
-8. `aria-labeling`: IFU, 라벨, UDI
-
-### Skills (3개)
-
-1. `aria-integration-notion`: Notion MCP 통합
-2. `aria-integration-google`: Google Workspace MCP 통합
-3. `aria-integration-context7`: Context7 MCP 통합
-
-### Commands (5개)
-
-1. `/aria init`: 초기화 (notion, google, all)
-2. `/aria search`: 통합 검색
-3. `/aria knowledge`: 지식 베이스 조회
-4. `/aria status`: 상태 대시보드
-5. `/aria audit`: 감사 추적
+### Design Control Documentation
 
 ## 워크플로우
 
@@ -257,124 +265,119 @@ Context7 MCP (규제 검색)
 /aria status submission
 /aria audit search --entity submission
 ```
-
-### 예시 2: CAPA 생성
-
-```bash
-# Brief Phase
-# 비준수 문제 식별
-
-# Execute Phase
-/aria init notion  # CAPA Tracker DB 확인
-# aria-quality 에이전트가 CAPA 생성
-# Google Calendar에 Due Date 추가
-# Google Docs에 CAPA 문서 생성
-
-# Deliver Phase
-/aria status capa
-/aria audit search --entity capa
+/aria "Create Design History File for new software medical device"
 ```
 
-### 예시 3: 규정 검색
+ARIA executes:
+- **expert-design-control**: DHF structure and requirements
+- **expert-risk**: Hazard identification and analysis
+- **expert-standards**: IEC 62304 compliance verification
+- **Traceability Matrix**: Auto-generated requirements traceability
+- **manager-docs**: Document version and approval workflow
 
-```bash
-# Brief Phase
-/aria knowledge "ISO 14971 risk management requirements"
+## MCP Integrations
 
-# Execute Phase
-# Context7 MCP에서 ISO 14971 검색
-# Notion Knowledge Base에 저장
+ARIA integrates with external services for comprehensive workflow support:
 
-# Deliver Phase
-/aria search "risk management"
-```
+### Notion MCP - Central Knowledge Hub
 
-## 문서 구조
+- Regulatory document storage and version control
+- CAPA tracker database
+- Risk register management
+- Submission tracking dashboard
+- Knowledge base accumulation
 
-```
-ARIA Phase 4/
-├── .claude/
-│   ├── agents/aria/           # ARIA 에이전트 (9개)
-│   │   ├── aria-orchestrator.md
-│   │   ├── aria-regulatory.md
-│   │   ├── aria-clinical.md
-│   │   ├── aria-quality.md
-│   │   ├── aria-risk.md
-│   │   ├── aria-postmarket.md
-│   │   ├── aria-document.md
-│   │   ├── aria-submission.md
-│   │   └── aria-labeling.md
-│   ├── commands/aria/         # ARIA 명령어 (5개)
-│   │   ├── init.md
-│   │   ├── search.md
-│   │   ├── knowledge.md
-│   │   ├── status.md
-│   │   └── audit.md
-│   └── skills/aria-*/         # ARIA 스킬 (3개)
-│       ├── aria-integration-notion/SKILL.md
-│       ├── aria-integration-google/SKILL.md
-│       └── aria-integration-context7/SKILL.md
-├── .moai/specs/SPEC-ARIA-004/ # SPEC 문서
-└── .mcp.json                   # MCP 서버 설정
-```
+### Google Workspace MCP - Collaboration
 
-## 품질 보증
+- Regulatory correspondence (Gmail)
+- Collaborative document editing (Google Docs)
+- Requirements matrices and data analysis (Google Sheets)
+- Deadline and audit scheduling (Google Calendar)
 
-### 감사 추적
+### Context7 MCP - Regulatory Research
 
-모든 데이터 변경은 자동으로 감사 로그에 기록됩니다:
+- Real-time regulatory document lookup
+- Latest standards and guidance access
+- Citation verification and referencing
 
-- **Timestamp**: 변경 시간 (ISO 8601)
-- **User**: 변경자
-- **Action**: 생성, 수정, 아카이브
-- **Entity**: 영향 받은 데이터베이스/페이지
-- **Changes**: 변경 전후 값 비교
-- **Reason**: 변경 사유
+### Sequential Thinking MCP - Complex Analysis
 
-### 추적성 매트릭스
+- Regulatory pathway decision support
+- Substantial equivalence logic development
+- Multi-market strategy analysis
+- Risk-benefit assessment
 
-요구사항 → 문서 → 증거 연결을 유지합니다:
+#### 5. Documented
 
-- Regulatory Requirements → Document Registry
-- CAPA Tracker → Risk Register
-- Submission Tracker → Document Registry
-- Knowledge Base → Regulatory Requirements
+**Definition**: Content must follow documentation standards
 
-## 문제 해결
+**Requirements**:
+- Standard format compliance
+- Proper organization
+- Clear language
+- Appropriate technical level
 
-### Notion API 인증 실패
+**Validation**:
+- Format compliance check
+- Structure verification
+- Language clarity assessment
+- Technical level review
 
-```
-오류: Notion API 인증에 실패했습니다.
-해결 방법:
-1. Integration Token이 올바른지 확인하세요
-2. Integration이 Notion 페이지와 공유되었는지 확인하세요
-3. 토큰을 환경 변수로 설정한 후 다시 시도하세요
-```
+### Quality Scoring
 
-### 데이터베이스 이미 존재
+Each dimension scored 1-5:
+- 5: Exceeds requirements
+- 4: Meets all requirements
+- 3: Meets most requirements
+- 2: Meets some requirements
+- 1: Fails to meet requirements
+
+**Overall VALID Score**: Average of 5 dimensions (target: 4.0+)
+
+## Workflow
+
+ARIA Phase 2 implements a Brief-Execute-Deliver workflow with 60%-30%-10% time allocation.
+
+### Workflow Phases
 
 ```
-안내: Notion 데이터베이스가 이미 존재합니다.
-선택사항:
-1. 기존 데이터베이스 사용 (스킵)
-2. 스키마 업데이트 (기존 데이터 보존)
-3. 데이터베이스 재생성 (기존 데이터 삭제)
+supervise/
+├── docs/
+│   ├── CONTEXT.md              # Project context and background
+│   └── specs/
+│       └── ARCHITECTURE-REDESIGN.md  # Complete architecture specification
+├── .claude-plugin/
+│   ├── plugin.json             # Plugin manifest
+│   └── capabilities.yaml       # Capability declaration
+├── agents/
+│   ├── core/                   # Core orchestration agents (4)
+│   ├── business/               # Business workflow agents (4)
+│   └── raqa/                   # RA/QA domain agents (8)
+├── skills/
+│   ├── aria-core/              # Core orchestration skills
+│   ├── aria-domain-raqa/       # RA/QA domain knowledge
+│   ├── aria-knowledge-fda/     # FDA regulations
+│   ├── aria-knowledge-eumdr/   # EU MDR knowledge
+│   ├── aria-knowledge-standards/  # International standards
+│   └── aria-quality-valid/     # VALID framework implementation
+├── commands/
+│   └── aria.md                 # /aria command interface
+├── templates/                  # Regulatory document templates
+│   ├── 510k/
+│   ├── design-control/
+│   ├── risk-management/
+│   ├── capa/
+│   └── clinical/
+├── CHANGELOG.md
+├── CLAUDE.md                   # ARIA execution directives
+└── README.md
 ```
 
-### Google OAuth 인증 만료
+## Documentation
 
-```
-오류: Google OAuth 토큰이 만료되었습니다.
-해결 방법:
-1. /aria auth google 실행
-2. 브라우저에서 재인증 수행
-3. 새로운 토큰 저장
-```
-
-## 기여
-
-ARIA 프로젝트에 기여하고 싶으시다면:
+- **[CONTEXT.md](docs/CONTEXT.md)**: Project background, MoAI-ADK benchmarking, design decisions, domain selection rationale
+- **[ARCHITECTURE-REDESIGN.md](docs/specs/ARCHITECTURE-REDESIGN.md)**: Complete system architecture, agent catalog, workflow design, implementation roadmap
+- **[CHANGELOG.md](CHANGELOG.md)**: Version history and changes
 
 1. Fork 하세요
 2. 기능 브랜치를 만드세요 (`git checkout -b feature/AmazingFeature`)
@@ -382,19 +385,62 @@ ARIA 프로젝트에 기여하고 싶으시다면:
 4. 푸시하세요 (`git push origin feature/AmazingFeature`)
 5. Pull Request를 여세요
 
-## 라이선스
+ARIA is under active architecture redesign. Contributions will be welcomed after Phase 1 implementation.
 
-Apache-2.0 라이선스 하에 배포됩니다. 자세한 내용은 LICENSE 파일을 참조하세요.
+For now, please:
+1. Review the architecture documentation
+2. Provide feedback on the RA/QA domain requirements
+3. Share use cases and regulatory scenarios
+
+## Roadmap
+
+### Phase 1: Core Framework (Current)
+- Plugin skeleton and basic orchestration
+- `/aria` command implementation
+- Brief-Execute-Deliver workflow structure
+
+### Phase 2: Business Agents
+- Generic business workflow agents
+- VALID quality framework
+- Document management
+
+### Phase 3: RA/QA Specialization
+- 8 domain-specific agents
+- Regulatory knowledge bases
+- Core workflows (510(k), CAPA, Design Control)
+
+### Phase 4: MCP Integrations
+- Notion database integration
+- Google Workspace connectivity
+- Context7 and Sequential Thinking
+
+### Phase 5: Advanced Features
+- Agent memory and learning
+- Advanced analytics
+- Multi-product project management
+
+For regulatory content contributions:
+- Cite specific standards (e.g., ISO 13485:2016 Section 4.2.3)
+- Include regulatory source references
+- Ensure VALID framework compliance
 
 ## 연락처
 
-- 프로젝트 홈페이지: https://github.com/moai-ai/aria
-- 이슈 추적: https://github.com/moai-ai/aria/issues
-- 문서: https://aria.moai.ai
+Apache-2.0 License - see [LICENSE](LICENSE) file for details
+
+## Support
+
+For issues, questions, or contributions:
+- GitHub Issues: https://github.com/henry-1981/ARIA-Phase2/issues
+- Documentation: https://aria-phase2.readthedocs.io/
+- Community: https://discord.gg/aria-community
 
 ---
 
-**버전:** 1.0.0
-**최종 업데이트:** 2026-02-09
-**상태:** Production Ready
-**SPEC:** SPEC-ARIA-004
+- Built for [Claude Code](https://claude.ai/claude-code)
+- Inspired by [MoAI-ADK](https://github.com/henry-1981/Agent-RA) principles
+- Part of the [Team Attention](https://github.com/team-attention) plugin ecosystem
+
+---
+
+**ARIA v2.0.0** - Specialized for Medical Device RA/QA professionals
