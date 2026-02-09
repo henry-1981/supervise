@@ -1,6 +1,6 @@
 {
   "version": "2.2.2",
-  "deployed_at": "2026-02-09T04:18:34Z",
+  "deployed_at": "2026-02-09T02:38:28Z",
   "files": {
     ".claude/agents/moai/builder-agent.md": {
       "provenance": "template_managed",
@@ -2614,9 +2614,9 @@
     },
     ".moai/config/config.yaml": {
       "provenance": "template_managed",
-      "template_hash": "sha256:659ae15e44b1e04031d08de3ec50e16cca09f9a57d31b37d1b70eb999250b191",
-      "deployed_hash": "sha256:659ae15e44b1e04031d08de3ec50e16cca09f9a57d31b37d1b70eb999250b191",
-      "current_hash": "sha256:659ae15e44b1e04031d08de3ec50e16cca09f9a57d31b37d1b70eb999250b191"
+      "template_hash": "sha256:9e4f00db68f887bab3ae8686cfe751f47a45506ac93afb5beedfcbd7f13cbef9",
+      "deployed_hash": "sha256:9e4f00db68f887bab3ae8686cfe751f47a45506ac93afb5beedfcbd7f13cbef9",
+      "current_hash": "sha256:9e4f00db68f887bab3ae8686cfe751f47a45506ac93afb5beedfcbd7f13cbef9"
     },
     ".moai/config/sections/git-strategy.yaml": {
       "provenance": "template_managed",
@@ -2644,9 +2644,9 @@
     },
     ".moai/config/sections/project.yaml": {
       "provenance": "template_managed",
-      "template_hash": "sha256:07e89104f9deba8c0fc059c468ae96e5756398ace3fcc334ae1694d308811c97",
-      "deployed_hash": "sha256:07e89104f9deba8c0fc059c468ae96e5756398ace3fcc334ae1694d308811c97",
-      "current_hash": "sha256:07e89104f9deba8c0fc059c468ae96e5756398ace3fcc334ae1694d308811c97"
+      "template_hash": "sha256:bff97e78b46a9ce4fb70b4c63005064d585af938909eb56c15acce01e540d917",
+      "deployed_hash": "sha256:bff97e78b46a9ce4fb70b4c63005064d585af938909eb56c15acce01e540d917",
+      "current_hash": "sha256:bff97e78b46a9ce4fb70b4c63005064d585af938909eb56c15acce01e540d917"
     },
     ".moai/config/sections/quality.yaml": {
       "provenance": "template_managed",
@@ -2685,10 +2685,10 @@
       "current_hash": "sha256:d68779df736a4b2856044351c0b9286e031b0398ee1202aef982571681b73a6a"
     },
     "CLAUDE.md": {
-      "provenance": "template_managed",
+      "provenance": "user_created",
       "template_hash": "sha256:a90d7bd7cd93ad8079d6eb7171fdb90df54df355b9f67663636308f6dcfff633",
-      "deployed_hash": "sha256:a90d7bd7cd93ad8079d6eb7171fdb90df54df355b9f67663636308f6dcfff633",
-      "current_hash": "sha256:a90d7bd7cd93ad8079d6eb7171fdb90df54df355b9f67663636308f6dcfff633"
+      "deployed_hash": "sha256:a66d82cb57d8ed8453a225f927f7856acbd30bf6337afb34b316ebb6565c68d9",
+      "current_hash": "sha256:a66d82cb57d8ed8453a225f927f7856acbd30bf6337afb34b316ebb6565c68d9"
     }
   }
 }
