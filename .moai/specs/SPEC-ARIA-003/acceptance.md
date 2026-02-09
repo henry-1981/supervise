@@ -233,7 +233,7 @@ LANGUAGE: ko
 **Given:** 설계 이관(Design Transfer) 완료
 **When:** expert-design-control 에이전트가 DHR 생성
 **Then:**
-- [ ] Production lot追踪용 DHR 생성
+- [ ] Production lot 추적용 DHR 생성
 - [ ] Manufacturing dates 포함
 - [ ] Quantities produced 포함
 - [ ] Acceptance records 포함

@@ -187,7 +187,7 @@ RELATED_SPECS:
 
 ```json
 {
-  "name": "aria",
+  "name": "aria-core",
   "description": "AI Regulatory Intelligence Assistant for Medical Device RA/QA professionals",
   "version": "2.0.0",
   "author": {
@@ -523,7 +523,7 @@ agents:
     timeout_seconds: 120
 
   manager_project:
-    model: haiku
+    model: sonnet
     timeout_seconds: 60
 
 # Integration Settings
@@ -855,7 +855,7 @@ Example usage pattern:
 
 ### Resource Constraints
 
-- [C9] Phase 1 token budget: 120K (Brief 60% + Execute 30% + Deliver 10%)
+- [C9] Total token budget: 200K per session (Brief 120K (60%) + Execute 60K (30%) + Deliver 20K (10%))
 - [C10] Orchestrator agent timeout: 300 seconds
 - [C11] Maximum automatic retries: 3
 

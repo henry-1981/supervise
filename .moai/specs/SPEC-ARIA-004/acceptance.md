@@ -27,7 +27,7 @@
 **GIVEN** Notion DB가 생성되어 있고
 **WHEN** 새로운 CAPA를 생성하면
 **THEN** CAPA Tracker DB에 페이지가 자동으로 생성되어야 하고
-**AND** CAPA ID, Description, Root Cause 필드가 자동으로填充되어야 하며
+**AND** CAPA ID, Description, Root Cause 필드가 자동으로 입력되어야 하며
 **AND** Due Date 알림이 설정되어야 한다.
 
 **Scenario 1.3: Notion DB 조회**
@@ -91,7 +91,7 @@
 **AND** Notion CAPA Tracker에 데이터가 존재하며
 **WHEN** `/aria sheets create "CAPA Trend Analysis"`를 실행하면
 **THEN** Google Sheets 스프레드시트가 생성되어야 하고
-**AND** Notion CAPA 데이터가 추출되어填充되어야 하며
+**AND** Notion CAPA 데이터가 추출되어 입력되어야 하며
 **AND** 차트/그래프가 자동으로 생성되어야 하고
 **AND** Notion에 시트 링크가 기록되어야 한다.
 
@@ -146,7 +146,7 @@
 **GIVEN** Audit Log DB가 생성되어 있고
 **WHEN** 문서가 승인되면
 **THEN** Audit Log에 기록되어야 하고
-**AND** Timestamp, Agent, Action, Entity, Decision, Rationale, Outcome 필드가填充되어야 하며
+**AND** Timestamp, Agent, Action, Entity, Decision, Rationale, Outcome 필드가 입력되어야 하며
 **AND** 관련 문서와 Relation이 설정되어야 한다.
 
 **Scenario 5.2: 감사 추적 검색**

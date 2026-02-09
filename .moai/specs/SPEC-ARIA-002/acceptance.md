@@ -2,7 +2,7 @@
 
 **TAG:** SPEC-ARIA-002
 **Related:** spec.md, plan.md
-**Created:** 2025-02-09
+**Created:** 2026-02-09
 
 ---
 
@@ -16,7 +16,7 @@
 1. **단위 테스트 (Unit Tests)**: 개별 에이전트 및 스킬 기능
 2. **통합 테스트 (Integration Tests)**: 에이전트 간 협업
 3. **E2E 테스트 (End-to-End Tests)**: 전체 워크플로우
-4. **품질 게이트 (Quality Gates)**: TRUST 5 및 VALID 검증
+4. **품질 게이트 (Quality Gates)**: VALID 검증
 
 **테스트 도구:**
 - pytest (Python 기반 테스트)
@@ -563,7 +563,7 @@ Then:
 
 **Gate 2: 문서 및 품질**
 - [ ] 모든 에이전트에 설명 문서 존재
-- [ ] TRUST 5 기준 충족
+- [ ] VALID 기준 충족
 - [ ] MCP 연결이 안정적
 - [ ] 사용자 가이드 제공
 
@@ -608,7 +608,7 @@ Then:
 - [ ] 통합 테스트 통과
 - [ ] 코드 리뷰 완료 및 승인
 - [ ] 문서화 완료 (API, 사용자 가이드)
-- [ ] TRUST 5 품질 기준 충족
+- [ ] VALID 품질 기준 충족
 - [ ] 성능 기준 충족
 - [ ] 보안 검토 통과
 

@@ -245,7 +245,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 **IF** 설계 이관이 발생하면, **THE** 시스템은 **SHALL** DHR (Device History Record)를 생성한다.
 
 - **Condition:** Design to production transfer
-- **Action:** Production lot追踪용 DHR 생성
+- **Action:** Production lot 추적용 DHR 생성
 
 #### 4.3 Ubiquitous Requirements
 
@@ -254,7 +254,7 @@ ARIA (AI Regulatory Intelligence Assistant)는 의료기기 RA/QA (Regulatory Af
 - **Format:** Design Input → Design Output → Verification → Validation
 - **Traceability:** 요구사항별 시험 결과 링크
 
-시스템은 **항상** FDA Design Control 점검清单을 **SHALL** 지원해야 한다.
+시스템은 **항상** FDA Design Control 점검 체크리스트를 **SHALL** 지원해야 한다.
 
 - **Checklist:** 21 CFR 820.30(a)-(g) 항목별 준수 여부
 

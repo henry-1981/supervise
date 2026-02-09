@@ -193,7 +193,7 @@ description: >
   Notion MCP를 통한 문서 저장 및 검색을 담당한다.
 model: sonnet
 permissionMode: default
-tools: Read, Write, Edit, Grep, Glob, Bash, mcp__notion
+tools: Read, Write, Edit, Grep, Glob, Bash, mcp__claude_ai_Notion
 skills: aria-core, aria-templates, aria-domain-raqa
 ```
 
@@ -233,7 +233,7 @@ description: >
   규제 제출 타임라인 및 데드라인 관리를 담당한다.
 model: sonnet
 permissionMode: default
-tools: Read, Write, Grep, Glob, mcp__notion, mcp__google-calendar
+tools: Read, Write, Grep, Glob, mcp__claude_ai_Notion, mcp__google-calendar
 skills: aria-core, aria-workflow
 ```
 
@@ -275,7 +275,7 @@ description: >
   불만 동향, 시장 데이터를 분석하여 의미 있는 통찰을 제공한다.
 model: sonnet
 permissionMode: plan
-tools: Read, Grep, Glob, Bash, mcp__notion
+tools: Read, Grep, Glob, Bash, mcp__claude_ai_Notion
 skills: aria-core, aria-analysis
 ```
 
@@ -383,7 +383,7 @@ description: >
   체계적으로 수행하고 위험관리 파일을 관리한다.
 model: opus
 permissionMode: acceptEdits
-tools: Read, Write, Edit, Grep, Glob, mcp__notion
+tools: Read, Write, Edit, Grep, Glob, mcp__claude_ai_Notion
 skills: aria-core, aria-domain-raqa, aria-risk-management
 ```
 
@@ -409,7 +409,7 @@ description: >
   DHF, DMR, DHR 관리를 담당한다.
 model: sonnet
 permissionMode: acceptEdits
-tools: Read, Write, Edit, Grep, Glob, mcp__notion
+tools: Read, Write, Edit, Grep, Glob, mcp__claude_ai_Notion
 skills: aria-core, aria-domain-raqa, aria-design-control
 ```
 
@@ -435,7 +435,7 @@ description: >
   효과성 검증까지의 전체 CAPA 수명주기를 관리한다.
 model: sonnet
 permissionMode: acceptEdits
-tools: Read, Write, Edit, Grep, Glob, mcp__notion
+tools: Read, Write, Edit, Grep, Glob, mcp__claude_ai_Notion
 skills: aria-core, aria-domain-raqa, aria-capa-process
 ```
 
@@ -459,7 +459,7 @@ description: >
   부작용 보고를 담당한다.
 model: opus
 permissionMode: acceptEdits
-tools: Read, Write, Edit, Grep, Glob, WebSearch, WebFetch, mcp__notion
+tools: Read, Write, Edit, Grep, Glob, WebSearch, WebFetch, mcp__claude_ai_Notion
 skills: aria-core, aria-domain-raqa, aria-clinical-evaluation
 ```
 
@@ -483,7 +483,7 @@ description: >
   제출 패키지 구성 및 검토를 담당한다.
 model: sonnet
 permissionMode: acceptEdits
-tools: Read, Write, Edit, Grep, Glob, mcp__notion
+tools: Read, Write, Edit, Grep, Glob, mcp__claude_ai_Notion
 skills: aria-core, aria-domain-raqa, aria-submission-templates
 ```
 
@@ -514,7 +514,7 @@ description: >
   감사 대응 문서 준비를 담당한다.
 model: sonnet
 permissionMode: acceptEdits
-tools: Read, Write, Edit, Grep, Glob, mcp__notion
+tools: Read, Write, Edit, Grep, Glob, mcp__claude_ai_Notion
 skills: aria-core, aria-domain-raqa, aria-audit-management
 ```
 
@@ -893,7 +893,7 @@ ARIA의 사용자 진입점은 `/aria` 슬래시 커맨드이다.
   "mcpServers": {
     "notion": {
       "command": "npx",
-      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "args": ["-y", "claude_ai_Notion"],
       "env": {
         "NOTION_API_KEY": "${NOTION_API_KEY}"
       }
@@ -1010,6 +1010,19 @@ Notion은 ARIA의 중앙 데이터 저장소이자 사용자 인터페이스 역
 | Last Updated | Date | 최종 갱신일 |
 | Confidence | Select | 신뢰도 (High, Medium, Low) |
 | Tags | Multi-Select | 태그 |
+
+#### DB 7: Audit Log (감사 로그)
+
+| 필드명 | 타입 | 설명 |
+|--------|------|------|
+| Log ID | Title | 로그 ID |
+| Timestamp | Date | 타임스탬프 |
+| Agent | Select | 에이전트 |
+| Action | Text | 작업 |
+| Entity | Text | 대상 |
+| Decision | Text | 결정 |
+| Rationale | Rich Text | 근거 |
+| Outcome | Select | 결과 (Success, Failure, Pending) |
 
 ### 4.3 Google Workspace 통합
 
@@ -1461,48 +1474,49 @@ Domain Plugins (독립 설치)
 aria-domain-raqa/
 ├── .claude-plugin/
 │   └── plugin.json
-├── agents/
-│   ├── expert-regulatory.md
-│   ├── expert-standards.md
-│   ├── expert-risk.md
-│   ├── expert-design-control.md
-│   ├── expert-capa.md
-│   ├── expert-clinical.md
-│   ├── expert-submission.md
-│   └── expert-audit.md
-├── skills/
-│   ├── aria-domain-raqa/
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   │       ├── fda-regulations.md
-│   │       ├── eu-mdr.md
-│   │       ├── iso-standards.md
-│   │       └── submission-workflows.md
-│   ├── aria-knowledge-fda/
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   ├── aria-knowledge-eumdr/
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   ├── aria-knowledge-standards/
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   ├── aria-risk-management/
-│   │   └── SKILL.md
-│   ├── aria-design-control/
-│   │   └── SKILL.md
-│   ├── aria-capa-process/
-│   │   └── SKILL.md
-│   ├── aria-clinical-evaluation/
-│   │   └── SKILL.md
-│   ├── aria-submission-templates/
-│   │   └── SKILL.md
-│   └── aria-audit-management/
-│       └── SKILL.md
-├── commands/
-│   ├── regulatory-strategy.md
-│   ├── risk-analysis.md
-│   └── submission-prep.md
+├── .claude/
+│   ├── agents/
+│   │   ├── expert-regulatory.md
+│   │   ├── expert-standards.md
+│   │   ├── expert-risk.md
+│   │   ├── expert-design-control.md
+│   │   ├── expert-capa.md
+│   │   ├── expert-clinical.md
+│   │   ├── expert-submission.md
+│   │   └── expert-audit.md
+│   ├── skills/
+│   │   ├── aria-domain-raqa/
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   │       ├── fda-regulations.md
+│   │   │       ├── eu-mdr.md
+│   │   │       ├── iso-standards.md
+│   │   │       └── submission-workflows.md
+│   │   ├── aria-knowledge-fda/
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   ├── aria-knowledge-eumdr/
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   ├── aria-knowledge-standards/
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   ├── aria-risk-management/
+│   │   │   └── SKILL.md
+│   │   ├── aria-design-control/
+│   │   │   └── SKILL.md
+│   │   ├── aria-capa-process/
+│   │   │   └── SKILL.md
+│   │   ├── aria-clinical-evaluation/
+│   │   │   └── SKILL.md
+│   │   ├── aria-submission-templates/
+│   │   │   └── SKILL.md
+│   │   └── aria-audit-management/
+│   │       └── SKILL.md
+│   └── commands/
+│       ├── regulatory-strategy.md
+│       ├── risk-analysis.md
+│       └── submission-prep.md
 ├── templates/
 │   ├── 510k/
 │   ├── design-control/
@@ -1535,10 +1549,10 @@ aria-domain-raqa/
     "document-management",
     "quality-framework"
   ],
-  "commands": "commands/",
-  "agents": "agents/",
-  "skills": "skills/",
-  "hooks": "hooks/hooks.json"
+  "commands": ".claude/commands/",
+  "agents": ".claude/agents/",
+  "skills": ".claude/skills/",
+  "hooks": ".claude/hooks/hooks.json"
 }
 ```
 
@@ -1564,10 +1578,10 @@ aria-domain-raqa/
     "capa",
     "design-controls"
   ],
-  "commands": "commands/",
-  "agents": "agents/",
-  "skills": "skills/",
-  "hooks": "hooks/hooks.json"
+  "commands": ".claude/commands/",
+  "agents": ".claude/agents/",
+  "skills": ".claude/skills/",
+  "hooks": ".claude/hooks/hooks.json"
 }
 ```
 
@@ -1639,101 +1653,98 @@ Agent-RA/                              # 프로젝트 루트
 │
 ├── .claude/
 │   ├── settings.json                  # Claude Code 설정
-│   └── settings.local.json            # 로컬 설정 (gitignore)
+│   ├── settings.local.json            # 로컬 설정 (gitignore)
+│   ├── agents/                        # 에이전트 정의
+│   │   ├── core/                      # Core Layer
+│   │   │   ├── orchestrator.md
+│   │   │   ├── manager-docs.md
+│   │   │   ├── manager-quality.md
+│   │   │   └── manager-project.md
+│   │   ├── business/                  # Business Layer
+│   │   │   ├── expert-writer.md
+│   │   │   ├── expert-analyst.md
+│   │   │   ├── expert-reviewer.md
+│   │   │   └── expert-researcher.md
+│   │   └── raqa/                      # Domain Layer (RA/QA)
+│   │       ├── expert-regulatory.md
+│   │       ├── expert-standards.md
+│   │       ├── expert-risk.md
+│   │       ├── expert-design-control.md
+│   │       ├── expert-capa.md
+│   │       ├── expert-clinical.md
+│   │       ├── expert-submission.md
+│   │       └── expert-audit.md
+│   ├── skills/                        # 스킬 정의
+│   │   ├── aria/                      # 메인 오케스트레이터 스킬
+│   │   │   ├── SKILL.md
+│   │   │   └── workflows/
+│   │   │       ├── brief.md
+│   │   │       ├── execute.md
+│   │   │       ├── deliver.md
+│   │   │       └── search.md
+│   │   ├── aria-core/                 # 핵심 기능 스킬
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   │       ├── valid-framework.md
+│   │   │       ├── user-interaction.md
+│   │   │       └── error-handling.md
+│   │   ├── aria-templates/            # 템플릿 관리 스킬
+│   │   │   └── SKILL.md
+│   │   ├── aria-domain-raqa/          # RA/QA 도메인 스킬
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   │       ├── fda-regulations.md
+│   │   │       ├── eu-mdr.md
+│   │   │       ├── iso-standards.md
+│   │   │       └── submission-workflows.md
+│   │   ├── aria-knowledge-fda/        # FDA 지식 베이스
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   │       ├── classification.md
+│   │   │       ├── 510k-process.md
+│   │   │       ├── pma-process.md
+│   │   │       └── guidance-documents.md
+│   │   ├── aria-knowledge-eumdr/      # EU MDR 지식 베이스
+│   │   │   └── SKILL.md
+│   │   ├── aria-knowledge-standards/  # 표준 지식 베이스
+│   │   │   ├── SKILL.md
+│   │   │   └── modules/
+│   │   │       ├── iso-13485.md
+│   │   │       ├── iec-62304.md
+│   │   │       ├── iec-60601.md
+│   │   │       ├── iso-14971.md
+│   │   │       └── iec-62366.md
+│   │   ├── aria-risk-management/      # 위험관리 스킬
+│   │   │   └── SKILL.md
+│   │   ├── aria-design-control/       # 설계관리 스킬
+│   │   │   └── SKILL.md
+│   │   ├── aria-capa-process/         # CAPA 프로세스 스킬
+│   │   │   └── SKILL.md
+│   │   ├── aria-clinical-evaluation/  # 임상평가 스킬
+│   │   │   └── SKILL.md
+│   │   ├── aria-submission-templates/ # 제출 템플릿 스킬
+│   │   │   └── SKILL.md
+│   │   ├── aria-audit-management/     # 감사관리 스킬
+│   │   │   └── SKILL.md
+│   │   ├── aria-quality-valid/        # VALID 품질 프레임워크
+│   │   │   └── SKILL.md
+│   │   ├── aria-writing-style/        # 기술 문서 작성 스타일
+│   │   │   └── SKILL.md
+│   │   ├── aria-research/             # 리서치 방법론
+│   │   │   └── SKILL.md
+│   │   └── aria-analysis/             # 데이터 분석 스킬
+│   │       └── SKILL.md
+│   └── commands/                      # 슬래시 커맨드
+│       ├── aria.md                    # /aria 메인 커맨드
+│       ├── brief.md                   # /aria brief
+│       ├── execute.md                 # /aria execute
+│       ├── deliver.md                 # /aria deliver
+│       ├── search.md                  # /aria search
+│       ├── template.md                # /aria template
+│       ├── status.md                  # /aria status
+│       └── knowledge.md               # /aria knowledge
 │
 ├── .mcp.json                          # MCP 서버 구성
-│
-├── agents/                            # 에이전트 정의
-│   ├── core/                          # Core Layer
-│   │   ├── orchestrator.md
-│   │   ├── manager-docs.md
-│   │   ├── manager-quality.md
-│   │   └── manager-project.md
-│   ├── business/                      # Business Layer
-│   │   ├── expert-writer.md
-│   │   ├── expert-analyst.md
-│   │   ├── expert-reviewer.md
-│   │   └── expert-researcher.md
-│   └── raqa/                          # Domain Layer (RA/QA)
-│       ├── expert-regulatory.md
-│       ├── expert-standards.md
-│       ├── expert-risk.md
-│       ├── expert-design-control.md
-│       ├── expert-capa.md
-│       ├── expert-clinical.md
-│       ├── expert-submission.md
-│       └── expert-audit.md
-│
-├── skills/                            # 스킬 정의
-│   ├── aria/                          # 메인 오케스트레이터 스킬
-│   │   ├── SKILL.md
-│   │   └── workflows/
-│   │       ├── brief.md
-│   │       ├── execute.md
-│   │       ├── deliver.md
-│   │       └── search.md
-│   ├── aria-core/                     # 핵심 기능 스킬
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   │       ├── valid-framework.md
-│   │       ├── user-interaction.md
-│   │       └── error-handling.md
-│   ├── aria-templates/                # 템플릿 관리 스킬
-│   │   └── SKILL.md
-│   ├── aria-domain-raqa/              # RA/QA 도메인 스킬
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   │       ├── fda-regulations.md
-│   │       ├── eu-mdr.md
-│   │       ├── iso-standards.md
-│   │       └── submission-workflows.md
-│   ├── aria-knowledge-fda/            # FDA 지식 베이스
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   │       ├── classification.md
-│   │       ├── 510k-process.md
-│   │       ├── pma-process.md
-│   │       └── guidance-documents.md
-│   ├── aria-knowledge-eumdr/          # EU MDR 지식 베이스
-│   │   └── SKILL.md
-│   ├── aria-knowledge-standards/      # 표준 지식 베이스
-│   │   ├── SKILL.md
-│   │   └── modules/
-│   │       ├── iso-13485.md
-│   │       ├── iec-62304.md
-│   │       ├── iec-60601.md
-│   │       ├── iso-14971.md
-│   │       └── iec-62366.md
-│   ├── aria-risk-management/          # 위험관리 스킬
-│   │   └── SKILL.md
-│   ├── aria-design-control/           # 설계관리 스킬
-│   │   └── SKILL.md
-│   ├── aria-capa-process/             # CAPA 프로세스 스킬
-│   │   └── SKILL.md
-│   ├── aria-clinical-evaluation/      # 임상평가 스킬
-│   │   └── SKILL.md
-│   ├── aria-submission-templates/     # 제출 템플릿 스킬
-│   │   └── SKILL.md
-│   ├── aria-audit-management/         # 감사관리 스킬
-│   │   └── SKILL.md
-│   ├── aria-quality-valid/            # VALID 품질 프레임워크
-│   │   └── SKILL.md
-│   ├── aria-writing-style/            # 기술 문서 작성 스타일
-│   │   └── SKILL.md
-│   ├── aria-research/                 # 리서치 방법론
-│   │   └── SKILL.md
-│   └── aria-analysis/                 # 데이터 분석 스킬
-│       └── SKILL.md
-│
-├── commands/                          # 슬래시 커맨드
-│   ├── aria.md                        # /aria 메인 커맨드
-│   ├── brief.md                       # /aria brief
-│   ├── execute.md                     # /aria execute
-│   ├── deliver.md                     # /aria deliver
-│   ├── search.md                      # /aria search
-│   ├── template.md                    # /aria template
-│   ├── status.md                      # /aria status
-│   └── knowledge.md                   # /aria knowledge
 │
 ├── hooks/                             # 훅 스크립트
 │   ├── hooks.json                     # 훅 정의
