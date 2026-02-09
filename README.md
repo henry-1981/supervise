@@ -394,25 +394,28 @@ For now, please:
 
 ## Roadmap
 
-### Phase 1: Core Framework (Current)
-- Plugin skeleton and basic orchestration
-- `/aria` command implementation
-- Brief-Execute-Deliver workflow structure
+### Phase 1: Core Framework (Completed - v2.1.0)
+- x Plugin skeleton and basic orchestration
+- x `/aria` command implementation with 9 subcommands
+- x Brief-Execute-Deliver workflow structure
+- x 28 specialized agents (Core + Business + Domain + Team)
+- x VALID quality framework implementation
+- x aria-core skill with progressive disclosure
 
-### Phase 2: Business Agents
+### Phase 2: Business Agents (In Progress)
 - Generic business workflow agents
-- VALID quality framework
-- Document management
+- Document management enhancements
+- Template system for regulatory documents
 
 ### Phase 3: RA/QA Specialization
 - 8 domain-specific agents
-- Regulatory knowledge bases
+- Regulatory knowledge bases (FDA, EU MDR, MFDS, ISO/IEC)
 - Core workflows (510(k), CAPA, Design Control)
 
 ### Phase 4: MCP Integrations
 - Notion database integration
 - Google Workspace connectivity
-- Context7 and Sequential Thinking
+- Context7 and Sequential Thinking MCP
 
 ### Phase 5: Advanced Features
 - Agent memory and learning
@@ -443,4 +446,4 @@ For issues, questions, or contributions:
 
 ---
 
-**ARIA v2.0.0** - Specialized for Medical Device RA/QA professionals
+**ARIA v2.1.0** - Phase 1 Core Framework Completed
