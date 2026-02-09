@@ -169,22 +169,72 @@ Phase 1 implements the **Core Framework Scaffold** for ARIA. This is the foundat
 
 ### Milestone 6: Error Handling (Priority: Primary)
 
-**Objective**: Implement plain language error handling
+**Objective**: Implement plain language error handling with regulatory defect detection
 
 **Tasks**:
 1. Define error classification (connection errors, missing information, regulatory ambiguity, token limit, agent failure)
-2. Create error message template (problem, cause, next steps)
-3. Document error recovery strategies
-4. Implement retry logic (max 3 retries)
-5. Create example error messages in Korean
-6. Document next-step guidance patterns
+2. Define regulatory defect categories (missing cybersecurity, incomplete risk analysis, insufficient validation, inadequate traceability)
+3. Create error message template (problem, cause, next steps)
+4. Create regulatory alert template (defect description, regulatory impact, remediation options)
+5. Document error recovery strategies
+6. Implement retry logic (max 3 retries for system errors)
+7. Create example error messages in Korean
+8. Create example regulatory defect alerts in Korean
+9. Document next-step guidance patterns
 
 **Success Criteria**:
 - [ ] All error types are classified
+- [ ] Regulatory defect categories are defined
 - [ ] Error messages use plain Korean language
+- [ ] Regulatory alerts provide clear remediation options
 - [ ] Recovery strategies are documented
 - [ ] Retry logic is specified
 - [ ] Error messages provide next-step guidance
+- [ ] Regulatory alerts cite applicable regulations
+
+**Examples - Regulatory Defect Alerts**:
+
+*Example 1: Missing Cybersecurity*
+```
+[규제 결함 감지] 제품에 사이버보안 로직이 구현되지 않은 것으로 보입니다.
+
+영향 분석:
+- FDA 21 CFR 820.30(g): Design Input 불충분
+- EU MDR Annex I Chapter II: 사이버 보안 요구사항 미충족
+
+다음 단계:
+  1. 전문가 상담 (cybersecurity expert)
+  2. 보완 계획 수립 (remediation planning)
+  3. 재검토 예약 (schedule re-review)
+```
+
+*Example 2: Incomplete Risk Analysis*
+```
+[규제 결함 감지] 위험 분석이 불완전한 것으로 보입니다.
+
+영향 분석:
+- ISO 14971 Clause 7: Risk Analysis 요구사항
+- FDA 21 CFR 820.30(d): Design Verification 불충분
+
+다음 단계:
+  1. risk expert 상담
+  2. 추가 FMEA 수행
+  3. 위험 등록부 업데이트
+```
+
+*Example 3: Insufficient Traceability*
+```
+[규제 결함 감지] 추적성 연결이 누락된 것으로 보입니다.
+
+영향 분석:
+- 21 CFR 820.30(d): Design Output과 Input 간 추적성
+- ISO 13485 Clause 7.3.7: 추적성 문서화
+
+다음 단계:
+  1. Traceability Matrix 검토
+  2. 누락된 연결 식별
+  3. 추적성 보완 작업
+```
 
 **Estimated Complexity**: Low
 
