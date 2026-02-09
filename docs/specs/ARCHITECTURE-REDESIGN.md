@@ -47,18 +47,43 @@ ARIA는 의료기기 규제 업무(RA/QA)에 특화된 AI 비서 시스템이다
 
 ### 1.2 핵심 철학
 
-**MoAI-ADK와의 근본적 차이:**
+**Read-Think-Write-Verify: 모든 정보 노동자의 보편적 패턴**
 
-| 관점 | MoAI-ADK (개발자 도구) | ARIA (비즈니스 도구) |
-|------|------------------------|----------------------|
-| 대상 사용자 | 소프트웨어 개발자 | RA/QA 전문가, 규제 담당자 |
-| 주요 산출물 | 코드, 테스트, API | 규제 문서, 보고서, 제출 패키지 |
-| 품질 프레임워크 | TRUST 5 (코드 품질) | VALID (규제 준수) |
-| 워크플로우 | Plan-Run-Sync (개발 주기) | Brief-Execute-Deliver (업무 주기) |
-| MCP 통합 | Context7, Pencil | Notion, Google Workspace, Context7 |
-| 에러 메시지 | 기술적 (스택 트레이스) | 평이한 언어 + 다음 단계 안내 |
-| 버전 관리 | Git (코드 변경 추적) | Notion DB (문서 버전 관리) |
-| 테스트 | 단위/통합 테스트 | 규정 준수 체크리스트 |
+ARIA는 "Read-Think-Write-Verify"가 모든 정보 노동자의 보편적 작업 패턴임을 전제로 합니다. RA/QA 업무는 이 패턴의 전형적인 예입니다:
+
+- **Read**: 규정/표준 문서 읽기, 기존 문서 검토, 선행 사례 조사
+- **Think**: 규제 해석, 요구사항 분석, 규제 전략 수립
+- **Write**: 규제 문서 작성, 보고서 작성, 제출 패키지 구성
+- **Verify**: 규정 준수 검토, 동료 검토, 품질 게이트 통과
+
+**MoAI-ADK와의 관계: 원칙 차용, 경쟁 아님**
+
+ARIA는 MoAI-ADK의 "복제"가 아니라 MoAI-ADK의 "원칙"을 RA/QA 도메인에 재해석한 것입니다.
+
+| 측면 | MoAI-ADK (개발) | ARIA (RA/QA) | 관계 |
+|------|-----------------|---------------|------|
+| **핵심 원칙** | 에이전트 기반 오케스트레이션 | 에이전트 기반 오케스트레이션 | 동일 원칙 |
+| **품질 프레임워크** | TRUST 5 (코드 품질) | VALID (규제 준수) | 원칙 차용 |
+| **단계적 워크플로우** | Plan-Run-Sync | Brief-Execute-Deliver | 도메인 언어 적응 |
+| **플러그인 구조** | 코어 + 도메인 분리 | Cowork 생태계 통합 | 구조 차용 |
+| **토큰 최적화** | Progressive Disclosure | Progressive Disclosure | 동일 전략 |
+
+**차별점: 도메인 특화**
+
+| 측면 | MoAI-ADK | ARIA |
+|------|----------|-------|
+| 대상 사용자 | 개발자 | RA/QA 실무자 (비개발자) |
+| 산출물 | 코드, 테스트, API | 규제 문서, 보고서, 제출 패키지 |
+| 품질 기준 | TRUST 5 (코드 품질) | VALID (규제 준수) |
+| 워크플로우 | Plan-Run-Sync (균형적) | Brief 중심 (비균형적) |
+| 버전 관리 | Git (코드) | Notion DB (문서) |
+
+**MoAI-ADK와의 결정적 차이: "파일 소유권" vs "상호참조"**
+
+- MoAI-ADK: frontend/*.tsx vs backend/*.go (명확한 소유권)
+- ARIA: 모든 문서 섹션이 상호참조 (Traceability Matrix)
+
+이 차이로 인해 ARIA는 MoAI의 "고정 팀" 모델 대신 "동적 팀 결합" 모델을 채택합니다.
 
 **ARIA 설계 원칙:**
 
@@ -71,6 +96,8 @@ ARIA는 의료기기 규제 업무(RA/QA)에 특화된 AI 비서 시스템이다
 4. **단계별 확인 (Progressive Confirmation)**: 중요한 규제 결정에는 사용자 승인 체크포인트가 존재한다. AI가 단독으로 규제 판단을 확정하지 않는다.
 
 5. **지식 누적 (Knowledge Accumulation)**: 프로젝트별로 학습한 규제 해석, 선례, 결정 근거가 축적되어 시간이 지날수록 정확도가 향상된다.
+
+6. **Cowork 생태계 통합** (확장성): ARIA는 Cowork 플러그인 생태계의 일부로, 독립적으로 실행 가능하면서 Cowork 공통 기능과 호환됩니다.
 
 ### 1.3 시스템 아키텍처 다이어그램
 
@@ -536,12 +563,15 @@ skills: aria-core, aria-domain-raqa, aria-audit-management
 
 MoAI의 Plan-Run-Sync를 비즈니스 맥락에 맞게 재설계한 3단계 워크플로우이다.
 
-#### Phase 1: BRIEF (업무 이해 및 계획)
+**핵심 차이점**: 개발 워크플로우와 달리 RA/QA는 **Brief 단계(규제 분석 및 전략 수립)**이 가장 중요하다. 이 단계에서의 결정이 전체 프로젝트의 방향성과 성패를 결정한다.
+
+#### Phase 1: BRIEF (업무 이해 및 전략 수립)
 
 **MoAI 대응**: Plan Phase (SPEC 생성)
-**토큰 예산**: 30,000
+**토큰 예산**: 120,000 (60%)
+**핵심 활동**: 규제 분석 및 전략 수립
 
-**목적**: 사용자의 요청을 이해하고, 관련 규정/표준을 식별하며, 실행 계획을 수립한다.
+**목적**: 사용자의 요청을 이해하고, 관련 규정/표준을 식별하며, **데이터베이스 중심의 규제 전략**을 수립한다.
 
 **세부 단계:**
 
@@ -551,17 +581,87 @@ MoAI의 Plan-Run-Sync를 비즈니스 맥락에 맞게 재설계한 3단계 워�
    - 해당 규정/표준 자동 매핑
    - 필요 에이전트 식별
 
-2. **Scope Definition (범위 정의)**
+2. **Regulatory Strategy Brief (규제 전략 브리프)**
+   - **Notion 규제 지식 베이스 조회**
+   - 적용 법령 식별 (의료기기법/체외진단기기법/디지털의료제품법)
+   - MFDS 등급 분류 결정 (Class I/II/III/IV)
+   - 기존 선례/유사 사례 검색
+   - Predicate device 후보군 추출
+
+3. **Scope Definition (범위 정의)**
    - AskUserQuestion으로 범위 확인
    - 제품/기기 정보 수집
    - 적용 규제 시장 확인 (FDA, EU, MFDS 등)
    - 기존 문서/데이터 확인
 
-3. **Action Plan (실행 계획)**
+4. **Gatekeeper Checkpoint (승인 체크포인트)**
+   - 규제 전략 브리프 사용자 승인
+   - 전략 수정 요청 시 재분석 수행
+   - **승인 후에만 Execute 단계 진입**
+
+5. **Action Plan (실행 계획)**
    - 필요 작업 목록 생성
    - 에이전트 위임 계획
    - 예상 산출물 정의
-   - 사용자 승인 체크포인트 설정
+   - 추가 승인 체크포인트 설정
+
+**Regulatory Strategy Brief 템플릿:**
+
+```markdown
+# 규제 전략 브리프 (Regulatory Strategy Brief)
+
+## 1. 제품/기기 정보
+- 제품명: [입력 필요]
+- 기기 유형: [의료기기/체외진단/디지털치료제]
+- 적용 법령: [의료기기법/체외진단의료기기법/디지털의료제품법]
+- MFDS 등급: [Class I/II/III/IV]
+
+## 2. 규제 분석
+### 2.1 한국 (MFDS)
+- 법적 분류: Class [I/II/III/IV]
+- 인허가 경로: [등록/허가/신고/심사]
+- 필요 문서: [목록]
+
+### 2.2 미국 (FDA)
+- Product Code: [코드]
+- Regulation Number: [21 CFR xxx.xxx]
+- 규제 경로: [510(k)/PMA/De Novo/HDE]
+
+### 2.3 유럽 (EU MDR)
+- 분류: [Class I/IIa/IIb/III]
+- 적합성 평가 경로: [Module 선택]
+
+## 3. 데이터베이스 조회 결과
+- Predicate 후보군: [N개 목록]
+- 유사 사례: [N건]
+- 관련 가이던스: [N건]
+
+## 4. 전략 제안
+- [전략 요약]
+
+## 5. 승인
+- [ ] 규제 전략 승인 및 Execute 단계 진입
+- [ ] 수정 요청 (사유 입력)
+```
+
+**Wave Parallelism 모델:**
+
+Brief 단계 내에서 Wave 기반 병렬 처리를 수행한다:
+
+```
+Wave 1: 기초 분석 (Database 중심)
+├─ expert-researcher: 데이터베이스 검색 (병렬)
+├─ expert-regulatory: 법령 식별 (병렬)
+└─ expert-standards: 표준 매핑 (병렬)
+
+Wave 2: 종합 분석 (Wave 1 결과 기반)
+├─ expert-regulatory: 규제 전략 수립 (직렬 의존)
+├─ expert-analyst: 데이터 시장 분석 (병렬)
+└─ orchestrator: 종합 브리프 작성 (종합)
+
+Wave 3: Gatekeeper Review (순차적)
+└─ 사용자 승인: 브리프 검토 및 결정
+```
 
 **예시 - 사용자 요청:** "510(k) 제출을 준비해야 합니다"
 
@@ -590,9 +690,21 @@ ARIA Brief:
 #### Phase 2: EXECUTE (실행)
 
 **MoAI 대응**: Run Phase (DDD 구현)
-**토큰 예산**: 180,000
+**토큰 예산**: 60,000 (30%)
+**핵심 활동**: 문서 작성 및 검토
 
 **목적**: Brief에서 수립된 계획에 따라 실제 업무를 수행한다.
+
+**Dynamic Team Composition (동적 팀 구성):**
+
+RA/QA 워크플로우는 파일 소유권이 아닌 **문서 섹션/단계별 책임**을 기반으로 동적 팀을 구성한다.
+
+| 업무 단계 | 참여 에이전트 | 작업 방식 |
+|-----------|--------------|-----------|
+| Research | expert-researcher + expert-regulatory | 병렬 |
+| Draft | expert-writer + [domain expert] | 협업 |
+| Review | expert-reviewer + manager-quality | 순차 |
+| Refine | expert-writer (수정) | 단일 |
 
 **세부 단계:**
 
@@ -600,11 +712,13 @@ ARIA Brief:
    - expert-researcher가 필요 정보 수집
    - 규정/표준 원문 참조
    - 선행 사례 조사
+   - Notion 데이터베이스에서 유사 문서 검색
 
 2. **Draft (초안 작성)**
    - expert-writer가 문서 초안 생성
    - 템플릿 기반 구조화
    - 데이터/근거 삽입
+   - Domain 전문가 협업 (해당 시)
 
 3. **Review (검토)**
    - expert-reviewer가 규정 준수 확인
@@ -625,7 +739,8 @@ ARIA Brief:
 #### Phase 3: DELIVER (전달)
 
 **MoAI 대응**: Sync Phase (문서 동기화)
-**토큰 예산**: 40,000
+**토큰 예산**: 20,000 (10%)
+**핵심 활동**: 최종 검토 및 전달
 
 **목적**: 완성된 산출물을 최종 검토하고, 적절한 형식으로 전달한다.
 
