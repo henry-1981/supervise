@@ -87,7 +87,7 @@ ARIA implements the universal knowledge worker pattern:
 
 ## Installation
 
-### Standalone Installation (Recommended)
+### Standalone Installation
 
 1. **Clone the plugin**:
 
@@ -126,16 +126,18 @@ git clone https://github.com/henry-1981/supervise.git \
 
 4. **Restart Claude Code**
 
-### Via Marketplace (Alternative)
+## Quick Start
 
-If you have `team-attention-plugins` marketplace installed:
-
-```bash
-git clone https://github.com/team-attention/plugins-for-claude-natives.git \
-  ~/.claude/plugins/marketplaces/team-attention-plugins
+```
+/aria "510(k) submission preparation for my device"
 ```
 
-Then enable `cowork-supervisor@team-attention-plugins` in settings.json
+ARIA will:
+1. Ask clarifying questions (device type, classification, predicate device)
+2. Analyze regulatory pathway (Brief phase)
+3. Present strategy for your approval
+4. Prepare submission documents (Execute phase)
+5. Deliver quality-validated output (Deliver phase)
 
 > Note: The marketplace plugin uses the legacy Cowork Supervisor name. ARIA v2.0+ rebrands to the specialized RA/QA focus.
 

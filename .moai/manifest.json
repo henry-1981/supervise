@@ -1,6 +1,6 @@
 {
   "version": "2.2.2",
-  "deployed_at": "2026-02-09T01:01:04Z",
+  "deployed_at": "2026-02-09T02:38:28Z",
   "files": {
     ".claude/agents/moai/builder-agent.md": {
       "provenance": "template_managed",
@@ -394,9 +394,9 @@
     },
     ".claude/settings.json": {
       "provenance": "template_managed",
-      "template_hash": "sha256:c0852f272fb339abec685b81b5a39b94296da0ac3f4ca1146369b434c679ee7e",
-      "deployed_hash": "sha256:c0852f272fb339abec685b81b5a39b94296da0ac3f4ca1146369b434c679ee7e",
-      "current_hash": "sha256:c0852f272fb339abec685b81b5a39b94296da0ac3f4ca1146369b434c679ee7e"
+      "template_hash": "sha256:e890e4fcede543522c2d66659c21130758e656ca5f722cb830f720ea272dbe14",
+      "deployed_hash": "sha256:e890e4fcede543522c2d66659c21130758e656ca5f722cb830f720ea272dbe14",
+      "current_hash": "sha256:e890e4fcede543522c2d66659c21130758e656ca5f722cb830f720ea272dbe14"
     },
     ".claude/skills/moai-design-tools/SKILL.md": {
       "provenance": "template_managed",
@@ -2614,9 +2614,9 @@
     },
     ".moai/config/config.yaml": {
       "provenance": "template_managed",
-      "template_hash": "sha256:e55a7301119510f8966fe07c32b19a49dd36d54cc2942eeeefe6187f8472fac8",
-      "deployed_hash": "sha256:e55a7301119510f8966fe07c32b19a49dd36d54cc2942eeeefe6187f8472fac8",
-      "current_hash": "sha256:e55a7301119510f8966fe07c32b19a49dd36d54cc2942eeeefe6187f8472fac8"
+      "template_hash": "sha256:9e4f00db68f887bab3ae8686cfe751f47a45506ac93afb5beedfcbd7f13cbef9",
+      "deployed_hash": "sha256:9e4f00db68f887bab3ae8686cfe751f47a45506ac93afb5beedfcbd7f13cbef9",
+      "current_hash": "sha256:9e4f00db68f887bab3ae8686cfe751f47a45506ac93afb5beedfcbd7f13cbef9"
     },
     ".moai/config/sections/git-strategy.yaml": {
       "provenance": "template_managed",
@@ -2644,9 +2644,9 @@
     },
     ".moai/config/sections/project.yaml": {
       "provenance": "template_managed",
-      "template_hash": "sha256:f04119ee8b64d009bfb040c301b1babc9101a0a2f3ded9f0ffe761d84028d2a4",
-      "deployed_hash": "sha256:f04119ee8b64d009bfb040c301b1babc9101a0a2f3ded9f0ffe761d84028d2a4",
-      "current_hash": "sha256:f04119ee8b64d009bfb040c301b1babc9101a0a2f3ded9f0ffe761d84028d2a4"
+      "template_hash": "sha256:bff97e78b46a9ce4fb70b4c63005064d585af938909eb56c15acce01e540d917",
+      "deployed_hash": "sha256:bff97e78b46a9ce4fb70b4c63005064d585af938909eb56c15acce01e540d917",
+      "current_hash": "sha256:bff97e78b46a9ce4fb70b4c63005064d585af938909eb56c15acce01e540d917"
     },
     ".moai/config/sections/quality.yaml": {
       "provenance": "template_managed",

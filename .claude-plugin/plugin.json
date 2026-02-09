@@ -1,26 +1,118 @@
 {
-  "name": "aria-core",
-  "version": "1.0.0",
-  "description": "ARIA - AI Regulatory Intelligence Assistant. Strategic orchestrator for business workflow automation, specialized in Medical Device RA/QA.",
-  "author": {
-    "name": "ARIA Team"
+  "name": "aria",
+  "description": "AI Regulatory Intelligence Assistant for Medical Device RA/QA professionals",
+  "version": "2.0.0",
+  "author": "ARIA Team",
+  "capabilities": {
+    "commands": [
+      "aria"
+    ],
+    "agents": [
+      "orchestrator",
+      "manager-docs",
+      "manager-quality",
+      "manager-project",
+      "expert-writer",
+      "expert-analyst",
+      "expert-reviewer",
+      "expert-researcher",
+      "expert-regulatory",
+      "expert-standards",
+      "expert-risk",
+      "expert-design-control",
+      "expert-capa",
+      "expert-clinical",
+      "expert-submission",
+      "expert-audit"
+    ],
+    "skills": [
+      "aria-core",
+      "aria-workflow-brief",
+      "aria-workflow-execute",
+      "aria-workflow-deliver",
+      "aria-quality-valid",
+      "aria-domain-regulatory",
+      "aria-domain-standards",
+      "aria-domain-risk",
+      "aria-domain-design-control",
+      "aria-domain-capa",
+      "aria-domain-clinical",
+      "aria-domain-submission",
+      "aria-domain-audit"
+    ],
+    "mcpServers": [
+      "context7",
+      "sequential-thinking"
+    ]
   },
-  "license": "MIT",
-  "keywords": [
-    "aria",
-    "regulatory",
-    "medical-device",
-    "raqa",
-    "orchestrator",
-    "workflow"
-  ],
-  "agents": [
-    "./agents/core/orchestrator.md"
-  ],
-  "skills": [
-    "./skills/"
-  ],
-  "commands": [
-    "./commands/"
-  ]
+  "entryPoints": {
+    "command": ".claude/commands/aria.md",
+    "agents": ".claude/agents/aria/",
+    "skills": ".claude/skills/aria/"
+  },
+  "configuration": {
+    "requiredSettings": [
+      "language.conversation_language"
+    ],
+    "optionalSettings": [
+      "workflow.team.enabled",
+      "quality.development_mode"
+    ]
+  },
+  "dependencies": {
+    "moaiAdkVersion": ">=12.0.0",
+    "claudeCodeVersion": ">=2.1.32",
+    "requiredMcpServers": [
+      "context7"
+    ],
+    "optionalMcpServers": [
+      "sequential-thinking",
+      "claude-in-chrome"
+    ]
+  },
+  "installation": {
+    "autoInit": true,
+    "createDirectories": [
+      ".claude/agents/aria",
+      ".claude/skills/aria",
+      ".claude/commands",
+      ".aria/knowledge",
+      ".aria/templates",
+      ".aria/tracker"
+    ],
+    "copyAssets": [
+      "templates/regulatory/*",
+      "templates/standards/*"
+    ]
+  },
+  "quality": {
+    "framework": "VALID",
+    "gates": [
+      "verified",
+      "accurate",
+      "linked",
+      "inspectable",
+      "deliverable"
+    ]
+  },
+  "metadata": {
+    "category": "business",
+    "domain": "regulatory-affairs",
+    "industry": "medical-devices",
+    "keywords": [
+      "regulatory",
+      "medical-device",
+      "FDA",
+      "EU-MDR",
+      "MFDS",
+      "quality-assurance",
+      "documentation",
+      "compliance"
+    ],
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/aria-team/aria-plugin",
+    "repository": "https://github.com/aria-team/aria-plugin",
+    "documentation": "https://aria-docs.example.com",
+    "changelog": ".aria/CHANGELOG.md"
+  }
 }

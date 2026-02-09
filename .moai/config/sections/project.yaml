@@ -3,7 +3,7 @@
 
 project:
   # Project name (derived from directory name or user input)
-  name: "supervise"
+  name: "SPEC-ARIA-001"
 
   # Project description (optional, user-provided)
   description: ""
