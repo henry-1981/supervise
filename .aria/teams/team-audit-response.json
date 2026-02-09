@@ -1,0 +1,244 @@
+{
+  "schema_version": "1.0",
+  "team_id": "aria-audit-response",
+  "team_name": "Audit Response Team",
+  "description": "FDA/ISO audit finding response and CAPA planning team",
+  "version": "1.0.0",
+  "created": "2025-02-09",
+  "complexity_threshold": {
+    "min_findings": 3,
+    "activation_mode": "auto"
+  },
+  "teammates": [
+    {
+      "name": "audit-researcher",
+      "agent_type": "team-researcher",
+      "model": "haiku",
+      "role": "Audit Finding Researcher",
+      "description": "Research audit findings, relevant regulations, and best practices",
+      "permissions": {
+        "mode": "plan",
+        "tools": ["Read", "Grep", "Glob", "WebSearch", "WebFetch"]
+      },
+      "responsibilities": [
+        "Analyze audit observation details",
+        "Research applicable regulatory requirements",
+        "Identify relevant FDA/ISO standards",
+        "Document historical context and previous findings"
+      ],
+      "file_ownership": [
+        ".aria/audit-research/**",
+        ".aria/findings/**"
+      ],
+      "skills": [
+        "aria-regulatory-knowledge",
+        "aria-audit-standards"
+      ]
+    },
+    {
+      "name": "capa-analyst",
+      "agent_type": "team-analyst",
+      "model": "sonnet",
+      "role": "CAPA Planning Analyst",
+      "description": "Plan Corrective and Preventive Actions for audit findings",
+      "permissions": {
+        "mode": "plan",
+        "tools": ["Read", "Grep", "Glob", "Write", "Edit"]
+      },
+      "responsibilities": [
+        "Analyze root cause requirements",
+        "Plan corrective action steps",
+        "Design preventive measures",
+        "Create timeline and resource estimates"
+      ],
+      "file_ownership": [
+        ".aria/capa-planning/**",
+        ".aria/root-cause/**"
+      ],
+      "skills": [
+        "aria-capa-methodology",
+        "aria-root-cause-analysis"
+      ]
+    },
+    {
+      "name": "capa-expert",
+      "agent_type": "team-architect",
+      "model": "sonnet",
+      "role": "CAPA Implementation Expert",
+      "description": "Execute detailed root cause analysis and implement CAPA",
+      "permissions": {
+        "mode": "acceptEdits",
+        "tools": ["Read", "Grep", "Glob", "Write", "Edit"]
+      },
+      "responsibilities": [
+        "Conduct detailed root cause analysis",
+        "Implement CAPA documentation",
+        "Verify effectiveness of corrective actions",
+        "Document preventive measures"
+      ],
+      "file_ownership": [
+        ".aria/capa-documents/**",
+        ".aria/effectiveness-checks/**"
+      ],
+      "skills": [
+        "aria-capa-implementation",
+        "aria-fishbone-analysis",
+        "aria-5-whys"
+      ]
+    }
+  ],
+  "workflow": {
+    "phases": [
+      {
+        "phase": "investigation",
+        "teammates": ["audit-researcher", "capa-analyst"],
+        "parallel": true,
+        "description": "Investigate audit findings and regulatory context"
+      },
+      {
+        "phase": "root_cause",
+        "teammates": ["capa-expert"],
+        "parallel": false,
+        "depends_on": ["investigation"],
+        "description": "Conduct root cause analysis"
+      },
+      {
+        "phase": "capa_planning",
+        "teammates": ["capa-analyst", "capa-expert"],
+        "parallel": false,
+        "depends_on": ["root_cause"],
+        "description": "Plan CAPA implementation"
+      },
+      {
+        "phase": "implementation",
+        "teammates": ["capa-expert"],
+        "parallel": false,
+        "depends_on": ["capa_planning"],
+        "description": "Implement and document CAPA"
+      }
+    ],
+    "task_board": {
+      "enabled": true,
+      "shared_tasks": [
+        {
+          "id": "analyze-finding",
+          "subject": "Analyze audit observation details",
+          "assignee": "audit-researcher",
+          "priority": "high"
+        },
+        {
+          "id": "research-regulations",
+          "subject": "Research applicable regulatory requirements",
+          "assignee": "audit-researcher",
+          "priority": "high",
+          "depends_on": ["analyze-finding"]
+        },
+        {
+          "id": "identify-standards",
+          "subject": "Identify relevant FDA/ISO standards",
+          "assignee": "audit-researcher",
+          "priority": "medium",
+          "depends_on": ["analyze-finding"]
+        },
+        {
+          "id": "plan-root-cause",
+          "subject": "Plan root cause analysis approach",
+          "assignee": "capa-analyst",
+          "priority": "high",
+          "depends_on": ["research-regulations"]
+        },
+        {
+          "id": "conduct-root-cause",
+          "subject": "Conduct root cause analysis",
+          "assignee": "capa-expert",
+          "priority": "high",
+          "depends_on": ["plan-root-cause"]
+        },
+        {
+          "id": "design-corrective",
+          "subject": "Design corrective actions",
+          "assignee": "capa-analyst",
+          "priority": "high",
+          "depends_on": ["conduct-root-cause"]
+        },
+        {
+          "id": "design-preventive",
+          "subject": "Design preventive measures",
+          "assignee": "capa-analyst",
+          "priority": "high",
+          "depends_on": ["conduct-root-cause"]
+        },
+        {
+          "id": "document-capa",
+          "subject": "Document CAPA plan and implementation",
+          "assignee": "capa-expert",
+          "priority": "high",
+          "depends_on": ["design-corrective", "design-preventive"]
+        },
+        {
+          "id": "verify-effectiveness",
+          "subject": "Verify effectiveness of corrective actions",
+          "assignee": "capa-expert",
+          "priority": "medium",
+          "depends_on": ["document-capa"]
+        }
+      ]
+    }
+  },
+  "escalation_paths": [
+    {
+      "condition": "Quality system issue requiring management review",
+      "escalate_to": "quality-management",
+      "action": "Request management review and resource allocation"
+    },
+    {
+      "condition": "Complex finding requiring engineering expertise",
+      "escalate_to": "engineering-lead",
+      "action": "Request technical input for root cause"
+    },
+    {
+      "condition": "Regulatory uncertainty",
+      "escalate_to": "regulatory-affairs",
+      "action": "Request regulatory guidance on interpretation"
+    },
+    {
+      "condition": "Supply chain or vendor issue",
+      "escalate_to": "supplier-quality",
+      "action": "Request supplier quality intervention"
+    },
+    {
+      "condition": "Critical finding requiring immediate action",
+      "escalate_to": "crisis-management",
+      "action": "Activate immediate response protocol"
+    }
+  ],
+  "quality_gates": {
+    "root_cause_identified": true,
+    "corrective_action_defined": true,
+    "preventive_action_defined": true,
+    "effectiveness_check_planned": true,
+    "timeline_established": true,
+    "documentation_complete": true
+  },
+  "root_cause_methods": {
+    "primary": "5-Whys",
+    "secondary": ["Fishbone", "Fault Tree Analysis", "Is/Is Not Analysis"],
+    "required_depth": 5
+  },
+  "fallback_strategy": {
+    "enabled": true,
+    "mode": "sequential",
+    "fallback_agents": [
+      "manager-spec",
+      "expert-debug",
+      "manager-quality"
+    ],
+    "resume_point": "last_completed_task"
+  },
+  "completion_markers": {
+    "all_findings_addressed": true,
+    "capa_approved": true,
+    "effectiveness_verified": true,
+    "documentation_signed_off": true
+  }
+}

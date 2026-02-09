@@ -1,0 +1,288 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ARIA Regulation Mapping Schema",
+  "description": "Schema for mapping regulations to affected documents in ARIA",
+  "type": "object",
+  "properties": {
+    "regulations": {
+      "type": "object",
+      "description": "Regulation entries indexed by regulation ID",
+      "patternProperties": {
+        "^[A-Z]{3,4}-[0-9]{4}-[0-9]{3}$": {
+          "type": "object",
+          "properties": {
+            "regulation_id": {
+              "type": "string",
+              "description": "Unique regulation identifier"
+            },
+            "domain": {
+              "type": "string",
+              "enum": ["FDA", "EU MDR", "MFDS", "PMDA", "ANVISA", "Health Canada", "TGA", "MHRA"]
+            },
+            "citation": {
+              "type": "string",
+              "description": "Official regulation citation",
+              "examples": [
+                "21 CFR 820.30",
+                "21 CFR 807.81(a)",
+                "EU MDR Annex I",
+                "EU MDR Article 83",
+                "MFDS Medical Device Act Article 15"
+              ]
+            },
+            "title": {
+              "type": "string",
+              "description": "Regulation title or subject"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "quality_system",
+                "clinical_evaluation",
+                "risk_management",
+                "post_market_surveillance",
+                "labeling",
+                "software_validation",
+                "cybersecurity",
+                "predicates",
+                "submissions",
+                "reporting"
+              ]
+            },
+            "version": {
+              "type": "string",
+              "description": "Regulation version or edition"
+            },
+            "effective_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "superseded_by": {
+              "type": "string",
+              "description": "Regulation ID that supersedes this one (if applicable)"
+            },
+            "last_checked": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Last time this regulation was verified for currency"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["current", "superseded", "withdrawn", "draft"],
+              "default": "current"
+            },
+            "requirements": {
+              "type": "array",
+              "description": "Key requirements extracted from regulation",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "requirement_id": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "mandatory": {
+                    "type": "boolean",
+                    "default": true
+                  }
+                }
+              }
+            },
+            "affected_document_types": {
+              "type": "array",
+              "description": "Document types affected by this regulation",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "510(k) Submission",
+                  "PMA",
+                  "IDE",
+                  "HDE",
+                  "Technical File",
+                  "CER",
+                  "PSUR",
+                  "SSR",
+                  "FSCA",
+                  "Quality Manual",
+                  "CAPA",
+                  "Audit Report",
+                  "Risk Management File",
+                  "Labeling",
+                  "IFU",
+                  "Software Validation Plan"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "documents": {
+      "type": "object",
+      "description": "Document entries indexed by document ID",
+      "patternProperties": {
+        "^DOC-[0-9]{8}-[0-9]{4}$": {
+          "type": "object",
+          "properties": {
+            "document_id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "510(k) Submission",
+                "PMA",
+                "IDE",
+                "Technical File",
+                "CER",
+                "PSUR",
+                "SSR",
+                "Quality Manual",
+                "CAPA",
+                "Audit Report",
+                "Risk Management File",
+                "Labeling",
+                "IFU",
+                "Software Validation Plan"
+              ]
+            },
+            "regulatory_domain": {
+              "type": "string",
+              "enum": ["FDA", "EU MDR", "MFDS", "PMDA", "ANVISA", "Health Canada", "TGA", "MHRA"]
+            },
+            "applicable_regulations": {
+              "type": "array",
+              "description": "List of regulation IDs that apply to this document",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": ["draft", "review", "pending", "approved", "submitted", "archived"],
+              "default": "draft"
+            },
+            "submission_type": {
+              "type": "string",
+              "description": "Type of submission if applicable",
+              "examples": ["Traditional", "Special", "510(k)", "PMA", "IDE"]
+            },
+            "product_family": {
+              "type": "string"
+            },
+            "device_classification": {
+              "type": "string",
+              "examples": ["Class I", "Class II", "Class IIa", "Class IIb", "Class III"]
+            },
+            "technology_type": {
+              "type": "string",
+              "examples": ["SaMD", "SiMD", "Hardware", "Combination Product", "AI/ML"]
+            },
+            "last_updated": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "next_review_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "location": {
+              "type": "object",
+              "description": "Document location information",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["local", "notion", "google_drive", "sharepoint"]
+                },
+                "path": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "notion_page_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "change_log": {
+      "type": "array",
+      "description": "Log of regulatory changes and their impacts",
+      "items": {
+        "type": "object",
+        "properties": {
+          "change_id": {
+            "type": "string",
+            "pattern": "^CHANGE-[0-9]{8}-[0-9]{4}$"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "regulation_id": {
+            "type": "string"
+          },
+          "change_type": {
+            "type": "string",
+            "enum": ["new", "update", "supersede", "withdraw"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "affected_documents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actions_taken": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "detected_by": {
+            "type": "string",
+            "enum": ["automated_monitoring", "manual_review", "user_report"]
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "total_regulations": {
+          "type": "integer"
+        },
+        "total_documents": {
+          "type": "integer"
+        },
+        "monitoring_active": {
+          "type": "boolean",
+          "default": true
+        },
+        "last_monitoring_check": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
