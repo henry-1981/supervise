@@ -1,0 +1,40 @@
+aria:
+  name: "ARIA"
+  version: "1.0.0"
+  description: "AI Regulatory Intelligence Assistant"
+
+  language:
+    conversation_language: "ko"
+    agent_prompt_language: "en"
+    document_language: "en"
+    template_language: "en"
+
+  quality:
+    framework: "valid"
+    auto_check: true
+    levels:
+      - L1  # Format check (automated)
+      - L2  # Reference check (semi-automated)
+      - L3  # Content check (semi-automated)
+
+  workflow:
+    default: "brief-execute-deliver"
+    brief_tokens: 30000
+    execute_tokens: 180000
+    deliver_tokens: 40000
+    auto_clear: true
+    approval_required: true
+
+  integrations:
+    notion: true
+    google: false  # Phase 4
+    context7: true
+    sequential_thinking: true
+
+  audit_trail:
+    enabled: true
+    storage: "notion"
+
+  knowledge:
+    auto_update: true
+    confidence_threshold: "medium"

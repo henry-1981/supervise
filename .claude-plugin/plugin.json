@@ -1,30 +1,26 @@
 {
-  "name": "cowork-supervisor",
+  "name": "aria-core",
   "version": "1.0.0",
-  "description": "Strategic orchestrator for multi-plugin coordination. Clarifies user intent, discovers plugin capabilities, creates execution plans, orchestrates plugins, and aggregates results.",
+  "description": "ARIA - AI Regulatory Intelligence Assistant. Strategic orchestrator for business workflow automation, specialized in Medical Device RA/QA.",
   "author": {
-    "name": "Team Attention",
-    "url": "https://github.com/team-attention"
+    "name": "ARIA Team"
   },
-  "homepage": "https://github.com/team-attention/cowork-supervisor",
-  "repository": "https://github.com/team-attention/cowork-supervisor",
   "license": "MIT",
   "keywords": [
-    "supervisor",
+    "aria",
+    "regulatory",
+    "medical-device",
+    "raqa",
     "orchestrator",
-    "multi-plugin",
-    "coordination",
-    "claude-code",
-    "plugin"
+    "workflow"
   ],
   "agents": [
-    "./agents/supervisor.md",
-    "./agents/intent-clarifier.md",
-    "./agents/capability-discoverer.md",
-    "./agents/supervisor-planner.md",
-    "./agents/orchestra.md",
-    "./agents/aggregator.md"
+    "./agents/core/orchestrator.md"
   ],
-  "skills": ["./skills/"],
-  "commands": ["./commands/"]
+  "skills": [
+    "./skills/"
+  ],
+  "commands": [
+    "./commands/"
+  ]
 }
