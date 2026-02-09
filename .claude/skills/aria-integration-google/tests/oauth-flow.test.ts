@@ -14,8 +14,120 @@
 
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 
+// Interfaces
+interface AuthConfig {
+  clientId: string;
+  clientSecret: string;
+  redirectUri: string;
+}
+
+interface TokenResponse {
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+  token_type: string;
+}
+
+interface TokenStore {
+  access_token: string;
+  refresh_token: string;
+  expires_at: number;
+  token_type: string;
+}
+
+// Helper functions for testing (implementation would be in actual module)
+function generateAuthUrl(config: AuthConfig): string {
+  const scopes = [
+    'https://www.googleapis.com/auth/gmail.readonly',
+    'https://www.googleapis.com/auth/gmail.send',
+    'https://www.googleapis.com/auth/documents',
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/calendar',
+  ];
+
+  const params = new URLSearchParams({
+    client_id: config.clientId,
+    redirect_uri: config.redirectUri,
+    response_type: 'code',
+    scope: scopes.join(' '),
+    access_type: 'offline',
+    prompt: 'consent',
+  });
+
+  return `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+}
+
+async function exchangeCodeForTokens(
+  config: AuthConfig,
+  code: string
+): Promise<TokenResponse> {
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      client_id: config.clientId,
+      client_secret: config.clientSecret,
+      code,
+      grant_type: 'authorization_code',
+      redirect_uri: config.redirectUri,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Token exchange failed: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+async function refreshAccessToken(
+  config: AuthConfig,
+  refreshToken: string
+): Promise<Omit<TokenResponse, 'refresh_token'>> {
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      client_id: config.clientId,
+      client_secret: config.clientSecret,
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token',
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Token refresh failed: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+function isTokenValid(store: TokenStore): boolean {
+  return store.expires_at > Date.now();
+}
+
+async function getValidAccessToken(
+  config: AuthConfig,
+  store: TokenStore
+): Promise<string> {
+  if (isTokenValid(store)) {
+    return store.access_token;
+  }
+
+  const newTokens = await refreshAccessToken(config, store.refresh_token);
+  store.access_token = newTokens.access_token;
+  store.expires_at = Date.now() + newTokens.expires_in * 1000;
+
+  return newTokens.access_token;
+}
+
+// Tests
 describe('OAuth 2.0 Flow', () => {
-  const mockConfig = {
+  const mockConfig: AuthConfig = {
     clientId: 'test-client-id.apps.googleusercontent.com',
     clientSecret: 'test-client-secret',
     redirectUri: 'http://localhost:3000/callback'
@@ -125,7 +237,7 @@ describe('OAuth 2.0 Flow', () => {
 
   describe('isTokenValid', () => {
     it('should return true for valid token', () => {
-      const validStore = {
+      const validStore: TokenStore = {
         access_token: 'test-token',
         refresh_token: 'test-refresh',
         expires_at: Date.now() + 3600 * 1000, // 1 hour from now
@@ -136,7 +248,7 @@ describe('OAuth 2.0 Flow', () => {
     });
 
     it('should return false for expired token', () => {
-      const expiredStore = {
+      const expiredStore: TokenStore = {
         access_token: 'test-token',
         refresh_token: 'test-refresh',
         expires_at: Date.now() - 1000, // 1 second ago
@@ -149,7 +261,7 @@ describe('OAuth 2.0 Flow', () => {
 
   describe('getValidAccessToken', () => {
     it('should return existing access token if valid', async () => {
-      const validStore = {
+      const validStore: TokenStore = {
         access_token: 'existing-token',
         refresh_token: 'test-refresh',
         expires_at: Date.now() + 3600 * 1000,
@@ -161,7 +273,7 @@ describe('OAuth 2.0 Flow', () => {
     });
 
     it('should refresh token if expired', async () => {
-      const expiredStore = {
+      const expiredStore: TokenStore = {
         access_token: 'expired-token',
         refresh_token: 'test-refresh',
         expires_at: Date.now() - 1000,
@@ -228,114 +340,3 @@ describe('OAuth 2.0 Flow', () => {
     });
   });
 });
-
-// Helper functions for testing (implementation would be in actual module)
-
-interface AuthConfig {
-  clientId: string;
-  clientSecret: string;
-  redirectUri: string;
-}
-
-interface TokenResponse {
-  access_token: string;
-  refresh_token: string;
-  expires_in: number;
-  token_type: string;
-}
-
-interface TokenStore {
-  access_token: string;
-  refresh_token: string;
-  expires_at: number;
-  token_type: string;
-}
-
-function generateAuthUrl(config: AuthConfig): string {
-  const scopes = [
-    'https://www.googleapis.com/auth/gmail.readonly',
-    'https://www.googleapis.com/auth/gmail.send',
-    'https://www.googleapis.com/auth/documents',
-    'https://www.googleapis.com/auth/spreadsheets',
-    'https://www.googleapis.com/auth/calendar',
-  ];
-
-  const params = new URLSearchParams({
-    client_id: config.clientId,
-    redirect_uri: config.redirectUri,
-    response_type: 'code',
-    scope: scopes.join(' '),
-    access_type: 'offline',
-    prompt: 'consent',
-  });
-
-  return `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
-}
-
-async function exchangeCodeForTokens(
-  config: AuthConfig,
-  code: string
-): Promise<TokenResponse> {
-  const response = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      client_id: config.clientId,
-      client_secret: config.clientSecret,
-      code,
-      grant_type: 'authorization_code',
-      redirect_uri: config.redirectUri,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Token exchange failed: ${response.statusText}`);
-  }
-
-  return response.json();
-}
-
-async function refreshAccessToken(
-  config: AuthConfig,
-  refreshToken: string
-): Promise<Omit<TokenResponse, 'refresh_token'>> {
-  const response = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      client_id: config.clientId,
-      client_secret: config.clientSecret,
-      refresh_token: refreshToken,
-      grant_type: 'refresh_token',
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Token refresh failed: ${response.statusText}`);
-  }
-
-  return response.json();
-}
-
-function isTokenValid(store: TokenStore): boolean {
-  return store.expires_at > Date.now();
-}
-
-async function getValidAccessToken(
-  config: AuthConfig,
-  store: TokenStore
-): Promise<string> {
-  if (isTokenValid(store)) {
-    return store.access_token;
-  }
-
-  const newTokens = await refreshAccessToken(config, store.refresh_token);
-  store.access_token = newTokens.access_token;
-  store.expires_at = Date.now() + newTokens.expires_in * 1000;
-
-  return newTokens.access_token;
-}
