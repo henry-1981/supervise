@@ -1,14 +1,14 @@
 ---
 name: aria-audit
 description: >
-  ARIA 감사 추적(Audit Trail) 조회 명령어 - Notion Audit Log 데이터베이스에서
-  결정 이력, 문서 변경, 승인 기록을 검색합니다. 에이전트, 날짜 범위,
-  행동 유형별 필터링을 지원하며, CSV/PDF 보고서 내보내기 기능을 제공합니다.
+  ARIA audit trail search and export command - Search Notion Audit Log database
+  for decision history, document changes, and approval records. Supports filtering
+  by agent, date range, and action type. CSV/PDF report export available.
 license: Apache-2.0
 compatibility: Designed for Claude Code
 user-invocable: true
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   category: "aria"
   status: "active"
   updated: "2026-02-09"
@@ -16,13 +16,13 @@ metadata:
   argument-hint: "search [--agent name] [--date range] [--action type] [--export format]"
 ---
 
-# ARIA 감사 추적(Audit Trail) 조회 명령어
+# ARIA Audit Trail Search and Export Command
 
-## 목적
+## Purpose
 
-Notion Audit Log 데이터베이스에서 모든 결정 이력, 문서 변경, 승인 기록을 검색하고 감사 추적 보고서를 생성합니다. 규제 컴플라이언스 증빙을 지원합니다.
+Search Notion Audit Log database for all decision history, document changes, and approval records. Generate audit trail reports for regulatory compliance evidence.
 
-## 사용법
+## Usage
 
 ```
 /aria audit search "CAPA approval" --agent expert-regulatory
@@ -31,405 +31,411 @@ Notion Audit Log 데이터베이스에서 모든 결정 이력, 문서 변경, �
 /aria audit search --agent orchestrator --export pdf
 ```
 
-## Audit Log 데이터베이스 구조
+## Audit Log Database Structure
 
-### 필드
+### Fields
 
-- **Timestamp:** 작업 날짜/시간 (Created time)
-- **Agent:** 에이전트 유형 (orchestrator, expert-regulatory, expert-risk 등)
-- **Action:** 행동 유형 (Create, Update, Delete, Approve, Reject)
-- **Entity:** 엔티티 유형 (Document, CAPA, Risk, Submission, Requirement)
-- **Entity ID:** 관련 엔티티 ID (예: CAPA-2024-003)
-- **Decision:** 결정 내용 (Text)
-- **Rationale:** 결정 근거 (Rich Text)
-- **Outcome:** 결과 (Approved, Rejected, Pending, Deferred)
-- **Related Docs:** 관련 문서 (Relation)
+- **Timestamp:** Date/time of action (Created time)
+- **Agent:** Agent type (orchestrator, expert-regulatory, expert-risk, etc.)
+- **Action:** Action type (Create, Update, Delete, Approve, Reject)
+- **Entity:** Entity type (Document, CAPA, Risk, Submission, Requirement)
+- **Entity ID:** Related entity ID (e.g., CAPA-2024-003)
+- **Decision:** Decision content (Text)
+- **Rationale:** Decision rationale (Rich Text)
+- **Outcome:** Result (Approved, Rejected, Pending, Deferred)
+- **Related Docs:** Related documents (Relation)
 
-### 검색 가능 필드
+### Searchable Fields
 
 Timestamp, Agent, Action, Entity, Entity ID, Decision, Outcome
 
-## 검색 프로세스
+## Search Process
 
-### 단계 1: 검색 쿼리 구성
+### Step 1: Build Search Query
 
 ```
-입력: "CAPA approval" --agent expert-regulatory --date "2024-01-01:2024-01-31"
+Input: "CAPA approval" --agent expert-regulatory --date "2024-01-01:2024-01-31"
 
-쿼리 구성:
-1. Text 검색: Decision, Rationale 필드에서 "CAPA" AND "approval" 검색
-2. 필터: Agent = "expert-regulatory"
-3. 필터: Timestamp >= "2024-01-01" AND <= "2024-01-31"
-4. 정렬: Timestamp 내림차순 (최신 먼저)
+Query Construction:
+1. Text search: "CAPA" AND "approval" in Decision, Rationale fields
+2. Filter: Agent = "expert-regulatory"
+3. Filter: Timestamp >= "2024-01-01" AND <= "2024-01-31"
+4. Sort: Timestamp descending (most recent first)
 ```
 
-### 단계 2: 검색 결과 표시
+### Step 2: Display Search Results
 
 ```markdown
-## 감사 추적 검색 결과: "CAPA approval"
+## Audit Trail Search Results: "CAPA approval"
 
-검색 조건:
+Search Criteria:
 - Agent: expert-regulatory
-- 날짜: 2024-01-01 ~ 2024-01-31
+- Date: 2024-01-01 ~ 2024-01-31
 - Action: Approve
 
-### 발견된 항목 (12건)
+### Found Items (12)
 
 1. **2024-01-28 14:32** - expert-regulatory
    - Action: Approve
    - Entity: CAPA
    - Entity ID: CAPA-2024-008
-   - Decision: Supplier qualification CAPA 승인
-   - Rationale: Supplier가 ISO 13485 인증을 획득하여 요구사항 충족
+   - Decision: Supplier qualification CAPA approved
+   - Rationale: Supplier achieved ISO 13485 certification, requirements met
    - Outcome: Approved
    - Related Docs: DOC-REP-112 (Supplier Audit Report)
-   - [Notion 페이지 보기](https://notion.so/audit-log-xxx)
+   - [View Notion page](https://notion.so/audit-log-xxx)
 
 2. **2024-01-25 10:15** - expert-regulatory
    - Action: Approve
    - Entity: CAPA
    - Entity ID: CAPA-2024-007
-   - Decision: Design validation CAPA 승인
-   - Rationale: 모든 validation test가 pass함, USability study 완료
+   - Decision: Design validation CAPA approved
+   - Rationale: All validation tests passed, usability study complete
    - Outcome: Approved
    - Related Docs: DOC-REP-108 (Validation Report)
-   - [Notion 페이지 보기](https://notion.so/audit-log-xxx)
+   - [View Notion page](https://notion.so/audit-log-xxx)
 
 ...
 
-### 요약
-- 전체 검색: 12건
-- Approved: 10건
-- Rejected: 1건
-- Pending: 1건
+### Summary
+- Total search: 12 items
+- Approved: 10 items
+- Rejected: 1 item
+- Pending: 1 item
 ```
 
-## 필터 옵션
+## Filter Options
 
-### 에이전트 필터
+### Agent Filter
 
 ```
 --agent orchestrator           # MoAI orchestrator
---agent expert-regulatory      # 규제 전문가
---agent expert-risk            # 위험 관리 전문가
---agent expert-capa            # CAPA 전문가
---agent expert-document        # 문서 관리 전문가
---agent all                    # 모든 에이전트 (기본값)
+--agent expert-regulatory      # Regulatory expert
+--agent expert-risk            # Risk management expert
+--agent expert-capa            # CAPA expert
+--agent expert-document        # Document management expert
+--agent all                    # All agents (default)
 ```
 
-### 날짜 필터
+### Date Filter
 
 ```
---date "2024-01-01:2024-01-31"  # 기간 지정
---date "today"                   # 오늘
---date "last-7-days"             # 최근 7일
---date "last-30-days"            # 최근 30일
---date "this-month"              # 이번 달
---date "last-month"              # 지난 달
+--date "2024-01-01:2024-01-31"  # Specific date range
+--date "today"                   # Today
+--date "last-7-days"             # Last 7 days
+--date "last-30-days"            # Last 30 days
+--date "this-month"              # This month
+--date "last-month"              # Last month
 ```
 
-### 행동(Action) 필터
+### Action Filter
 
 ```
---action Create                 # 생성
---action Update                 # 수정
---action Delete                 # 삭제
---action Approve                # 승인
---action Reject                 # 거부
---action all                    # 모든 행동 (기본값)
+--action Create                 # Create
+--action Update                 # Update
+--action Delete                 # Delete
+--action Approve                # Approve
+--action Reject                 # Reject
+--action all                    # All actions (default)
 ```
 
-### 엔티티(Entity) 필터
+### Entity Filter
 
 ```
---entity Document              # 문서
+--entity Document              # Document
 --entity CAPA                  # CAPA
---entity Risk                  # 위험
---entity Submission            # 제출
---entity Requirement           # 요구사항
---entity all                   # 모든 엔티티 (기본값)
+--entity Risk                  # Risk
+--entity Submission            # Submission
+--entity Requirement           # Requirement
+--entity all                   # All entities (default)
 ```
 
-## 보고서 내보내기
+## Report Export
 
-### CSV 내보내기
+### CSV Export
 
 ```csv
 Timestamp,Agent,Action,Entity,Entity ID,Decision,Outcome
-2024-01-28 14:32,expert-regulatory,Approve,CAPA,CAPA-2024-008,"Supplier qualification CAPA 승인",Approved
-2024-01-25 10:15,expert-regulatory,Approve,CAPA,CAPA-2024-007,"Design validation CAPA 승인",Approved
+2024-01-28 14:32,expert-regulatory,Approve,CAPA,CAPA-2024-008,"Supplier qualification CAPA approved",Approved
+2024-01-25 10:15,expert-regulatory,Approve,CAPA,CAPA-2024-007,"Design validation CAPA approved",Approved
 ...
 ```
 
-사용법:
+Usage:
 ```
 /aria audit search "CAPA approval" --export csv
-→ audit-trail-20240129.csv 파일로 저장
+→ Saved to audit-trail-20240129.csv file
 ```
 
-### PDF 내보내기
+### PDF Export
 
-감사 추적 보고서를 PDF 형식으로 생성합니다:
+Generate audit trail report in PDF format:
 
 ```
 /aria audit search --date "2024-01-01:2024-01-31" --export pdf
-→ audit-trail-report-202401.pdf 파일로 저장
+→ Saved to audit-trail-report-202401.pdf file
 ```
 
-PDF 보고서 구조:
+PDF report structure:
 ```markdown
-# ARIA 감사 추적 보고서
+# ARIA Audit Trail Report
 
-**보고서 기간:** 2024-01-01 ~ 2024-01-31
-**생성일:** 2024-02-09
-**생성자:** ARIA System
+**Report Period:** 2024-01-01 ~ 2024-01-31
+**Generated:** 2024-02-09
+**Generated By:** ARIA System
 
-## 요약
-- 전체 항목: 156건
-- 에이전트별 분포: orchestrator (45), expert-regulatory (32), ...
-- 행동별 분포: Create (42), Update (68), Approve (28), ...
-- 엔티티별 분포: Document (58), CAPA (32), Risk (28), ...
+## Summary
+- Total items: 156
+- By agent: orchestrator (45), expert-regulatory (32), ...
+- By action: Create (42), Update (68), Approve (28), ...
+- By entity: Document (58), CAPA (32), Risk (28), ...
 
-## 타임라인
+## Timeline
 
-### 2024-01-31 (5건)
+### 2024-01-31 (5 items)
 ...
 
-### 2024-01-30 (8건)
+### 2024-01-30 (8 items)
 ...
 
-## 상세 내역
+## Detailed History
 ...
 ```
 
-## 타임라인 뷰
+## Timeline View
 
-시간 순서대로 감사 추적 이력을 표시합니다:
+Display audit trail history in chronological order:
 
 ```markdown
-## 감사 추적 타임라인: 2024-01-29
+## Audit Trail Timeline: 2024-01-29
 
 ### 14:32 - expert-regulatory
-📝 CAPA-2024-008 승인
-   - 결정: Supplier qualification CAPA 승인
-   - 근거: ISO 13485 인증 획득
-   - 결과: Approved
+📝 CAPA-2024-008 Approved
+   - Decision: Supplier qualification CAPA approved
+   - Rationale: ISO 13485 certification achieved
+   - Result: Approved
 
 ### 14:15 - orchestrator
-🔧 CAPA-2024-008 생성
-   - 결정: Supplier qualification gap으로 인한 CAPA 개시
-   - 근거: NB audit finding
-   - 결과: Pending
+🔧 CAPA-2024-008 Created
+   - Decision: CAPA initiated for supplier qualification gap
+   - Rationale: NB audit finding
+   - Result: Pending
 
 ### 13:45 - expert-risk
-📊 RISK-022 재평가
-   - 결정: Risk level down-grade (15 → 9)
-   - 근거: 추가 통제 조치 시행
-   - 결과: Approved
+📊 RISK-022 Re-evaluated
+   - Decision: Risk level down-graded (15 → 9)
+   - Rationale: Additional controls implemented
+   - Result: Approved
 
 ### 11:20 - expert-document
-📄 DOC-SOP-045 승인
-   - 결정: MDR classification procedure 승인
-   - 근거: NB 코멘트 반영 완료
-   - 결과: Approved
+📄 DOC-SOP-045 Approved
+   - Decision: MDR classification procedure approved
+   - Rationale: NB comments incorporated
+   - Result: Approved
 
-[전체 타임라인 보기]
+[View Full Timeline]
 ```
 
-## 감사 추적 무결성
+## Audit Trail Integrity
 
-### 불변성 보장
+### Immutability Guarantee
 
 ```yaml
-Audit Log 불변성:
-  - 생성된 Audit Log 항목은 수정 불가
-  - 삭제 금지 (Read-only 권한)
-  - Notion Page Version History로 변경 이력 추적
+Audit Log Immutability:
+  - Created Audit Log items cannot be modified
+  - Deletion prohibited (Read-only permission)
+  - Change history tracked via Notion Page Version History
 
-위조 방지:
-  - Timestamp는 Notion Created time (자동 생성)
-  - Agent는 시스템에서 자동 기록
-  - 사용자가 직접 수정 불가
+Tamper Prevention:
+  - Timestamp is Notion Created time (auto-generated)
+  - Agent is automatically recorded by system
+  - User cannot directly modify
 ```
 
-### 완전성 검증
+### Completeness Verification
 
 ```yaml
-감사 추적 완전성 체크:
-  1. 모든 결정은 Audit Log에 기록되어야 함
-  2. Related Docs Relation으로 연결 검증
-  3. Timestamp 연속성 검증 (gap 없는지)
-  4. Agent 활동 내역 일치 검증
+Audit Trail Completeness Check:
+  1. All decisions must be recorded in Audit Log
+  2. Verify connection via Related Docs Relation
+  3. Verify Timestamp continuity (no gaps)
+  4. Verify agent activity history match
 
-불일치 감지 시:
-  - 경고: "Audit Log gap detected: 2024-01-15 14:00 ~ 16:00"
-  - 조치: 관리자에게 알림, 수동 조사 필요
+On mismatch detection:
+  - Warning: "Audit Log gap detected: 2024-01-15 14:00 ~ 16:00"
+  - Action: Notify administrator, manual investigation required
 ```
 
-## 규제 컴플라이언스 지원
+## Regulatory Compliance Support
 
-### ISO 13485 요구사항
+### ISO 13485 Requirements
 
 ```
 ISO 13485 Clause 4.2.4: Quality management system documentation
-- 모든 결정이 문서화되어야 함
-- 변경 이력이 유지되어야 함
-- 감사 추적이 가능해야 함
+- All decisions must be documented
+- Change history must be maintained
+- Audit trail must be traceable
 
-ARIA Audit Log는 다음을 제공:
-- Decision: 결정 내용 문서화
-- Rationale: 결정 근거 기록
-- Timestamp: 변경 시간 기록
-- Related Docs: 관련 문서 연결
+ARIA Audit Log provides:
+- Decision: Decision content documentation
+- Rationale: Decision rationale recording
+- Timestamp: Change time recording
+- Related Docs: Related document links
 ```
 
-### FDA 21 CFR 820 요구사항
+### FDA 21 CFR 820 Requirements
 
 ```
 21 CFR 820.40: Management responsibility
-- 모든 품질 활동이 문서화되어야 함
-- 관리자 검토 기록 유지
+- All quality activities must be documented
+- Management review records maintained
 
 21 CFR 820.180: General records
-- 기록의 보존 기간: 제품 수명 기간 + 2년
-- 기록의 검색 가능성 보장
+- Record retention period: product life + 2 years
+- Record searchability guaranteed
 
-ARIA Audit Log는 다음을 제공:
-- 모든 에이전트 활동 기록
-- Notion DB로 영구 보존
-- 전체 텍스트 검색 지원
+ARIA Audit Log provides:
+- All agent activity recording
+- Permanent storage via Notion DB
+- Full-text search support
 ```
 
-### EU MDR 요구사항
+### EU MDR Requirements
 
 ```
 EU MDR Annex IX: Quality management system
-- 내부 감사 기록 유지
-- 경영 검토 기록
-- CAPA 추적 가능성
+- Internal audit records maintained
+- Management review records
+- CAPA traceability
 
-ARIA Audit Log는 다음을 제공:
-- 내부 감사 추적
-- 관리자 결정 기록
-- CAPA lifecycle 추적
+ARIA Audit Log provides:
+- Internal audit tracking
+- Management decision records
+- CAPA lifecycle tracking
 ```
 
-## 고급 검색
+## Advanced Search
 
-### 복합 조건 검색
+### Complex Condition Search
 
 ```
 /aria audit search --agent expert-regulatory --action Approve --entity CAPA --date "last-30-days"
 
-결과: 최근 30일간 expert-regulatory가 승인한 모든 CAPA 결정
+Result: All CAPA decisions approved by expert-regulatory in last 30 days
 ```
 
-### 결정 근거 검색
+### Decision Rationale Search
 
 ```
 /aria audit search "ISO 13485"
 
-결과: Decision 또는 Rationale 필드에 "ISO 13485"를 포함한 모든 감사 추적
+Result: All audit trails with "ISO 13485" in Decision or Rationale fields
 ```
 
-### 결과 필터링
+### Result Filtering
 
 ```
 /aria audit search --outcome Approved --date "this-month"
 
-결과: 이번 달 승인된 모든 결정
+Result: All approved decisions this month
 ```
 
-## 오류 처리
+## Error Handling
 
-### Audit Log 없음
-
-```
-검색 결과: 해당 조건에 맞는 Audit Log가 없습니다.
-
-제안:
-1. 검색 조건을 완화하세요 (날짜 범위 확장)
-2. 다른 필터를 사용해 보세요
-3. 전체 Audit Log 확인: /aria audit search --date "last-30-days"
-```
-
-### 권한 없음
+### No Audit Log Found
 
 ```
-오류: Audit Log에 접근할 권한이 없습니다.
+Search Results: No Audit Log found matching criteria.
 
-해결 방법:
-1. Notion Integration에 Audit Log DB 접근 권한 부여
-2. /aria init notion을 실행하여 권한 재설정
+Suggestions:
+1. Relax search criteria (expand date range)
+2. Try different filters
+3. View full Audit Log: /aria audit search --date "last-30-days"
 ```
 
-### 내보내기 실패
+### Permission Denied
 
 ```
-오류: CSV/PDF 내보내기에 실패했습니다.
+Error: No permission to access Audit Log.
 
-해결 방법:
-1. 검색 결과가 너무 많습니다 (1000건 이상). 날짜 범위를 축소하세요
-2. 디스크 공간을 확인하세요
-3. 파일 권한을 확인하세요
+Resolution:
+1. Grant Audit Log DB access permission to Notion Integration
+2. Run /aria init notion to reset permissions
 ```
 
-## 사용 예시
+### Export Failed
 
-### 예시 1: CAPA 결정 이력
+```
+Error: CSV/PDF export failed.
+
+Resolution:
+1. Too many search results (1000+ items). Reduce date range.
+2. Check disk space
+3. Check file permissions
+```
+
+## Usage Examples
+
+### Example 1: CAPA Decision History
 
 ```
 /aria audit search --entity CAPA --action Approve --date "last-30-days"
 
-결과:
-- 최근 30일간 승인된 CAPA 결정 8건
-- 각 CAPA의 결정 근거, 관련 문서
-- CAPA-2024-008, CAPA-2024-007, ... 상세 정보
+Result:
+- 8 CAPA decisions approved in last 30 days
+- Each CAPA's decision rationale, related documents
+- CAPA-2024-008, CAPA-2024-007, ... detailed information
 ```
 
-### 예시 2: 문서 변경 추적
+### Example 2: Document Change Tracking
 
 ```
 /aria audit search --entity Document --action Update --date "2024-01-01:2024-01-31"
 
-결과:
-- 1월 중 문서 변경 이력 42건
-- 변경된 문서: DOC-SOP-015, DOC-WI-028, ...
-- 변경 시간, 담당 에이전트, 변경 사유
+Result:
+- 42 document change histories in January
+- Changed documents: DOC-SOP-015, DOC-WI-028, ...
+- Change time, responsible agent, change rationale
 ```
 
-### 예시 3: 에이전트 활동 보고서
+### Example 3: Agent Activity Report
 
 ```
 /aria audit search --agent expert-regulatory --date "last-month" --export pdf
 
-결과:
-- expert-regulatory 활동 보고서 (PDF)
-- 전체 활동 32건
-- 활동 유형별 분포
-- 타임라인 뷰
+Result:
+- expert-regulatory activity report (PDF)
+- 32 total activities
+- Activity type distribution
+- Timeline view
 ```
 
-### 예시 4: 규제 준수 증빙
+### Example 4: Regulatory Compliance Evidence
 
 ```
 /aria audit search "NB audit" --date "2024-01-01:2024-01-31" --export csv
 
-결과:
-- NB audit 관련 모든 활동
-- CSV 파일로 규제 증빙 자료 제공
-- CAPA, Risk, Document 변경 추적
+Result:
+- All NB audit related activities
+- CSV file provided as regulatory compliance evidence
+- CAPA, Risk, Document change tracking
 ```
 
-## 완료 마커
+## Completion Marker
 
-검색 완료 시 `<aria:audit:complete results=N exported=Y>` 마커를 추가합니다.
-(N: 결과 수, Y: 내보내기 여부)
+Add `<aria:audit:complete results=N exported=Y>` marker when search completes. (N: result count, Y: export status)
 
-## 참고
+## Notes
 
-- Audit Log는 수정 불가한 영구 기록입니다
-- 모든 결정은 Audit Log에 기록되어야 합니다 (감사 추적 완전성)
-- CSV/PDF 내보내기는 규제 컴플라이언스 증빙을 지원합니다
-- 검색 결과는 1000건까지만 내보낼 수 있습니다
-- Audit Log는 제품 수명 기간 + 2년간 보존됩니다 (FDA 21 CFR 820.180)
+- Audit Log is an immutable permanent record
+- All decisions must be recorded in Audit Log (audit trail completeness)
+- CSV/PDF export supports regulatory compliance evidence
+- Search results limited to 1000 items for export
+- Audit Log retained for product life + 2 years (FDA 21 CFR 820.180)
+
+---
+
+**Version:** 2.0.0 (Phase 4 - Enhanced Export and Compliance Features)
+**Last Updated:** 2026-02-09
+**Language:** English
+**Core Principle:** Complete audit trail for regulatory compliance evidence

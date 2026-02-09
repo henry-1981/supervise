@@ -1,28 +1,29 @@
 ---
 name: aria-search
 description: >
-  ARIA 통합 검색 명령어 - Notion 데이터베이스, Context7 MCP 규정 문서,
-  Google Workspace(Gmail, Docs, Drive)를 동시에 검색하고 결과를 통합하여 표시합니다.
-  관련성 순으로 정렬된 결과를 제공하며, 카테고리별 필터링을 지원합니다.
+  ARIA unified search command - Search across Notion databases, Context7 MCP regulatory
+  documents, and Google Workspace (Gmail, Docs, Drive) simultaneously. Results are
+  ranked by relevance scoring algorithm (keyword_match*0.4 + semantic_similarity*0.3 + recency*0.2 + source_authority*0.1)
+  and support category filtering with source attribution.
 license: Apache-2.0
 compatibility: Designed for Claude Code
 user-invocable: true
 metadata:
-  version: "1.0.0"
+  version: "2.1.0"
   category: "aria"
   status: "active"
   updated: "2026-02-09"
-  tags: "aria, search, notion, context7, google, unified"
-  argument-hint: "\"search query\" [--filter category] [--date range]"
+  tags: "aria, search, notion, context7, google, unified, relevance-scoring"
+  argument-hint: "\"search query\" [--filter category] [--date range] [--sort relevance|date|source]"
 ---
 
-# ARIA 통합 검색 명령어
+# ARIA Unified Search Command
 
-## 목적
+## Purpose
 
-ARIA 시스템의 모든 데이터 소스(Notion DB, Context7, Google Workspace)에서 통합 검색을 수행하고 관련성 높은 결과를 제공합니다.
+Search across all ARIA data sources (Notion DB, Context7, Google Workspace) simultaneously and provide ranked results with relevance scoring and source attribution.
 
-## 사용법
+## Usage
 
 ```
 /aria search "510(k) submission requirements"
@@ -31,284 +32,300 @@ ARIA 시스템의 모든 데이터 소스(Notion DB, Context7, Google Workspace)
 /aria search "FDA 510(k) request" --filter emails
 ```
 
-## 검색 소스
+## Search Sources
 
-### 1. Notion 데이터베이스 검색
+### 1. Notion Database Search
 
-다음 6개 Notion DB를 검색합니다:
+Searches across 6 Notion databases:
 
-- **Regulatory Requirements:** 규제 요구사항, 표준 조항
-- **Document Registry:** SOP, WI, Report 등 문서
-- **CAPA Tracker:** CAPA 기록, 조치 계획
-- **Risk Register:** 위험 분석, 통제 조치
-- **Submission Tracker:** 제출 기록, 상태
-- **Knowledge Base:** 지식 항목, 규정 해석
+- **Regulatory Requirements:** Regulatory requirements, standard clauses
+- **Document Registry:** SOPs, WIs, Reports, documents
+- **CAPA Tracker:** CAPA records, action plans
+- **Risk Register:** Risk analyses, control measures
+- **Submission Tracker:** Submission records, status
+- **Knowledge Base:** Knowledge items, regulatory interpretations
 
-**검색 필드:** Title, Text, Rich Text 필드의 전체 텍스트 검색
+**Search Fields:** Full-text search across Title, Text, Rich Text fields
 
-### 2. Context7 MCP 검색
+### 2. Context7 MCP Search
 
-최신 규정 문서를 Context7에서 검색합니다:
+Search for up-to-date regulatory documents via Context7:
 
-**검색 라이브러리:**
+**Libraries:**
 - FDA 21 CFR 820 (Quality System Regulation)
 - ISO 13485 (Medical devices - Quality management systems)
 - EU MDR 2017/745 (Medical Device Regulation)
 - IEC 62366 (Usability engineering)
 - ISO 14971 (Risk management)
 
-**검색 프로세스:**
-1. `mcp__context7__resolve-library-id`로 라이브러리 ID 확인
-2. `mcp__context7__get-library-docs`로 관련 문서 검색
-3. 검색 결과를 Knowledge Base에 자동 저장 (캐싱)
+**Search Process:**
+1. Use `mcp__context7__resolve-library-id` to confirm library ID
+2. Use `mcp__context7__get-library-docs` to search related documents
+3. Auto-save search results to Knowledge Base (caching)
 
-### 3. Google Workspace 검색
+### 3. Google Workspace Search
 
-Google 서비스에서 규제 관련 정보를 검색합니다:
+Search for regulatory-related information in Google services:
 
-- **Gmail:** FDA, NB(Nominated Body), MFDS로부터의 규제 서신
-- **Google Docs:** 협업 문서, 검토 자료
-- **Google Drive:** 규제 제출 패키지, 증거 문서
+- **Gmail:** Regulatory correspondence from FDA, NB (Nominated Body), MFDS
+- **Google Docs:** Collaborative documents, review materials
+- **Google Drive:** Regulatory submission packages, evidence documents
 
-## 검색 프로세스
+## Search Process
 
-### 단계 1: 쿼리 분석
+### Step 1: Query Analysis
 
-사용자 검색어를 분석하여 키워드와 의도를 파악합니다:
+Analyze user search query to extract keywords and intent:
 
 ```
-입력: "510(k) submission requirements for software medical device"
-키워드 추출: ["510(k)", "submission", "requirements", "software", "medical device"]
-의도 분류: 규제 요구사항 검색
-데이터 소스 우선순위: Notion > Context7 > Google
+Input: "510(k) submission requirements for software medical device"
+Keyword Extraction: ["510(k)", "submission", "requirements", "software", "medical device"]
+Intent Classification: Regulatory requirements search
+Data Source Priority: Notion > Context7 > Google
 ```
 
-### 단계 2: 병렬 검색 실행
+### Step 2: Parallel Search Execution
 
-세 데이터 소스에서 동시에 검색을 수행합니다:
+Execute simultaneous searches across all three data sources:
 
 ```
 [Parallel]
-1. Notion DB 검색 (mcp__notion__query)
-2. Context7 검색 (mcp__context7__get-library-docs)
-3. Google 검색 (mcp__google__search)
+1. Notion DB search (mcp__notion__query)
+2. Context7 search (mcp__context7__get-library-docs)
+3. Google search (mcp__google__search)
 ```
 
-### 단계 3: 결과 통합 및 점수 계산
+### Step 3: Result Integration and Scoring
 
-검색 결과에 관련성 점수를 부여하고 정렬합니다:
+Assign relevance scores to search results and sort using the SPEC-ARIA-004 defined algorithm:
 
 ```python
+# SPEC-ARIA-004 S5.2 Relevance Scoring Algorithm
 relevance_score = (
-    keyword_match * 0.4 +        # 키워드 일치율
-    semantic_similarity * 0.3 +   # 의미적 유사도
-    recency * 0.2 +               # 최신성 (최근 문서 우선)
-    source_authority * 0.1        # 출처 권위 (공식 문서 우선)
+    keyword_match * 0.4 +        # Keyword match rate (exact/substring matches)
+    semantic_similarity * 0.3 +   # Semantic similarity (contextual understanding)
+    recency * 0.2 +               # Recency (recent documents prioritized, decay over time)
+    source_authority * 0.1        # Source authority (official docs > internal > user-generated)
 )
+
+# Source Authority Weights:
+# - Official Regulations (FDA, ISO, EU MDR): 1.0
+# - Context7 MCP (verified regulatory docs): 0.95
+# - Notion DB (company documents): 0.8
+# - Google Workspace (emails, docs): 0.7
+# - User-generated content: 0.5
 ```
 
-### 단계 4: 필터링 및 정렬
+### Step 4: Filtering and Sorting
 
-사용자가 지정한 필터를 적용하고 결과를 정렬합니다:
+Apply user-specified filters and sort results:
 
-**카테고리 필터:**
-- `requirements`: 규제 요구사항만
-- `documents`: 문서 레지스트리만
-- `capa`: CAPA 트래커만
-- `risk`: 위험 등록부만
-- `submissions`: 제출 트래커만
-- `standards`: 표준/규격만
-- `emails`: 이메일만
-- `all`: 모든 카테고리 (기본값)
+**Category Filters:**
+- `requirements`: Regulatory requirements only
+- `documents`: Document registry only
+- `capa`: CAPA tracker only
+- `risk`: Risk register only
+- `submissions`: Submission tracker only
+- `standards`: Standards/regulations only
+- `emails`: Emails only
+- `all`: All categories (default)
 
-**날짜 범위 필터:**
+**Date Range Filters:**
 ```
---date "2024-01-01:2024-12-31"  # 기간 지정
---date "last-30-days"             # 최근 30일
---date "last-12-months"            # 최근 12개월
+--date "2024-01-01:2024-12-31"  # Specific date range
+--date "last-30-days"             # Last 30 days
+--date "last-12-months"            # Last 12 months
 ```
 
-### 단계 5: 결과 표시
+### Step 5: Display Results
 
-관련성 순으로 정렬된 결과를 표시합니다:
+Display results sorted by relevance:
 
 ```markdown
-## 검색 결과: "510(k) submission requirements"
+## Search Results: "510(k) submission requirements"
 
-총 23개 결과 발견 (Notion: 12, Context7: 8, Google: 3)
+Total 23 results found (Notion: 12, Context7: 8, Google: 3)
 
-### 🔍 상위 결과 (관련성 90%+)
+### Top Results (90%+ relevance)
 
 1. **[REQ-042] 21 CFR 807 Subpart E - 510(k) Requirements** (Notion)
-   - 관련성: 95%
-   - 출처: Regulatory Requirements DB
-   - 요약: 510(k) 제출 요건, Predicate Device, Substantial Equivalence
-   - 링크: [Notion 페이지](https://notion.so/req-042)
+   - Relevance: 95%
+   - Source: Regulatory Requirements DB
+   - Summary: 510(k) submission requirements, Predicate Device, Substantial Equivalence
+   - Link: [Notion page](https://notion.so/req-042)
 
 2. **[KB-156] 510(k) Software as Medical Device Guidance** (Context7)
-   - 관련성: 92%
-   - 출처: FDA Guidance Document
-   - 요약: SaMD 510(k) 제출 가이드라인, 테스트 요건
-   - 링크: [Context7 문서](...)
+   - Relevance: 92%
+   - Source: FDA Guidance Document
+   - Summary: SaMD 510(k) submission guidelines, testing requirements
+   - Link: [Context7 document](...)
 
-### 📋 카테고리별 결과
+### Results by Category
 
-**Requirements (8건)**
+**Requirements (8 items)**
 - REQ-042: 21 CFR 807 Subpart E (95%)
 - REQ-089: IEC 62304 Software Lifecycle (78%)
 ...
 
-**Documents (5건)**
+**Documents (5 items)**
 - DOC-SOP-015: 510(k) Submission Process SOP (85%)
 ...
 
-**Standards (6건)**
+**Standards (6 items)**
 - FDA Guidance: SaMD 510(k) (92%)
 - ISO 13485 Clause 7.3 (72%)
 ...
 
-**Emails (1건)**
+**Emails (1 item)**
 - FDA 510(k) Request Letter (68%)
 ```
 
-## 고급 기능
+## Advanced Features
 
-### 자동 Knowledge Base 업데이트
+### Auto Knowledge Base Update
 
-Context7 검색 결과를 자동으로 Knowledge Base에 저장합니다:
+Automatically save Context7 search results to Knowledge Base:
 
 ```yaml
-조건: 관련성 점수 80% 이상且 Knowledge Base에 없는 항목
-동작:
-  1. Knowledge Base DB에 새 항목 생성
-  2. 출처, 요약, 태그 저장
-  3. 사용자에게 "새 지식 항목 추가됨" 알림
+Condition: Relevance score >= 80% AND not in Knowledge Base
+Actions:
+  1. Create new item in Knowledge Base DB
+  2. Save source, summary, tags
+  3. Notify user of "New knowledge item added"
 ```
 
-### 관련 문서 추천
+### Related Document Recommendations
 
-검색 결과와 관련된 Notion 페이지를 추천합니다:
+Recommend Notion pages related to search results:
 
 ```
-추천 문서:
+Related Documents:
 - CAPA-2024-003: 510(k) Submission Gap Analysis
 - RISK-012: Software Validation Risk
 - DOC-REP-028: Previous 510(k) Submission Report
 ```
 
-### 검색 기록 저장
+### Search History Logging
 
-모든 검색 쿼리를 Audit Log DB에 기록합니다:
+Log all search queries to Audit Log DB:
 
 ```yaml
-필드:
-  - Timestamp: 검색 시간
-  - Query: 검색어
-  - Results Count: 결과 수
-  - Top Result: 최상위 결과 ID
-  - User: 사용자
+Fields:
+  - Timestamp: Search time
+  - Query: Search term
+  - Results Count: Number of results
+  - Top Result: Top result ID
+  - User: User who performed search
 ```
 
-## 필터 옵션 상세
+## Filter Options Detail
 
-### 카테고리 필터
-
-```
---filter requirements    # 규제 요구사항
---filter documents       # 문서 레지스트리
---filter capa            # CAPA 트래커
---filter risk            # 위험 등록부
---filter submissions     # 제출 트래커
---filter standards       # 표준/규격 (Context7)
---filter emails          # 이메일 (Gmail)
---filter all             # 모든 카테고리 (기본값)
-```
-
-### 소스 필터
+### Category Filter
 
 ```
---source notion          # Notion DB만
---source context7        # Context7만
---source google          # Google Workspace만
---source all             # 모든 소스 (기본값)
+--filter requirements    # Regulatory requirements
+--filter documents       # Document registry
+--filter capa            # CAPA tracker
+--filter risk            # Risk register
+--filter submissions     # Submission tracker
+--filter standards       # Standards/regulations (Context7)
+--filter emails          # Emails (Gmail)
+--filter all             # All categories (default)
 ```
 
-### 정렬 옵션
+### Source Filter
 
 ```
---sort relevance         # 관련성 순 (기본값)
---sort date              # 최신순
---sort source            # 출처별 그룹
+--source notion          # Notion DB only
+--source context7        # Context7 only
+--source google          # Google Workspace only
+--source all             # All sources (default)
 ```
 
-## 오류 처리
-
-### 검색 결과 없음
+### Sort Options
 
 ```
-검색 결과: "xyz abc"에 대한 결과가 없습니다.
-
-제안:
-1. 검색어를 일반화하여 다시 검색하세요 (예: "software validation")
-2. Context7에서 규정 검색을 시도하세요
-3. Knowledge Base에 새 항목 추가를 고려하세요
+--sort relevance         # By relevance (default)
+--sort date              # Most recent first
+--sort source            # Grouped by source
 ```
 
-### API 속도 제한
+## Error Handling
+
+### No Search Results
 
 ```
-안내: 검색 속도를 제한하고 있습니다 (Notion API rate limit)
-예상 대기 시간: 30초
+Search Results: No results found for "xyz abc"
+
+Suggestions:
+1. Generalize search terms (e.g., "software validation")
+2. Try Context7 regulatory search
+3. Consider adding new item to Knowledge Base
 ```
 
-### 인증 만료
+### API Rate Limiting
 
 ```
-오류: Google OAuth 인증이 만료되었습니다.
-해결: /aria init google을 실행하여 재인증하세요
+Notice: Throttling search rate (Notion API rate limit)
+Estimated wait time: 30 seconds
 ```
 
-## 사용 예시
+### Authentication Expired
 
-### 예시 1: 규정 검색
+```
+Error: Google OAuth authentication expired.
+Resolution: Run /aria init google to re-authenticate
+```
+
+## Usage Examples
+
+### Example 1: Regulatory Search
 
 ```
 /aria search "21 CFR 820.30 design controls"
-→ Notion Regulatory Requirements, Context7 FDA docs 검색
-→ Design Control 요구사항, 관련 문서 추천
+→ Searches Notion Regulatory Requirements, Context7 FDA docs
+→ Returns Design Control requirements, related document recommendations
 ```
 
-### 예시 2: CAPA 검색
+### Example 2: CAPA Search
 
 ```
 /aria search "CAPA overdue" --filter capa
-→ CAPA Tracker DB에서 기한 초과 항목 검색
-→ 관련 Risk Register 항목 표시
+→ Searches CAPA Tracker DB for overdue items
+→ Displays related Risk Register items
 ```
 
-### 예시 3: 이메일 검색
+### Example 3: Email Search
 
 ```
 /aria search "FDA 510(k) request" --filter emails --date "last-30-days"
-→ Gmail에서 최근 30일간 FDA 510(k) 관련 이메일 검색
-→ 관련 Notion 페이지와 연결 제안
+→ Searches Gmail for FDA 510(k) related emails from last 30 days
+→ Suggests connecting to related Notion pages
 ```
 
-### 예시 4: 종합 검색
+### Example 4: Comprehensive Search
 
 ```
 /aria search "ISO 14971 risk management"
-→ Notion Risk Register, Context7 ISO 14971, Google Docs 검색
-→ 위험 관리 표준, 관련 CAPA, 문서 종합 표시
+→ Searches Notion Risk Register, Context7 ISO 14971, Google Docs
+→ Displays comprehensive risk management standards, related CAPAs, documents
 ```
 
-## 완료 마커
+## Completion Marker
 
-검색 완료 시 `<aria:search:complete results=N>` 마커를 추가합니다. (N: 결과 수)
+Add `<aria:search:complete results=N>` marker when search completes. (N: result count)
 
-## 참고
+## Notes
 
-- 검색 결과는 관련성 점수 기준 100개까지만 표시합니다
-- Context7 검색 결과는 자동으로 Knowledge Base에 캐싱됩니다 (TTL: 30일)
-- Google Workspace 검색은 별도 OAuth 인증이 필요합니다
-- 검색 기록은 Audit Log DB에 저장되어 감사 추적을 지원합니다
+- Search displays up to 100 results ranked by relevance score
+- Context7 search results are automatically cached in Knowledge Base (TTL: 30 days)
+- Google Workspace search requires separate OAuth authentication
+- Search history is saved to Audit Log DB for audit trail support
+
+---
+
+**Version:** 2.1.0 (Phase 4 - SPEC-ARIA-004 Milestone 5)
+**Last Updated:** 2026-02-09
+**Language:** English
+**Core Principle:** Unified search across all ARIA data sources with MCP integration
+**Spec Compliance:** SPEC-ARIA-004 ER-012, ER-013, UR-009

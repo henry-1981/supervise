@@ -5,15 +5,15 @@ description: >
   CRUD 작업, 감사 추적 기능을 제공합니다. 의료기기 규제 준수 문서 관리에 사용합니다.
 license: Apache-2.0
 compatibility: Designed for Claude Code
-allowed-tools: Read Grep Glob Bash
+allowed-tools: Read Write Edit Bash
 user-invocable: true
 metadata:
-  version: "1.0.0"
+  version: "2.1.0"
   category: "domain"
   status: "active"
   updated: "2026-02-09"
-  modularized: "false"
-  tags: "notion, mcp, regulatory, database, crud, audit, aria"
+  modularized: "true"
+  tags: "notion, mcp, regulatory, database, crud, audit, traceability, capa, risk, aria"
   author: "MoAI-ARIA"
   context7-libraries: "notion-sdk"
   argument-hint: "Notion 데이터베이스 작업 수행"
@@ -29,19 +29,21 @@ triggers:
   keywords:
     - "notion"
     - "mcp"
-    - "regulatory"
-    - "database"
+    - "regulatory database"
     - "crud"
-    - "audit"
+    - "audit trail"
+    - "database creation"
     - "규제"
     - "데이터베이스"
     - "감사"
   agents:
     - "expert-backend"
     - "manager-spec"
+    - "manager-quality"
   phases:
     - "plan"
     - "run"
+    - "sync"
   languages:
     - "typescript"
     - "python"
@@ -49,7 +51,7 @@ triggers:
 
 # ARIA Notion Integration
 
-ARIA 규제 관리 시스템을 위한 Notion MCP 연동 스킬입니다.
+ARIA 규제 관리 시스템을 위한 Notion MCP 연동 스킬입니다. 6개 데이터베이스 자동 생성, CRUD 작업, 감사 추적 기능을 제공합니다.
 
 ## 빠른 시작
 
@@ -72,152 +74,57 @@ ARIA 규제 관리 시스템을 위한 Notion MCP 연동 스킬입니다.
 }
 ```
 
-### 환경 변수 설정
+### 초기화 명령어
 
 ```bash
-export NOTION_API_KEY="your_notion_integration_token"
-export NOTION_DATABASE_ID="your_parent_database_id"
+# Notion 데이터베이스 초기화
+/aria init notion
 ```
 
-## 데이터베이스 스키마
+이 명령어는 6개 데이터베이스를 자동으로 생성합니다:
+- Regulatory Requirements (규제 요구사항)
+- Document Registry (문서 등록부)
+- CAPA Tracker (시정예방조치)
+- Risk Register (위험 등록부)
+- Submission Tracker (제출 추적)
+- Knowledge Base (지식 기반)
 
-### 1. Regulatory Requirements (규제 요구사항)
+## 핵심 기능
 
-| 속성 | 타입 | 설명 |
-|------|------|------|
-| Requirement ID | Title | 고유 식별자 (REQ-001) |
-| Category | Select | FDA, ISO 13485, EU MDR |
-| Description | Text | 요구사항 상세 설명 |
-| Status | Status | Draft, Review, Approved |
-| Priority | Select | High, Medium, Low |
-| Due Date | Date | 준수 마감일 |
-| Owner | Person | 담당자 |
-| Evidence Link | Url | 증거 문서 링크 |
+### 1. 데이터베이스 자동 생성
 
-### 2. Document Registry (문서 등록부)
+Phase 3 스키마를 기반으로 6개 데이터베이스를 자동 생성합니다. 각 데이터베이스는 규제 준수 요구사항에 맞게 구성됩니다.
 
-| 속성 | 타입 | 설명 |
-|------|------|------|
-| Document ID | Title | 문서 고유 ID |
-| Document Type | Select | SOP, WI, FORM, RECORD |
-| Version | Number | 문서 버전 |
-| Title | Text | 문서 제목 |
-| Status | Status | Draft, Under Review, Approved, Obsolete |
-| Effective Date | Date | 발효일 |
-| Review Date | Date | 검토 예정일 |
-| Approved By | Person | 승인자 |
+### 2. CRUD 작업
 
-### 3. CAPA Tracker (시정예방조치)
+생성(Create), 조회(Read), 수정(Update), 삭제(Delete) 작업을 지원합니다. 모든 작업은 감사 로그에 기록됩니다.
 
-| 속성 | 타입 | 설명 |
-|------|------|------|
-| CAPA ID | Title | CAPA 고유 ID |
-| Source | Select | Internal Audit, Customer Complaint, Nonconformance |
-| Problem Statement | Text | 문제 설명 |
-| Root Cause | Text | 근본 원인 분석 |
-| Correction Action | Text | 시정 조치 |
-| Prevention Action | Text | 예방 조치 |
-| Status | Status | Open, In Progress, Closed |
-| Due Date | Date | 완료 마감일 |
+### 3. 감사 추적
 
-### 4. Risk Register (위험 등록부)
+모든 데이터 변경은 자동으로 감사 로그에 기록됩니다:
+- 변경 시간 (Timestamp)
+- 변경자 (User)
+- 작업 유형 (Action)
+- 영향 받은 엔티티 (Entity)
+- 변경 전후 값 (Changes)
+- 변경 사유 (Reason)
 
-| 속성 | 타입 | 설명 |
-|------|------|------|
-| Risk ID | Title | 위험 고유 ID |
-| Risk Description | Text | 위험 설명 |
-| Risk Category | Select | Clinical, Technical, Regulatory |
-| Severity | Select | High (3), Medium (2), Low (1) |
-| Probability | Select | High (3), Medium (2), Low (1) |
-| RPN Number | Number | 위험 우선순위 번호 (Severity × Probability) |
-| Mitigation Strategy | Text | 완화 전략 |
-| Residual Risk | Select | Acceptable, Not Acceptable |
+## 상세 가이드
 
-### 5. Submission Tracker (제출 추적)
+데이터베이스 스키마, CRUD 작업, 고급 기능의 상세 내용은 모듈 문서를 참조하세요:
 
-| 속성 | 타입 | 설명 |
-|------|------|------|
-| Submission ID | Title | 제출물 고유 ID |
-| Submission Type | Select | 510(k), PMA, CE Mark |
-| Target Market | Select | USA, EU, Korea, Japan |
-| Submission Date | Date | 제출일 |
-| Approval Date | Date | 승인일 |
-| Status | Status | Preparing, Submitted, Under Review, Approved, Rejected |
-| Reviewer | Select | FDA, NB, MFDS |
+**기본 모듈**:
+- [데이터베이스 생성 가이드](modules/database-creation.md)
+- [CRUD 작업 레퍼런스](modules/crud-operations.md)
+- [감사 추적 시스템](modules/audit-trail.md)
+- [MCP 도구 레퍼런스](modules/mcp-tools.md)
 
-### 6. Knowledge Base (지식 기반)
-
-| 속성 | 타입 | 설명 |
-|------|------|------|
-| Article ID | Title | 문서 고유 ID |
-| Category | Select | Regulation, Guideline, Best Practice |
-| Tags | Multi-select | FDA, ISO, MDR, QSR |
-| Content | Text | 문서 내용 |
-| Source | Url | 출처 URL |
-| Last Updated | Date | 최종 업데이트 |
-| TTL | Number | 캐시 만료 시간 (초) |
-
-## CRUD 작업
-
-### Create (생성)
-
-```bash
-# 새로운 규제 요구사항 생성
-moai-tool-notion create \
-  --database "Regulatory Requirements" \
-  --properties '{"Requirement ID": "REQ-001", "Category": "FDA", "Status": "Draft"}'
-```
-
-### Read (조회)
-
-```bash
-# 모든 요구사항 조회
-moai-tool-notion query \
-  --database "Regulatory Requirements" \
-  --filter '{"property": "Status", "equals": "Approved"}'
-
-# 특정 ID로 조회
-moai-tool-notion retrieve --page-id "page_id_here"
-```
-
-### Update (수정)
-
-```bash
-# 요구사항 상태 수정
-moai-tool-notion update \
-  --page-id "page_id_here" \
-  --properties '{"Status": "Approved"}'
-```
-
-### Delete (삭제)
-
-```bash
-# 페이지 아카이브 (Soft Delete)
-moai-tool-notion archive --page-id "page_id_here"
-```
-
-## 감사 추적
-
-### 감사 로그 항목
-
-모든 데이터 변경은 다음 정보를 자동으로 기록합니다:
-
-- **Timestamp**: 변경 시간 (ISO 8601)
-- **User**: 변경자
-- **Action**: 생성, 수정, 아카이브
-- **Entity**: 영향 받은 데이터베이스/페이지
-- **Changes**: 변경 전후 값 비교
-- **Reason**: 변경 사유
-
-### 감사 로그 조회
-
-```bash
-# 최근 변경 내역 조회
-moai-tool-notion audit-log \
-  --database "Regulatory Requirements" \
-  --limit 50 \
-  --since "2026-02-01"
-```
+**고급 기능 모듈 (Milestone 2)**:
+- [추적성 매트릭스](modules/traceability.md) - 요구사항, 문서, 증거 간 추적성 관리
+- [CAPA Tracker](modules/capa-tracker.md) - 시정예방조치 자동 등록 및 관리
+- [Risk Register](modules/risk-register.md) - 위험 자동 등록 및 Risk Index 계산
+- [Document Registry](modules/document-registry.md) - 문서 자동 등록 및 버전 관리
+- [Quality Validation](modules/quality-validation.md) - 데이터 무결성 검증
 
 ## MCP 도구 사용
 
@@ -236,6 +143,7 @@ ToolSearch("notion mcp")
 - `mcp__notion__update-page`: 페이지 수정
 - `mcp__notion__archive-page`: 페이지 아카이브
 - `mcp__notion__append-blocks`: 블록 추가
+- `mcp__notion__create-database`: 데이터베이스 생성
 
 ## 모범 사례
 
@@ -251,5 +159,45 @@ ToolSearch("notion mcp")
 - `expert-backend`: MCP 서버 구성
 - `manager-quality`: 감사 추적 검증
 
+## 고급 기능
+
+### 4. 추적성 매트릭스
+
+요구사항, 문서, 증거 간의 종단 추적성을 관리합니다:
+- Requirements ↔ Documents ↔ Evidence 관계
+- 자동 관계 설정
+- 고아 페이지 탐지
+
+### 5. CAPA 자동 관리
+
+시정 및 예방 조치를 자동으로 관리합니다:
+- CAPA 자동 등록 (CAPA-ID 생성)
+- Risk Register 연동
+- 마감일 알림 (Google Calendar 연동)
+
+### 6. 위험 관리
+
+ISO 14971 위험 관리를 지원합니다:
+- 위험 자동 등록 (Risk ID 생성)
+- Risk Index 자동 계산 (Severity × Probability)
+- 수용성 평가 (Acceptable, Not Acceptable, ALARP)
+- 허용 불가능 위험 경고
+
+### 7. 문서 관리
+
+품질 시스템 문서를 자동으로 관리합니다:
+- 문서 자동 등록 (Document ID 생성)
+- 버전 히스토리 관리 (Major.Minor)
+- 검토일 알림 (SOP: 2년, WI: 1년, FORM: 3년)
+
+### 8. 품질 검증
+
+데이터 무결성을 보장합니다:
+- 관계 무결성 검증
+- 고아 페이지 탐지 및 경고
+- 감사 추적 완전성 검사
+
 버전 기록:
+- v2.1.0 (2026-02-09): Milestone 2 - 고급 기능 모듈 추가
+- v2.0.0 (2026-02-09): 모듈화 구조로 개편
 - v1.0.0 (2026-02-09): 초기 릴리스

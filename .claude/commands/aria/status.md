@@ -1,369 +1,382 @@
 ---
 name: aria-status
 description: >
-  ARIA 프로젝트 상태 대시보드 명령어 - CAPA Tracker, Risk Register,
-  Submission Tracker, Document Registry, Google Calendar의 현재 상태를
-  종합적으로 표시합니다. 위험 상황(Overdue, Unacceptable risk)을
-  감지하고 경고를 표시합니다.
+  ARIA project status dashboard command - Display current status of CAPA Tracker (Open, Overdue, Due < 7 days),
+  Risk Register (Unacceptable risks, Review overdue), Submission Tracker (Upcoming, Deadlines),
+  Document Registry (Pending, Review overdue), and Google Calendar events (Audits, Deadlines).
+  Detects and alerts on risky situations with 3-level warning system (Critical/Warning/Info).
 license: Apache-2.0
 compatibility: Designed for Claude Code
 user-invocable: true
 metadata:
-  version: "1.0.0"
+  version: "2.1.0"
   category: "aria"
   status: "active"
   updated: "2026-02-09"
-  tags: "aria, status, dashboard, overview"
+  tags: "aria, status, dashboard, overview, warning-system"
   argument-hint: "[--summary] [--detailed] [--alert-only]"
 ---
 
-# ARIA 프로젝트 상태 대시보드 명령어
+# ARIA Project Status Dashboard Command
 
-## 목적
+## Purpose
 
-ARIA 시스템의 모든 데이터베이스와 Google Calendar의 현재 상태를 종합적으로 표시하고, 위험 상황을 경고합니다.
+Display comprehensive status of all ARIA databases and Google Calendar, detecting risky situations and providing alerts with 3-level warning system (per SPEC-ARIA-004 ER-016, ER-017, S7.2).
 
-## 사용법
+## Usage
 
 ```
-/aria status              # 전체 대시보드
-/aria status --summary    # 요약 보기
-/aria status --detailed   # 상세 보기
-/aria status --alert-only # 경고 항목만
+/aria status              # Full dashboard
+/aria status --summary    # Summary view
+/aria status --detailed   # Detailed view
+/aria status --alert-only # Alert items only
 ```
 
-## 대시보드 구성
+## Dashboard Components
 
-### 1. CAPA Tracker 상태
+### 1. CAPA Tracker Status
 
 ```markdown
 ## CAPA Tracker
 
-### 요약
-- 전체 CAPA: 15건
-- Open: 5건 (🟡 주의)
-- In Progress: 7건
-- Verified: 2건
-- Closed: 1건
+### Summary
+- Total CAPA: 15 items
+- Open: 5 items (Attention)
+- In Progress: 7 items
+- Verified: 2 items
+- Closed: 1 item
 
-### 경고 항목
+### Alert Items
 
-🔴 **CRITICAL: Overdue (2건)**
+**CRITICAL: Overdue (2 items)**
 - CAPA-2024-003: Design Validation Failure
-  - 마감일: 2024-01-15 (15일 초과)
-  - 담당자: 홍길동
-  - 조치: 즉시 리뷰 필요, 일정 재조정
+  - Due: 2024-01-15 (15 days overdue)
+  - Owner: John Doe
+  - Action: Immediate review required, schedule adjustment
 
-🔴 **CRITICAL: Overdue (1건)**
+**CRITICAL: Overdue (1 item)**
 - CAPA-2024-008: Supplier Qualification Gap
-  - 마감일: 2024-01-20 (10일 초과)
-  - 담당자: 김철수
-  - 조치: 공급사 re-qualification 진행
+  - Due: 2024-01-20 (10 days overdue)
+  - Owner: Jane Smith
+  - Action: Supplier re-qualification in progress
 
-🟡 **WARNING: Due within 7 days (3건)**
+**WARNING: Due within 7 days (3 items)**
 - CAPA-2024-012: Risk Assessment Update
-  - 마감일: 2024-02-05 (3일 남음)
+  - Due: 2024-02-05 (3 days remaining)
 - CAPA-2024-013: Document Revision
-  - 마감일: 2024-02-07 (5일 남음)
+  - Due: 2024-02-07 (5 days remaining)
 - CAPA-2024-014: Training Completion
-  - 마감일: 2024-02-08 (6일 남음)
+  - Due: 2024-02-08 (6 days remaining)
 
-### Notion 페이지: [CAPA Tracker Dashboard](https://notion.so/capa-dashboard)
+### Notion Page: [CAPA Tracker Dashboard](https://notion.so/capa-dashboard)
 ```
 
-### 2. Risk Register 상태
+### 2. Risk Register Status
 
 ```markdown
 ## Risk Register
 
-### 요약
-- 전체 위험: 42건
-- Acceptable: 35건 (🟢)
-- Unacceptable: 1건 (🔴 위험)
-- Review Overdue: 4건 (🟡 주의)
+### Summary
+- Total Risks: 42 items
+- Acceptable: 35 items
+- Unacceptable: 1 item (Risk)
+- Review Overdue: 4 items (Attention)
 
-### 경고 항목
+### Alert Items
 
-🔴 **CRITICAL: Unacceptable Risk (1건)**
+**CRITICAL: Unacceptable Risk (1 item)**
 - RISK-015: Software Failure - Patient Safety Impact
-  - Severity: S5 (치명적)
-  - Probability: P3 (보통)
-  - Risk Level: 15 (높음)
-  - 현재 통제 조치: 불충분
-  - 조치: 즉시 추가 통제 조치 필요, CAPA 생성 권장
+  - Severity: S5 (Critical)
+  - Probability: P3 (Moderate)
+  - Risk Level: 15 (High)
+  - Current Controls: Insufficient
+  - Action: Additional controls required immediately, CAPA creation recommended
 
-🟡 **WARNING: Review Overdue (4건)**
+**WARNING: Review Overdue (4 items)**
 - RISK-008: Electrical Safety
-  - 마감일: 2024-01-10 (20일 초과)
+  - Due: 2024-01-10 (20 days overdue)
 - RISK-012: Software Compatibility
-  - 마감일: 2024-01-15 (15일 초과)
+  - Due: 2024-01-15 (15 days overdue)
 - RISK-022: Sterile Packaging
-  - 마감일: 2024-01-18 (12일 초과)
+  - Due: 2024-01-18 (12 days overdue)
 - RISK-028: Labeling Requirements
-  - 마감일: 2024-01-20 (10일 초과)
+  - Due: 2024-01-20 (10 days overdue)
 
-### Notion 페이지: [Risk Register Dashboard](https://notion.so/risk-dashboard)
+### Notion Page: [Risk Register Dashboard](https://notion.so/risk-dashboard)
 ```
 
-### 3. Submission Tracker 상태
+### 3. Submission Tracker Status
 
 ```markdown
 ## Submission Tracker
 
-### 요약
-- 진행 중 제출: 3건
-- 계획된 제출: 2건
-- 완료된 제출: 8건 (2024년)
+### Summary
+- Submissions in Progress: 3 items
+- Planned Submissions: 2 items
+- Completed Submissions: 8 items (2024)
 
-### 다가오는 제출
+### Upcoming Submissions
 
-🔴 **CRITICAL: Deadline < 7 days (1건)**
+**CRITICAL: Deadline < 7 days (1 item)**
 - SUB-510K-045: [Device Name] 510(k) Submission
-  - 목표일: 2024-02-10 (5일 남음)
-  - 현재 상태: Preparation (80% 완료)
-  - 남은 작업: Final Review, Pre-submission Meeting
-  - 담당자: 이영희
-  - 조치: 일정 확인, 완료되지 않은 항목 우선 완료
+  - Target: 2024-02-10 (5 days remaining)
+  - Status: Preparation (80% complete)
+  - Remaining: Final Review, Pre-submission Meeting
+  - Owner: Jane Smith
+  - Action: Confirm schedule, complete remaining items
 
-🟡 **WARNING: Deadline 7-30 days (2건)**
+**WARNING: Deadline 7-30 days (2 items)**
 - SUB-CE-012: CE Mark Technical Documentation
-  - 목표일: 2024-03-15 (35일 남음)
-  - 현재 상태: Early Preparation
+  - Target: 2024-03-15 (35 days remaining)
+  - Status: Early Preparation
 - SUB-PMA-003: PMA Submission
-  - 목표일: 2024-04-20 (71일 남음)
-  - 현재 상태: Planning
+  - Target: 2024-04-20 (71 days remaining)
+  - Status: Planning
 
-### Notion 페이지: [Submission Tracker Dashboard](https://notion.so/submission-dashboard)
+### Notion Page: [Submission Tracker Dashboard](https://notion.so/submission-dashboard)
 ```
 
-### 4. Document Registry 상태
+### 4. Document Registry Status
 
 ```markdown
 ## Document Registry
 
-### 요약
-- 전체 문서: 285건
-- 승인 대기: 8건 (🟡 주의)
-- 리뷰 마감 초과: 3건 (🔴 위험)
-- 예정된 리뷰: 12건 (30일 이내)
+### Summary
+- Total Documents: 285 items
+- Pending Approval: 8 items (Attention)
+- Review Overdue: 3 items (Risk)
+- Scheduled Reviews: 12 items (within 30 days)
 
-### 경고 항목
+### Alert Items
 
-🔴 **CRITICAL: Review Overdue (3건)**
+**CRITICAL: Review Overdue (3 items)**
 - DOC-SOP-015: 510(k) Submission Process SOP
-  - 리뷰 마감: 2024-01-10 (20일 초과)
-  - 상태: Approved (재검토 필요)
+  - Review Due: 2024-01-10 (20 days overdue)
+  - Status: Approved (re-review required)
 - DOC-WI-028: Software Validation WI
-  - 리뷰 마감: 2024-01-15 (15일 초과)
-  - 상태: Under Review
+  - Review Due: 2024-01-15 (15 days overdue)
+  - Status: Under Review
 - DOC-REP-034: Risk Assessment Report
-  - 리뷰 마감: 2024-01-20 (10일 초과)
-  - 상태: Draft
+  - Review Due: 2024-01-20 (10 days overdue)
+  - Status: Draft
 
-🟡 **WARNING: Pending Approval (8건)**
+**WARNING: Pending Approval (8 items)**
 - DOC-SOP-045: MDR Classification Procedure
-  - 제출일: 2024-01-25
-  - 승인 대기: 5일 경과
+  - Submitted: 2024-01-25
+  - Pending: 5 days
 - DOC-TMP-011: Validation Protocol Template
-  - 제출일: 2024-01-28
-  - 승인 대기: 2일 경과
-... (총 8건)
+  - Submitted: 2024-01-28
+  - Pending: 2 days
+... (total 8 items)
 
-### Notion 페이지: [Document Registry Dashboard](https://notion.so/document-dashboard)
+### Notion Page: [Document Registry Dashboard](https://notion.so/document-dashboard)
 ```
 
-### 5. Google Calendar 이벤트
+### 5. Google Calendar Events
 
 ```markdown
 ## Google Calendar - Regulatory Events
 
-### 다가오는 이벤트
+### Upcoming Events
 
-🔴 **CRITICAL: 이번 주 (2건)**
+**CRITICAL: This Week (2 items)**
 - 2024-02-05: FDA Pre-submission Meeting
-  - 시간: 14:00-15:00
-  - 준비사항: Presentation, Q&A准备
+  - Time: 14:00-15:00
+  - Preparation: Presentation, Q&A preparation
 - 2024-02-08: NB Audit - Design Control
-  - 시간: 09:00-17:00
-  - 준비사항: Design dossier, Evidence documents
+  - Time: 09:00-17:00
+  - Preparation: Design dossier, Evidence documents
 
-🟡 **WARNING: 다음 주 (3건)**
+**WARNING: Next Week (3 items)**
 - 2024-02-12: Management Review Meeting
-  - 시간: 10:00-12:00
+  - Time: 10:00-12:00
 - 2024-02-14: CAPA Review Committee
-  - 시간: 15:00-16:00
+  - Time: 15:00-16:00
 - 2024-02-15: Risk Assessment Workshop
-  - 시간: 13:00-17:00
+  - Time: 13:00-17:00
 
-🔵 **INFO: 예정된 이벤트 (8건)**
+**INFO: Scheduled Events (8 items)**
 - 2024-02-20: ISO 13485 Internal Audit
 - 2024-02-25: 510(k) Submission Target Date
 - 2024-03-10: Notified Body Surveillance Audit
-- ...
+...
 
 ### Google Calendar: [Regulatory Calendar](https://calendar.google.com/aria)
 ```
 
-## 경고 시스템
+## Alert System (SPEC-ARIA-004 S7.2)
 
-### 경고 레벨
+### Alert Levels
 
-| 레벨 | 색상 | 조건 | 예시 |
-|------|------|------|------|
-| Critical | 🔴 | CAPA overdue, Unacceptable risk, Deadline < 7 days | 즉시 조치 필요 |
-| Warning | 🟡 | Review overdue, Pending approval, Deadline 7-30 days | 주의 필요 |
-| Info | 🔵 | 예정된 이벤트, 상태 변경 | 참고용 |
+| Level | Icon | Condition | Example |
+|-------|------|-----------|---------|
+| Critical | Red | CAPA overdue, Unacceptable risk, Deadline < 7 days | Immediate action required |
+| Warning | Yellow | Review overdue, Pending approval, Deadline 7-30 days | Attention needed |
+| Info | Blue | Scheduled events, Status changes | For reference |
 
-### 경고 표시
+**Per SPEC-ARIA-004 S7.2:**
+- **Critical (빨강):** CAPA overdue, Unacceptable risk
+- **Warning (노랑):** Deadline < 7 days, Review overdue
+- **Info (파랑):** Upcoming events, Status changes
+
+### Alert Display
 
 ```markdown
-🔴 **CRITICAL: [카테고리]**
-  - 항목 제목
-  - 상세 정보
-  - 마감일/기한
-  - 조치 제안
-  - Notion 페이지 링크
+**CRITICAL: [Category]**
+  - Item title
+  - Details
+  - Due date
+  - Suggested action
+  - Notion page link
 ```
 
-## 옵션 상세
+## Options Detail
 
-### --summary (요약 보기)
+### --summary (Summary View)
 
 ```markdown
 ## ARIA Status Summary
 
-### 경고 요약
-🔴 Critical: 6건
-  - CAPA Overdue: 2건
-  - Unacceptable Risk: 1건
-  - Submission Deadline < 7 days: 1건
-  - Document Review Overdue: 3건
+### Alert Summary
+**Critical: 6 items**
+  - CAPA Overdue: 2 items
+  - Unacceptable Risk: 1 item
+  - Submission Deadline < 7 days: 1 item
+  - Document Review Overdue: 3 items
 
-🟡 Warning: 12건
-  - CAPA Due within 7 days: 3건
-  - Risk Review Overdue: 4건
-  - Pending Approval: 8건
+**Warning: 12 items**
+  - CAPA Due within 7 days: 3 items
+  - Risk Review Overdue: 4 items
+  - Pending Approval: 8 items
 
-### 주요 지표
+### Key Metrics
 - CAPA Open: 5/15 (33%)
 - Risk Unacceptable: 1/42 (2.4%)
-- Submission Progress: 80% (1건 마감 임박)
+- Submission Progress: 80% (1 item deadline imminent)
 - Document Pending Approval: 8/285 (2.8%)
 
-### 즉시 조치 필요 항목
-1. CAPA-2024-003: Design Validation Failure (15일 초과)
+### Immediate Action Required
+1. CAPA-2024-003: Design Validation Failure (15 days overdue)
 2. RISK-015: Software Failure - Patient Safety Impact
-3. SUB-510K-045: 510(k) Submission (5일 남음)
+3. SUB-510K-045: 510(k) Submission (5 days remaining)
 
-자세한 내용은 /aria status --detailed를 확인하세요.
+For details, run /aria status --detailed
 ```
 
-### --detailed (상세 보기)
+### --detailed (Detailed View)
 
-모든 항목의 상세 정보를 표시합니다 (기본값).
+Display detailed information for all items (default).
 
-### --alert-only (경고 항목만)
+### --alert-only (Alert Items Only)
 
-Critical 및 Warning 항목만 표시합니다.
+Display only Critical and Warning items:
 
 ```markdown
 ## Alert-Only View
 
-### 🔴 CRITICAL (6건)
-... (모든 Critical 항목 상세)
+### CRITICAL (6 items)
+... (all Critical items in detail)
 
-### 🟡 WARNING (12건)
-... (모든 Warning 항목 상세)
+### WARNING (12 items)
+... (all Warning items in detail)
 ```
 
-## 대시보드 업데이트
+## Dashboard Updates
 
-### 실시간 업데이트
+### Real-time Updates
 
 ```yaml
-조건: Notion DB 변경 시
-동작:
-  1. Notion API webhook 또는 polling으로 변경 감지
-  2. 대시보드 자동 갱신
-  3. 변경사항 사용자에게 알림 (Critical 항목)
+Condition: Notion DB changes
+Actions:
+  1. Detect changes via Notion API webhook or polling
+  2. Auto-refresh dashboard
+  3. Notify user of changes (Critical items)
 
-주기: 5분마다 자동 새로고침
+Frequency: Auto-refresh every 5 minutes
 ```
 
-### 푸시 알림
+### Push Notifications
 
 ```yaml
-조건: 새로운 Critical 항목 발생 시
-동작:
-  1. 사용자에게 푸시 알림 전송
-  2. 이메일 알림 (선택사항)
-  3. Notion 페이지 링크 포함
+Condition: New Critical item occurs
+Actions:
+  1. Send push notification to user
+  2. Email notification (optional)
+  3. Include Notion page link
 
-예시:
-  "새로운 CAPA Overdue 항목이 발생했습니다:
-   CAPA-2024-015, 마감일: 2024-01-30
-   자세한 내용: [Notion 페이지]"
+Example:
+  "New CAPA Overdue item detected:
+   CAPA-2024-015, Due: 2024-01-30
+   Details: [Notion page]"
 ```
 
-## 통계 및 추이
+## Statistics and Trends
 
-### 월간 보고서
+### Monthly Report
 
 ```markdown
 ## ARIA Monthly Status Report (2024-01)
 
-### CAPA 성과
-- 신규 CAPA: 5건
-- 완료 CAPA: 3건
-- 평균 완료 기간: 18일 (목표: 14일)
-- overdue发生率: 13% (목표: 5% 미만)
+### CAPA Performance
+- New CAPA: 5 items
+- Completed CAPA: 3 items
+- Average Completion Time: 18 days (Target: 14 days)
+- Overdue Rate: 13% (Target: < 5%)
 
-### Risk 관리
-- 신규 위험: 8건
-- 완화된 위험: 6건
-- Unacceptable risk: 1건 (지속 모니터링)
+### Risk Management
+- New Risks: 8 items
+- Mitigated Risks: 6 items
+- Unacceptable Risk: 1 item (ongoing monitoring)
 
-### Submission 진행률
-- 제출 완료: 2건
-- 진행 중: 3건
-- 평균 준비 기간: 85일
+### Submission Progress
+- Submissions Completed: 2 items
+- In Progress: 3 items
+- Average Preparation Time: 85 days
 
-### Document 관리
-- 신규 문서: 12건
-- 승인 완료: 10건
-- 평균 승인 기간: 5일
+### Document Management
+- New Documents: 12 items
+- Approved: 10 items
+- Average Approval Time: 5 days
 ```
 
-## 오류 처리
+## Error Handling
 
-### Notion API 연결 실패
-
-```
-오류: Notion 데이터베이스에 연결할 수 없습니다.
-
-해결 방법:
-1. 인터넷 연결을 확인하세요
-2. Notion API 키가 유효한지 확인하세요
-3. /aria init notion을 실행하여 재설정하세요
-```
-
-### Google Calendar 연결 실패
+### Notion API Connection Failed
 
 ```
-오류: Google Calendar에 연결할 수 없습니다.
+Error: Cannot connect to Notion database.
 
-해결 방법:
-1. OAuth 인증이 유효한지 확인하세요
-2. /aria init google을 실행하여 재인증하세요
+Resolution:
+1. Check internet connection
+2. Verify Notion API key is valid
+3. Run /aria init notion to reset
 ```
 
-## 완료 마커
+### Google Calendar Connection Failed
 
-상태 조회 완료 시 `<aria:status:complete alerts=N>` 마커를 추가합니다. (N: 경고 수)
+```
+Error: Cannot connect to Google Calendar.
 
-## 참고
+Resolution:
+1. Verify OAuth authentication is valid
+2. Run /aria init google to re-authenticate
+```
 
-- 대시보드는 Notion DB와 Google Calendar의 실시간 데이터를 기반으로 합니다
-- 모든 항목은 Notion 페이지와 직접 연결됩니다
-- 경고 임계값은 설정에서 조정 가능합니다
-- 월간 보고서는 자정에 자동 생성됩니다
+## Completion Marker
+
+Add `<aria:status:complete alerts=N>` marker when status check completes. (N: alert count)
+
+## Notes
+
+- Dashboard is based on real-time data from Notion DB and Google Calendar
+- All items link directly to Notion pages
+- Alert thresholds are configurable in settings
+- Monthly reports are auto-generated at midnight
+
+---
+
+**Version:** 2.1.0 (Phase 4 - SPEC-ARIA-004 Milestone 5)
+**Last Updated:** 2026-02-09
+**Language:** English
+**Core Principle:** Comprehensive status visibility with proactive risk detection and 3-level warning system
+**Spec Compliance:** SPEC-ARIA-004 ER-016, ER-017, S7.1, S7.2

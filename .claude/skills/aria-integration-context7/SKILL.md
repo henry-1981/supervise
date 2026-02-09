@@ -1,22 +1,29 @@
 ---
 name: aria-integration-context7
 description: >
-  Context7 MCP 최적화를 위한 ARIA 스킬. FDA, ISO, EU MDR 규정 검색 패턴과
-  TTL 캐싱을 통한 지식 기반 자동 업데이트를 제공합니다. 의료기기 규제 준수 문서 검색에 사용합니다.
+  Context7 MCP optimization for ARIA regulatory research. Provides optimized
+  search patterns for FDA 21 CFR 820, ISO 13485, EU MDR 2017/745, automated
+  knowledge base updates with weekly scheduling, 30-day search result caching,
+  and Context7 query optimization for regulatory information retrieval.
+
 license: Apache-2.0
-compatibility: Designed for Claude Code
-allowed-tools: Read Grep Glob
+compatibility: Designed for Claude Code with ARIA Phase 3+ agents
+allowed-tools: Read Grep Glob Bash mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: true
 metadata:
   version: "1.0.0"
-  category: "domain"
+  category: "integration"
   status: "active"
   updated: "2026-02-09"
-  modularized: "false"
-  tags: "context7, mcp, regulatory, search, fda, iso, mdr, cache, aria"
-  author: "MoAI-ARIA"
-  context7-libraries: "fda-regulations,iso-standards,eu-mdr"
-  argument-hint: "규정 검색 및 지식 기반 업데이트"
+  modularized: "true"
+  tags: "context7, regulatory, search, optimization, caching, knowledge-base"
+  author: "ARIA Development Team"
+  context7-libraries: "fda-cfr, iso-standards, eu-mdr"
+  related-skills: "aria-domain-raqa, aria-knowledge-fda, aria-knowledge-eumdr, aria-knowledge-standards"
+  aliases: "aria-context7, regulatory-search"
+  argument-hint: "Search query for regulatory information"
+  context: "Optimizes Context7 MCP queries for RA/QA regulatory research"
+  agent: "expert-regulatory, expert-standards, expert-researcher"
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -26,297 +33,234 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords:
-    - "context7"
-    - "regulatory search"
-    - "fda"
-    - "iso"
-    - "eu mdr"
-    - "mdr"
-    - "regulation"
-    - "standard"
-    - "cache"
-    - "ttl"
-    - "규정"
-    - "검색"
-    - "표준"
-  agents:
-    - "expert-backend"
-    - "manager-spec"
-  phases:
-    - "plan"
-    - "run"
-  languages:
-    - "typescript"
-    - "python"
+  keywords: ["regulatory", "FDA", "21 CFR", "ISO 13485", "EU MDR", "Context7", "search", "knowledge base", "regulation lookup"]
+  agents: ["expert-regulatory", "expert-standards", "expert-researcher", "expert-submission"]
+  phases: ["execute"]
+  languages: ["en"]
 ---
 
-# ARIA Context7 Integration
+# aria-integration-context7
 
-ARIA 규제 관리 시스템을 위한 Context7 MCP 최적화 스킬입니다. 의료기기 규정 검색 패턴과 지식 기반 자동 업데이트를 제공합니다.
+Context7 MCP optimization for ARIA regulatory research with automated knowledge management.
 
-## 빠른 시작
+## Quick Reference (30 seconds)
 
-### MCP 서버 설정
+### What This Skill Does
 
-.mcp.json에 Context7 MCP 서버가 이미 구성되어 있는지 확인합니다:
+Optimizes Context7 MCP queries for regulatory information retrieval. Provides pre-configured search patterns for FDA 21 CFR 820 (QSR), ISO 13485 (QMS), and EU MDR 2017/745. Implements automated knowledge base updates with weekly scheduling, 30-day search result caching, and query optimization for faster regulatory research.
 
-```json
-{
-  "mcpServers": {
-    "context7": {
-      "command": "/bin/bash",
-      "args": ["-l", "-c", "exec npx -y @upstash/context7-mcp@latest"]
-    }
-  }
-}
-```
+### When to Use
 
-### 라이브러리 식별자 확인
+- Searching FDA 21 CFR 820 regulations for medical device QSR
+- Looking up ISO 13485 requirements for quality management systems
+- Researching EU MDR 2017/745 requirements for CE marking
+- Building regulatory knowledge base with automated updates
+- Optimizing repeated regulatory queries with caching
+- Integrating Context7 with ARIA RA/QA workflow
 
-```bash
-# 사용 가능한 규정 라이브러리 검색
-ToolSearch("fda regulations")
-ToolSearch("iso 13485")
-ToolSearch("eu mdr")
-```
+### Core Capabilities
 
-## 규정 검색 패턴
+**Regulatory Search Patterns**: Pre-configured Context7 query templates for FDA, ISO, and EU MDR regulations. Optimized for regulatory terminology and citation formats.
 
-### FDA (미국 식약처)
+**Knowledge Base Auto-Update**: Weekly automated knowledge base synchronization with latest regulatory updates. Configurable schedule with change detection.
 
-#### 주요 규정 라이브러리
+**Search Result Caching**: 30-day TTL cache for Context7 query results. Reduces redundant API calls while maintaining data freshness.
 
-| 라이브러리 ID | 설명 | 검색 키워드 |
-|---------------|------|------------|
-| fda-21-cfr-part-11 | 전자 서명/전자 기록 | electronic, signature, record, part 11 |
-| fda-21-cfr-part-820 | 품질 시스템 규정 (QSR) | quality, system, qsr, 21 cfr 820 |
-| fda-510k | 시판 전 통지 | 510k, premarket, notification |
-| fda-pma | 시판 전 승인 | pma, premarket, approval |
+**Query Optimization**: Batching, deduplication, and result ranking for efficient regulatory research. Integrates with ARIA VALID quality framework.
 
-#### FDA 검색 패턴
+### Quick Commands
 
-```javascript
-// 21 CFR Part 11 관련 검색
-mcp__context7__resolve-library-id({
-  query: "fda 21 cfr part 11 electronic signature"
-});
+For FDA 21 CFR 820 searches, use mcp__context7__resolve-library-id with query "fda 21 cfr 820" to get library ID, then mcp__context7__get-library-docs with resolved ID and topic like "qsr requirements" or "design controls".
 
-// QSR 요구사항 검색
-mcp__context7__get-library-docs({
-  libraryId: "fda-21-cfr-part-820",
-  query: "design controls validation"
-});
-```
+For ISO 13485 searches, use mcp__context7__resolve-library-id with query "iso 13485" to get library ID, then mcp__context7__get-library-docs with resolved ID and topic like "qms clauses" or "management responsibility".
 
-### ISO (국제 표준화 기구)
+For EU MDR searches, use mcp__context7__resolve-library-id with query "eu mdr 2017/745" to get library ID, then mcp__context7__get-library-docs with resolved ID and topic like "technical documentation" or "clinical evaluation".
 
-#### 주요 표준 라이브러리
+---
 
-| 라이브러리 ID | 설명 | 검색 키워드 |
-|---------------|------|------------|
-| iso-13485 | 의료기기 품질 경영 시스템 | quality, management, system, qms |
-| iso-14971 | 의료기기 위험 관리 | risk, management, hazard |
-| iso-14971-2019 | 위험 관리 (2019 개정) | risk, 2019, application |
-| iso-9001 | 품질 경영 시스템 | quality, management, standard |
+## Implementation Guide (5 minutes)
 
-#### ISO 검색 패턴
+### Regulatory Search Patterns
 
-```javascript
-// ISO 13485 품질 경영 시스템 검색
-mcp__context7__resolve-library-id({
-  query: "iso 13485 quality management system"
-});
+**FDA 21 CFR 820 QSR Patterns**:
 
-// 위험 관리 프로세스 검색
-mcp__context7__get-library-docs({
-  libraryId: "iso-14971",
-  query: "risk analysis evaluation benefit risk"
-});
-```
+Context7 library resolution for FDA 21 CFR 820 requires specific query formatting. Use "fda 21 cfr 820" or "fda qsr" as the base query. The resolved library ID typically maps to FDA electronic Code of Federal Regulations.
 
-### EU MDR (유럽 의료기기 규정)
+Search topics for FDA 21 CFR 820 include "quality system", "design controls", "corrective and preventive action", "record keeping", "servicing", "statistical techniques". Each major subpart (820.20 through 820.250) can be queried individually.
 
-#### 주요 규정 라이브러리
+**ISO 13485 QMS Patterns**:
 
-| 라이브러리 ID | 설명 | 검색 키워드 |
-|---------------|------|------------|
-| eu-mdr-2017-745 | 의료기기 규정 | mdr, 2017/745, regulation |
-| eu-mdr-annex-i | 일반 안전/성능 요구사항 | annex i, essential requirements |
-| eu-mdr-annex-ix | CE 마크 프로세스 | annex ix, conformity assessment |
-| eu-mdr-annex-xv | 임상 평가/조사 | clinical, investigation, performance |
+Context7 library resolution for ISO 13485 uses "iso 13485" or "iso 13485:2016" as the base query. The resolved library ID maps to ISO quality management system standards.
 
-#### EU MDR 검색 패턴
+Search topics for ISO 13485 include "quality management system", "management responsibility", "resource management", "product realization", "measurement analysis", "improvement". Each clause (4 through 8) can be queried individually with specific requirements.
 
-```javascript
-// MDR 규정 전체 검색
-mcp__context7__resolve-library-id({
-  query: "eu mdr 2017/745 medical device regulation"
-});
+**EU MDR 2017/745 Patterns**:
 
-// 임상 평가 요구사항 검색
-mcp__context7__get-library-docs({
-  libraryId: "eu-mdr-annex-xv",
-  query: "clinical evaluation investigation plan"
-});
-```
+Context7 library resolution for EU MDR uses "eu mdr 2017/745" or "medical device regulation" as the base query. The resolved library ID typically maps to EU MDR official documentation.
 
-## 검색 최적화
+Search topics for EU MDR include "technical documentation", "clinical evaluation", "post-market surveillance", "vigilance", "market surveillance", "classification", "conformity assessment". Each chapter (I through X) can be queried with specific article references.
 
-### 검색어 구성
+### Knowledge Base Auto-Update
 
-효율적인 검색을 위해 다음 패턴을 사용합니다:
+**Weekly Schedule Configuration**:
 
-1. **규정 코드 우선**: "21 CFR 820", "ISO 13485", "MDR 2017/745"
-2. **키워드 조합**: "design validation", "risk assessment", "clinical evaluation"
-3. **섹션 지정**: "part 11", "annex i", "chapter 4"
-4. **버전 지정**: "2019 revision", "2024 update"
+Knowledge base auto-update runs on a weekly schedule, typically synchronized with regulatory publication cycles. FDA updates are published quarterly, ISO updates annually, and EU MDR updates as needed.
 
-### 검색 결과 캐싱
+The auto-update mechanism uses three phases. Phase 1 performs change detection by comparing last update timestamps with regulatory publication schedules. Phase 2 executes incremental updates for changed regulations only. Phase 3 validates updated content and logs changes.
 
-```javascript
-// 캐시 구조
-const searchCache = {
-  key: "fda-21-cfr-820-design-controls",
-  query: "design controls validation",
-  timestamp: Date.now(),
-  ttl: 3600000, // 1시간 (밀리초)
-  results: [...]
-};
+**Update Triggers**:
 
-// 캐시 확인
-function getCachedResult(key) {
-  const cached = cacheStore.get(key);
-  if (cached && (Date.now() - cached.timestamp) < cached.ttl) {
-    return cached.results;
-  }
-  return null;
-}
-```
+Automatic triggers include scheduled weekly execution, manual trigger via /aria knowledge refresh command, and detection of regulatory publication announcements. Each trigger logs the update reason and timestamp.
 
-## 지식 기반 자동 업데이트
+**Knowledge Base Storage**:
 
-### Notion Knowledge Base 연동
+Knowledge base content is stored in Notion via Notion MCP for ARIA integration. Regulatory documents are organized by regulation type, chapter or clause hierarchy, and last update date. Each entry includes citation, section text, and source timestamp.
 
-```javascript
-// Context7 검색 결과를 Notion에 자동 저장
-async function updateKnowledgeBase(query, results) {
-  const page = await notion.pages.create({
-    parent: { database_id: KNOWLEDGE_BASE_DB },
-    properties: {
-      "Article ID": { title: [{ text: { content: `KB-${Date.now()}` } }] },
-      "Category": { select: { name: "Guideline" } },
-      "Tags": { multi_select: [{ name: "FDA" }, { name: "QSR" }] },
-      "Content": { rich_text: [{ text: { content: results.summary } }] },
-      "Source": { url: results.sourceUrl },
-      "Last Updated": { date: { start: new Date().toISOString() } },
-      "TTL": { number: 3600 } // 1시간 캐시
-    }
-  });
-}
-```
+### Search Result Caching
 
-### TTL (Time To Live) 캐싱 전략
+**Cache Key Generation**:
 
-| 콘텐츠 유형 | TTL | 갱신 주기 |
-|-------------|-----|----------|
-| 규정 원문 | 7일 (604800초) | 주간 |
-| 규정 해석 | 3일 (259200초) | 3일 |
-| 가이드라인 | 1일 (86400초) | 일일 |
-| 뉴스/업데이트 | 1시간 (3600초) | 시간별 |
+Cache keys are generated from query parameters including library ID, search topic, and language. Hash function ensures consistent key generation for identical queries. Cache keys follow format: ctx7:{library_id}:{topic_hash}:{language}.
 
-### 캐시 무효화 조건
+**30-Day TTL Enforcement**:
 
-다음 조건에서 캐시를 무효화합니다:
+Cache entries store creation timestamp in Unix epoch format. TTL validation occurs on cache read, comparing current time with creation timestamp. Entries older than 30 days are automatically invalidated and removed. Cache cleanup runs during weekly knowledge base updates.
 
-1. TTL 만료
-2. 규정 변경 감지
-3. 사용자 요청에 의한 갱신
-4. 정기 업데이트 스케줄
+**Cache Invalidation**:
 
-## MCP 도구 사용
+Manual cache invalidation occurs via /aria knowledge clear-cache command. Automatic invalidation occurs for entries exceeding TTL. Version-based invalidation occurs when regulatory updates are detected, ensuring stale data is removed.
 
-### ToolSearch로 도구 로드
+### Context7 Query Optimization
 
-```javascript
-// Context7 MCP 도구 검색 및 로드
-ToolSearch("context7 fda regulations")
-ToolSearch("context7 iso standards")
-ToolSearch("context7 eu mdr")
-```
+**Batch Query Generation**:
 
-### 사용 가능한 도구
+Related queries are batched to reduce Context7 API calls. Batch queries group related topics by regulation and chapter hierarchy. Maximum batch size is 10 queries per batch to respect rate limits. Batch results are decomposed and cached individually.
 
-| 도구 | 기능 | 사용 사례 |
-|------|------|-----------|
-| `mcp__context7__resolve-library-id` | 라이브러리 식별자 확인 | 규정 라이브러리 검색 |
-| `mcp__context7__get-library-docs` | 문서 내용 가져오기 | 특정 규정 섹션 조회 |
-| `mcp__context7__search-docs` | 전체 검색 | 여러 규정 동시 검색 |
+**Result Deduplication**:
 
-## 통합 검색 예시
+Duplicate results are identified by comparing citation, section number, and content hash. Deduplication occurs across batch results and cached entries. Unique results maintain original source attribution.
 
-### 규정 준수 확인
+**Result Ranking**:
 
-```javascript
-// 여러 규정에서 동시에 검색
-async function checkCompliance(requirement) {
-  const searches = [
-    {
-      source: "FDA 21 CFR 820",
-      query: requirement,
-      libraryId: "fda-21-cfr-part-820"
-    },
-    {
-      source: "ISO 13485",
-      query: requirement,
-      libraryId: "iso-13485"
-    },
-    {
-      source: "EU MDR",
-      query: requirement,
-      libraryId: "eu-mdr-2017-745"
-    }
-  ];
+Search results are ranked by relevance score calculated from topic match quality, citation recency, and source authority. FDA regulations rank by subpart hierarchy. ISO standards rank by clause hierarchy. EU MDR ranks by chapter and article number.
 
-  const results = await Promise.all(
-    searches.map(s =>
-      mcp__context7__get-library-docs({
-        libraryId: s.libraryId,
-        query: s.query
-      })
-    )
-  );
+---
 
-  return aggregateResults(results);
-}
-```
+## Advanced Implementation (10+ minutes)
 
-### 위험 평가 지원
+### Integration with ARIA Workflow
 
-```javascript
-// 위험 관리 관련 규정 검색
-async function searchRiskManagementRequirements() {
-  return {
-    iso14971: await getLibraryDocs("iso-14971", "risk management process"),
-    fdaQsr: await getLibraryDocs("fda-21-cfr-part-820", "risk analysis"),
-    euMdr: await getLibraryDocs("eu-mdr-annex-i", "risk mitigation")
-  };
-}
-```
+**Brief Phase Integration**:
 
-## 모범 사례
+During Brief phase, use optimized Context7 queries to identify applicable regulations based on device classification and target markets. Regulatory search patterns provide preliminary requirements landscape.
 
-1. **검색어 최적화**: 구체적인 규정 코드와 섹션 번호 사용
-2. **캐시 활용**: TTL 설정으로 불필요한 API 호출 최소화
-3. **결과 검증**: 공식 소스와 교차 확인
-4. **정기 업데이트**: 규정 변경사항 주기적 확인
-5. **버전 관리**: 검색 결과에 버전/날짜 정보 포함
+**Execute Phase Integration**:
 
-## MoAI 통합
+During Execute phase, leverage cached results for repeated regulatory lookups. Query optimization reduces research time for document drafting and requirements verification.
 
-- manager-spec: 규정 요구사항 분석
-- expert-backend: 검색 API 구현
-- manager-quality: 준수 검증
+**Deliver Phase Integration**:
 
-버전 기록:
-- v1.0.0 (2026-02-09): 초기 릴리스
+During Deliver phase, include source citations from Context7 results. Cached results provide traceability for VALID framework verification.
+
+### VALID Quality Framework Integration
+
+**Verified Dimension**:
+
+Context7 source validation ensures content matches original regulation text. Cache metadata includes retrieval timestamp for audit trail.
+
+**Accurate Dimension**:
+
+Regulatory update validation ensures knowledge base reflects current requirements. Version tracking identifies last update date for each regulation.
+
+**Linked Dimension**:
+
+Traceability between citations and Context7 sources enables requirement-to-evidence linking. Cache keys maintain query-to-result mapping.
+
+**Inspectable Dimension**:
+
+Knowledge base change logs provide audit trail for regulatory updates. Cache invalidation events are logged with reasoning.
+
+**Deliverable Dimension**:
+
+Formatted regulatory citations meet submission package requirements. Context7 results export to standard formats for documentation.
+
+### Error Handling and Recovery
+
+**Context7 Unavailability**:
+
+When Context7 MCP is unavailable, the system falls back to cached results if available. If no cached results exist, the system provides manual research guidance and logs the Context7 failure for investigation.
+
+**Cache Corruption**:
+
+Cache validation runs on startup to detect corrupted entries. Corrupted entries are automatically removed and regenerated. Cache rebuild process queries Context7 for missing entries.
+
+**Regulatory Update Conflicts**:
+
+When regulatory updates conflict with cached content, the system prioritizes newer content with version tracking. Conflict resolution logs both versions with timestamps and provides manual review flag for significant changes.
+
+---
+
+## Works Well With
+
+**ARIA Knowledge Skills**:
+
+- aria-knowledge-fda: FDA regulations content with Context7 optimization
+- aria-knowledge-eumdr: EU MDR content with Context7 optimization
+- aria-knowledge-standards: ISO standards content with Context7 optimization
+
+**ARIA Domain Agents**:
+
+- expert-regulatory: Regulatory strategy with optimized research
+- expert-standards: Standards interpretation with automated updates
+- expert-researcher: Regulatory information research with caching
+
+**ARIA Integration**:
+
+- aria-domain-raqa: RA/QA domain knowledge with optimized lookup
+- Notion MCP: Knowledge base storage and synchronization
+- ARIA VALID: Quality framework compliance verification
+
+---
+
+## Module Reference
+
+For detailed implementation patterns, see the modules directory:
+
+**regulatory-search-patterns.md**: Complete Context7 query templates for FDA 21 CFR 820, ISO 13485, EU MDR 2017/745, and citation formats.
+
+**knowledge-base-management.md**: Weekly auto-update configuration, change detection, incremental update mechanisms, and Notion integration.
+
+**caching-strategy.md**: Cache key generation, 30-day TTL enforcement, invalidation rules, and cleanup processes.
+
+**query-optimization.md**: Batch query generation, result deduplication, relevance ranking, and performance optimization.
+
+**examples/integration-examples.md**: Working code examples for Context7 integration with ARIA workflow.
+
+---
+
+## Troubleshooting
+
+**Context7 Queries Return No Results**:
+
+Verify library ID resolution with mcp__context7__resolve-library-id using correct query format. Check that Context7 MCP server is running in .mcp.json. Confirm search topic matches available content in the library.
+
+**Cache Not Working**:
+
+Check that cache directory exists with write permissions. Verify system time is correct for TTL validation. Review cache logs for validation errors. Manually clear cache with /aria knowledge clear-cache if needed.
+
+**Knowledge Base Not Updating**:
+
+Confirm weekly schedule is configured correctly. Check Notion MCP connection and permissions. Review update logs for error messages. Manually trigger update with /aria knowledge refresh if needed.
+
+**Search Results Outdated**:
+
+Check last update timestamp in knowledge base. Run manual knowledge refresh if updates are available. Verify regulatory publication sources for recent changes. Clear cache to force fresh queries if needed.
+
+---
+
+## Status
+
+Production Ready (v1.0.0)
+Last Updated: 2026-02-09
+Maintained by: ARIA Development Team
+Phase: ARIA Phase 4 - Universal Business Agents

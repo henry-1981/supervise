@@ -2,13 +2,27 @@
   "mcpServers": {
     "context7": {
       "command": "npx",
-      "args": ["-y", "@context7/mcp"],
-      "description": "Up-to-date regulatory documentation lookup"
+      "args": ["-y", "@upstash/context7-mcp", "--api-key", "ctx7sk-db4c02d1-9497-4308-955c-32e1989f7437"],
+      "description": "Up-to-date regulatory documentation lookup via Upstash"
     },
     "sequential-thinking": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
       "description": "Complex regulatory pathway analysis"
+    },
+    "google-workspace": {
+      "command": "npx",
+      "args": ["-y", "@google/mcp-server-google-workspace"],
+      "description": "Google Workspace integration (Gmail, Docs, Drive, Calendar) for Phase 4"
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notion"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}",
+        "NOTION_DATABASE_ID": "${NOTION_DATABASE_ID}"
+      },
+      "description": "Notion database integration for ARIA regulatory management"
     }
   }
 }
