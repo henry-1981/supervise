@@ -14,7 +14,7 @@ moai:
 # Project Metadata
 project:
   # Project name (derived from directory name or user input)
-  name: "SPEC-ARIA-002"
+  name: "SPEC-ARIA-001"
 
   # Project mode: personal, team, or enterprise
   # - personal: Single developer, lightweight workflows

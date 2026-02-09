@@ -1,12 +1,89 @@
-# ARIA Phase 2
+# ARIA - AI Regulatory Intelligence Assistant
 
-> AI-powered Regulatory Affairs Intelligence system for regulatory documentation and compliance workflows
+> Medical Device RA/QA (Regulatory Affairs / Quality Assurance) specialist powered by AI. Designed for non-developer business professionals.
 
 ## Project Overview
 
-ARIA (Active Risk Inspection and Assessment) Phase 2 is an intelligent system designed to streamline regulatory affairs workflows through AI-powered automation. It transforms how regulatory professionals create, manage, and deliver regulatory documentation by combining specialized AI agents, validated workflows, and quality assurance frameworks.
+ARIA is a specialized AI assistant for medical device regulatory affairs and quality assurance professionals. Unlike generic AI tools, ARIA understands:
 
-### Core Objectives
+- **FDA Regulations**: 510(k), PMA, De Novo submissions, 21 CFR Part 820
+- **EU MDR**: CE marking, Technical Documentation, Clinical Evaluation
+- **International Standards**: ISO 13485, IEC 62304, ISO 14971, IEC 60601
+- **MFDS Regulations**: Korean medical device classification and approval pathways
+
+ARIA follows a **Brief-Execute-Deliver** workflow optimized for regulatory work:
+
+1. **Brief**: Database-driven regulatory strategy analysis with user approval checkpoint
+2. **Execute**: Document preparation with domain expert agents
+3. **Deliver**: Quality-validated output ready for submission
+
+## Target Users
+
+ARIA is designed for **RA/QA practitioners**, not developers:
+
+- **Regulatory Affairs Managers**: Strategy development, submission preparation
+- **QA Engineers**: Quality systems, audits, CAPA management
+- **Design Engineers**: Design controls, risk management, documentation
+- **Clinical Specialists**: Clinical evaluation, post-market surveillance
+
+## Key Features
+
+### VALID Quality Framework
+
+Every ARIA output passes through the VALID quality gates:
+
+- **V**erified: Content verified against original regulations/standards
+- **A**ccurate: Data, figures, and references are current and correct
+- **L**inked: Full traceability between requirements, documents, and evidence
+- **I**nspectable: Audit trail maintained for regulatory inspections
+- **D**eliverable: Output meets submission format requirements
+
+### Specialized Domain Agents
+
+ARIA provides 16 specialized agents across 3 tiers:
+
+**Core Layer (4 agents)**: Orchestration, document management, quality assurance, project tracking
+
+**Business Layer (4 agents)**: Technical writing, data analysis, document review, regulatory research
+
+**Domain Layer (8 agents)**: Regulatory strategy, standards interpretation, risk management, design controls, CAPA, clinical evaluation, submissions, audit management
+
+### Natural Language Interface
+
+No coding required. Simply describe your regulatory task in natural language:
+
+```
+/aria "Prepare a 510(k) submission for our new blood pressure monitor"
+```
+
+ARIA will:
+1. Ask clarifying questions (device classification? predicate device? target market?)
+2. Query regulatory databases and standards
+3. Present regulatory strategy brief for approval
+4. Generate submission documents with proper citations
+5. Validate against VALID quality framework
+6. Deliver submission-ready package
+
+## Architecture
+
+ARIA is built on MoAI-ADK principles, adapted for regulatory workflows:
+
+| Aspect | MoAI-ADK (Development) | ARIA (RA/QA) |
+|--------|----------------------|---------------|
+| **Target Users** | Developers | RA/QA practitioners |
+| **Workflow** | Plan-Run-Sync | Brief-Execute-Deliver |
+| **Quality Framework** | TRUST 5 (code quality) | VALID (regulatory compliance) |
+| **Token Budget** | Balanced (15%-75%-10%) | Brief-heavy (60%-30%-10%) |
+| **Output** | Code, tests, APIs | Regulatory documents, submissions |
+
+### Read-Think-Write-Verify Pattern
+
+ARIA implements the universal knowledge worker pattern:
+
+- **Read**: Regulation/standard documents, precedents, guidelines
+- **Think**: Regulatory interpretation, strategy development, analysis
+- **Write**: Regulatory documents, reports, submission packages
+- **Verify**: Compliance review, quality gates, audit readiness
 
 - **Automate Documentation**: Reduce regulatory document creation time by 60% through AI-assisted writing
 - **Ensure Compliance**: Maintain VALID quality standards across all regulatory submissions
@@ -14,7 +91,7 @@ ARIA (Active Risk Inspection and Assessment) Phase 2 is an intelligent system de
 - **Enable Collaboration**: Coordinate cross-functional regulatory teams through intelligent task management
 - **Ensure Quality**: Implement TRUST 5 quality gates for all deliverables
 
-### Target Audience
+### Standalone Installation
 
 - Regulatory Affairs professionals
 - Quality Assurance specialists
@@ -22,509 +99,9 @@ ARIA (Active Risk Inspection and Assessment) Phase 2 is an intelligent system de
 - Regulatory operations teams
 - Pharmaceutical and medical device companies
 
-## Architecture
-
-ARIA Phase 2 implements a two-layer architecture with Core orchestration and Business domain expertise.
-
-### System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         ARIA Phase 2                             │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │                    Core Layer (3 Agents)                   │ │
-│  │                                                              │ │
-│  │  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐ │ │
-│  │  │  Supervisor  │───▶│   Planner    │───▶│ Orchestrator │ │ │
-│  │  │              │    │              │    │              │ │ │
-│  │  │ Intent       │    │ Execution    │    │ Multi-Agent  │ │ │
-│  │  │ Clarification│    │ Planning     │    │ Coordination │ │ │
-│  │  └──────────────┘    └──────────────┘    └──────────────┘ │ │
-│  └────────────────────────────────────────────────────────────┘ │
-│                           │                                     │
-│                           ▼                                     │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │                Business Layer (4 Agents)                   │ │
-│  │                                                              │ │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │ │
-│  │  │  Researcher  │  │    Analyst   │  │    Writer    │     │ │
-│  │  │              │  │              │  │              │     │ │
-│  │  │ Regulatory   │  │ Statistical  │  │ Technical    │     │ │
-│  │  │ Intelligence │  │ Analysis     │  │ Documentation│     │ │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘     │ │
-│  │                                                              │ │
-│  │  ┌──────────────┐                                          │ │
-│  │  │   Reviewer   │                                          │ │
-│  │  │              │                                          │ │
-│  │  │ Quality      │                                          │ │
-│  │  │ Validation   │                                          │ │
-│  │  └──────────────┘                                          │ │
-│  └────────────────────────────────────────────────────────────┘ │
-│                                                                  │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │                   Knowledge Base (5 Skills)                │ │
-│  │   Research │ Analysis │ Writing │ Templates │ Quality       │ │
-│  └────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Data Flow
-
-1. **User Request** → Supervisor clarifies intent
-2. **Intent Analysis** → Planner creates execution strategy
-3. **Task Assignment** → Orchestrator coordinates business agents
-4. **Domain Processing** → Specialized agents execute tasks
-5. **Quality Validation** → Reviewer ensures compliance
-6. **Result Delivery** → Aggregated output with sources
-
-## Agents
-
-ARIA Phase 2 implements 7 specialized agents organized into Core and Business layers.
-
-### Core Layer Agents
-
-#### 1. Supervisor Agent
-
-**Purpose**: Main orchestrator for multi-agent coordination
-
-**Responsibilities**:
-- Clarify user intent through targeted questioning
-- Route tasks to appropriate business agents
-- Coordinate multi-agent workflows
-- Aggregate results from multiple agents
-- Handle error recovery and fallback strategies
-
-**Model**: Claude Sonnet (balanced speed and intelligence)
-
-**Tools**: Task, AskUserQuestion, Read, Glob, Grep
-
-**Key Features**:
-- Never implements directly (delegation-only)
-- User interaction handled only at this layer
-- Parallel execution when possible (max 10 concurrent)
-- Responds in user's conversation language
-
-#### 2. Planner Agent
-
-**Purpose**: Execution planning and task decomposition
-
-**Responsibilities**:
-- Analyze clarified intent
-- Create execution plans with phases
-- Identify task dependencies
-- Assign tasks to appropriate agents
-- Present plans for user approval
-
-**Model**: Claude Haiku (fast planning)
-
-**Tools**: Read, Grep, Glob
-
-**Key Features**:
-- Generates sequential and parallel execution strategies
-- Identifies fallback options for each task
-- Estimates resource requirements
-- Creates milestone checkpoints
-
-#### 3. Orchestrator Agent
-
-**Purpose**: Multi-agent execution coordination
-
-**Responsibilities**:
-- Execute approved plans
-- Coordinate agent timing and dependencies
-- Handle inter-agent communication
-- Monitor execution progress
-- Implement error recovery
-
-**Model**: Claude Sonnet
-
-**Tools**: Task, Read, Write, Edit, Bash
-
-**Key Features**:
-- Manages agent lifecycle
-- Implements retry logic
-- Tracks execution state
-- Provides progress updates
-
-### Business Layer Agents
-
-#### 4. Expert Researcher
-
-**Purpose**: Regulatory research and intelligence gathering
-
-**Responsibilities**:
-- Research regulatory requirements
-- Find relevant precedents and guidance
-- Track regulatory changes
-- Gather supporting documentation
-- Maintain citation records
-
-**Model**: Claude Sonnet
-
-**Skills**: aria-research
-
-**MCP Integration**: Context7 for up-to-date regulatory documentation
-
-**Key Outputs**:
-- Regulatory requirement summaries
-- Annotated reference lists
-- Compliance gap analyses
-- Best practice compilations
-
-#### 5. Expert Analyst
-
-**Purpose**: Statistical analysis and data visualization
-
-**Responsibilities**:
-- Perform statistical analyses
-- Calculate risk metrics
-- Analyze trends and patterns
-- Create data visualizations
-- Validate analysis results
-
-**Model**: Claude Sonnet
-
-**Skills**: aria-analysis
-
-**Key Outputs**:
-- Statistical reports
-- Trend analysis charts
-- Risk scoring models
-- Compliance dashboards
-
-#### 6. Expert Writer
-
-**Purpose**: Technical documentation authoring
-
-**Responsibilities**:
-- Write regulatory submissions
-- Create technical documentation
-- Format according to standards
-- Maintain consistency
-- Integrate feedback
-
-**Model**: Claude Sonnet
-
-**Skills**: aria-writing-style, aria-templates
-
-**Key Outputs**:
-- Regulatory submissions
-- Technical reports
-- User documentation
-- SOPs and work instructions
-
-#### 7. Expert Reviewer
-
-**Purpose**: Quality validation and compliance verification
-
-**Responsibilities**:
-- Validate document quality
-- Check regulatory compliance
-- Verify citation accuracy
-- Assess completeness
-- Ensure consistency
-
-**Model**: Claude Sonnet
-
-**Skills**: aria-quality-valid
-
-**Key Outputs**:
-- Quality assessment reports
-- Compliance checklists
-- Validation summaries
-- Improvement recommendations
-
-## Skills
-
-ARIA Phase 2 includes 5 specialized skills providing domain knowledge and validated methodologies.
-
-### 1. aria-research
-
-**Purpose**: Research methodology and citation standards
-
-**Modules**:
-- `quick-reference.md` - Fast access to research protocols
-- `web-research.md` - Online research techniques
-- `INDEX.md` - Module navigation
-
-**Key Features**:
-- Source evaluation criteria (CRAAP test)
-- Citation standards for regulatory documents
-- Evidence hierarchy (Level 1-5)
-- Research documentation templates
-
-**Usage**: Automatically loaded by expert-researcher for all research tasks
-
-### 2. aria-analysis
-
-**Purpose**: Statistical analysis and data visualization
-
-**Modules**:
-- `quick-reference.md` - Statistical method selection
-- `requirement-analysis.md` - Regulatory data requirements
-- `feasibility-study.md` - Analysis planning
-- `INDEX.md` - Module navigation
-
-**Key Features**:
-- Statistical test selection guide
-- Effect size interpretation
-- Confidence interval standards
-- Visualization best practices
-
-**Usage**: Automatically loaded by expert-analyst for data analysis tasks
-
-### 3. aria-writing-style
-
-**Purpose**: Technical writing standards and style guidelines
-
-**Modules**:
-- `quick-reference.md` - Style essentials
-- Regulatory writing conventions
-- Document structure templates
-
-**Key Features**:
-- Regulatory document structures
-- Writing style guidelines
-- Formatting standards
-- Consistency rules
-
-**Usage**: Automatically loaded by expert-writer for documentation tasks
-
-### 4. aria-templates
-
-**Purpose**: Document templates and standardized formats
-
-**Modules**:
-- `quick-reference.md` - Template selection guide
-- `brief-templates.md` - Brief document templates
-- `INDEX.md` - Template navigation
-
-**Key Features**:
-- Regulatory submission templates
-- Brief document templates
-- Report structures
-- Checklist templates
-
-**Usage**: Automatically loaded by expert-writer and supervisor for document creation
-
-### 5. aria-quality-valid
-
-**Purpose**: Quality validation and compliance verification
-
-**Modules**:
-- `quick-reference.md` - Validation criteria
-- VALID framework reference
-- Compliance checklists
-
-**Key Features**:
-- VALID quality dimensions
-- Compliance verification checklists
-- Quality assessment templates
-- Validation reporting
-
-**Usage**: Automatically loaded by expert-reviewer for quality validation
-
-## Commands
-
-ARIA Phase 2 provides 5 slash commands for complete workflow management.
-
-### 1. /aria brief
-
-**Purpose**: Initialize task with structured brief
-
-**Usage**:
-```
-/aria brief "Implement authentication system"
-/aria brief "Refactor payment module" --scope=narrow
-/aria brief SPEC-001
-```
-
-**Output**: Structured brief document containing:
-- Task overview and objectives
-- Success criteria
-- Constraints and dependencies
-- Risk assessment
-- Next steps
-
-**Location**: `.moai/briefs/{task_id}.md`
-
-**When to Use**:
-- Starting new tasks
-- Beginning refactoring efforts
-- Analyzing SPEC documents
-- Clarifying requirements
-
-### 2. /aria execute
-
-**Purpose**: Execute briefed tasks with quality validation
-
-**Usage**:
-```
-/aria execute TASK-001
-/aria execute TASK-002 --mode=parallel
-/aria execute TASK-003 --continue
-```
-
-**Execution Modes**:
-- `sequential` - Step-by-step with validation
-- `parallel` - Independent steps concurrently
-- `hybrid` - Auto-select optimal mode
-
-**Features**:
-- Progress tracking with visual indicators
-- Loop prevention and recovery
-- Quality gates (tests, LSP, coverage)
-- Checkpoint/resume capability
-
-**When to Use**:
-- After brief completion
-- Implementing features
-- Running automated workflows
-
-### 3. /aria deliver
-
-**Purpose**: Generate final deliverable package
-
-**Usage**:
-```
-/aria deliver TASK-001
-/aria deliver TASK-002 --format=pdf
-/aria deliver TASK-003 --include=tests,docs,reports
-```
-
-**Output Formats**:
-- `markdown` (default) - Version control friendly
-- `pdf` - Professional presentation
-- `html` - Web-ready format
-- `all` - Generate all formats
-
-**Deliverable Package**:
-- Implementation artifacts (code, tests, configs)
-- Documentation (API, user guides, technical specs)
-- Reports (execution, quality, coverage, LSP)
-- Artifacts (changelog, migration guide, rollout plan)
-
-**When to Use**:
-- After successful execution
-- Creating handoff artifacts
-- Preparing regulatory submissions
-
-### 4. /aria template
-
-**Purpose**: Generate documents from templates
-
-**Usage**:
-```
-/aria template regulatory-submission --data=submission_data.json
-/aria template technical-report --type=validation
-```
-
-**Template Categories**:
-- Regulatory submissions
-- Technical reports
-- Brief documents
-- Quality reports
-
-**When to Use**:
-- Creating standardized documents
-- Ensuring consistent formatting
-- Rapid document generation
-
-### 5. /aria knowledge
-
-**Purpose**: Query ARIA knowledge base
-
-**Usage**:
-```
-/aria knowledge "regulatory requirements for medical devices"
-/aria knowledge "statistical methods for compliance data"
-```
-
-**Knowledge Areas**:
-- Regulatory requirements
-- Statistical methods
-- Writing standards
-- Quality criteria
-- Best practices
-
-**When to Use**:
-- Quick reference questions
-- Methodology queries
-- Standard lookups
-
-## MCP Integration
-
-ARIA Phase 2 integrates with Model Context Protocol servers for enhanced capabilities.
-
-### 1. Context7 MCP
-
-**Purpose**: Up-to-date library and documentation lookup
-
-**Usage**:
-```python
-# Resolve library identifier
-library_id = mcp__context7__resolve_library_id(
-    query="FDA regulatory guidance",
-    libraryName="regulatory-docs"
-)
-
-# Get documentation
-docs = mcp__context7__get-library-docs(
-    libraryId=library_id,
-    symbols=["Q8(R2)", "Q9", "Q10"]
-)
-```
-
-**Benefits**:
-- Always-current regulatory guidance
-- Official documentation sources
-- Quick reference access
-- Version-aware lookups
-
-**Used By**: expert-researcher for regulatory research
-
-### 2. Sequential Thinking MCP
-
-**Purpose**: Complex problem decomposition and analysis
-
-**Usage**:
-```python
-# Break down complex regulatory analysis
-mcp__sequential-thinking__sequentialthinking(
-    thought="Analyzing requirement applicability...",
-    nextThoughtNeeded=True,
-    thoughtNumber=1,
-    totalThoughts=5
-)
-```
-
-**Benefits**:
-- Step-by-step reasoning
-- Complex decision tracking
-- Revision and refinement
-- Transparent analysis process
-
-**Used By**: supervisor for complex planning, analyst for methodology design
-
-### 3. Notion MCP
-
-**Purpose**: Integration with Notion for documentation management
-
-**Usage**:
-```python
-# Query Notion database
-notion_pages = mcp__notion__queryDatabase(
-    databaseId="regulatory_tracker",
-    filter={"property": "Status", "equals": "In Progress"}
-)
-
-# Create documentation page
-page = mcp__notion__createPage(
-    parent_id="documentation_space",
-    properties={"title": "New Regulatory Submission"}
-)
+```bash
+git clone https://github.com/henry-1981/supervise.git \
+  ~/.claude/plugins/local/aria
 ```
 
 **Benefits**:
@@ -548,9 +125,9 @@ git clone https://github.com/henry-1981/ARIA-Phase2.git ~/.claude/plugins/local/
 ```json
 {
   "plugins": {
-    "aria-phase2@local": [{
+    "aria@local": [{
       "scope": "user",
-      "installPath": "~/.claude/plugins/local/aria-phase2",
+      "installPath": "~/.claude/plugins/local/aria",
       "version": "2.0.0",
       "installedAt": "2026-02-09T00:00:00Z",
       "lastUpdated": "2026-02-09T00:00:00Z"
@@ -559,129 +136,123 @@ git clone https://github.com/henry-1981/ARIA-Phase2.git ~/.claude/plugins/local/
 }
 ```
 
-3. **Enable in settings** (`~/.claude/settings.json`):
+> Note: Add to existing `plugins` object if other plugins are present.
+
+3. **Enable in `~/.claude/settings.json`**:
+
 ```json
 {
   "enabledPlugins": {
-    "aria-phase2@local": true
+    "aria@local": true
   }
 }
 ```
 
 4. **Restart Claude Code**
 
-### First Task
+## Quick Start
 
-1. **Create a brief**:
 ```
-/aria brief "Create regulatory submission for new medical device"
+/aria "510(k) submission preparation for my device"
 ```
 
-2. **Review and approve** the brief
+ARIA will:
+1. Ask clarifying questions (device type, classification, predicate device)
+2. Analyze regulatory pathway (Brief phase)
+3. Present strategy for your approval
+4. Prepare submission documents (Execute phase)
+5. Deliver quality-validated output (Deliver phase)
+
+> Note: The marketplace plugin uses the legacy Cowork Supervisor name. ARIA v2.0+ rebrands to the specialized RA/QA focus.
+
+## Quick Start
 
 3. **Execute the task**:
 ```
-/aria execute TASK-001
+/aria "Help with 510(k) submission preparation"
 ```
 
-4. **Review progress** and provide feedback as needed
+ARIA will guide you through:
+1. **Brief Phase**: Device classification, predicate device search, regulatory pathway analysis
+2. **Approval Checkpoint**: Review and approve regulatory strategy
+3. **Execute Phase**: Document preparation with domain experts
+4. **Deliver Phase**: VALID-validated submission package
+
+## Workflow Examples
+
+### 510(k) Submission Preparation
 
 5. **Deliver results**:
 ```
-/aria deliver TASK-001
+/aria "Prepare 510(k) submission for Class II medical device"
 ```
 
-### Basic Workflow Example
+ARIA executes:
+- **expert-researcher**: Predicate device database search
+- **expert-regulatory**: Classification and pathway analysis
+- **expert-submission**: Package structure and requirements
+- **expert-writer**: Document section drafts
+- **expert-reviewer**: Compliance verification
+- **manager-quality**: VALID quality gates
 
-```bash
-# User request: Prepare 510(k) submission for new software medical device
+### CAPA Management
 
-/aria brief "Prepare 510(k) submission for new software medical device"
-# → System asks clarifying questions
-# → Creates structured brief
-
-/aria execute TASK-001
-# → Researcher gathers FDA requirements
-# → Analyst analyzes predicate device data
-# → Writer drafts submission sections
-# → Reviewer validates quality and compliance
-# → Coordinator aggregates results
-
-/aria deliver TASK-001 --format=all
-# → Generates complete submission package
-# → Includes all supporting documentation
-# → Creates quality validation report
+```
+/aria "Open CAPA for nonconforming product complaint"
 ```
 
-## VALID Framework
+ARIA executes:
+- **expert-capa**: CAPA form creation
+- **expert-analyst**: Complaint trend analysis
+- **expert-risk**: Risk impact assessment
+- **Root Cause Analysis**: 5 Whys, Fishbone diagrams
+- **Action Planning**: Corrective/preventive measures
+- **manager-project**: Timeline and assignee tracking
 
-ARIA Phase 2 implements the VALID quality framework for regulatory documentation.
+### Design Control Documentation
 
-### 5 Quality Dimensions
+```
+/aria "Create Design History File for new software medical device"
+```
 
-#### 1. Verifiable
+ARIA executes:
+- **expert-design-control**: DHF structure and requirements
+- **expert-risk**: Hazard identification and analysis
+- **expert-standards**: IEC 62304 compliance verification
+- **Traceability Matrix**: Auto-generated requirements traceability
+- **manager-docs**: Document version and approval workflow
 
-**Definition**: All claims and data must be traceable to credible sources
+## MCP Integrations
 
-**Requirements**:
-- Complete citation trails
-- Source verification
-- Audit trail maintenance
-- Evidence backing for assertions
+ARIA integrates with external services for comprehensive workflow support:
 
-**Validation**:
-- Citation completeness check
-- Source credibility assessment
-- Traceability verification
-- Evidence adequacy review
+### Notion MCP - Central Knowledge Hub
 
-#### 2. Accurate
+- Regulatory document storage and version control
+- CAPA tracker database
+- Risk register management
+- Submission tracking dashboard
+- Knowledge base accumulation
 
-**Definition**: Content must be factually correct and error-free
+### Google Workspace MCP - Collaboration
 
-**Requirements**:
-- Factual correctness
-- Calculation accuracy
-- Regulatory currency
-- Technical precision
+- Regulatory correspondence (Gmail)
+- Collaborative document editing (Google Docs)
+- Requirements matrices and data analysis (Google Sheets)
+- Deadline and audit scheduling (Google Calendar)
 
-**Validation**:
-- Fact-checking processes
-- Statistical verification
-- Regulation update checks
-- Peer review
+### Context7 MCP - Regulatory Research
 
-#### 3. Logical
+- Real-time regulatory document lookup
+- Latest standards and guidance access
+- Citation verification and referencing
 
-**Definition**: Content must follow clear, rational structure
+### Sequential Thinking MCP - Complex Analysis
 
-**Requirements**:
-- Coherent argument flow
-- Consistent terminology
-- Clear cause-effect relationships
-- Rational conclusions
-
-**Validation**:
-- Structure analysis
-- Terminology consistency checks
-- Logic flow verification
-- Conclusion validation
-
-#### 4. Integrity
-
-**Definition**: Content must be complete and unbiased
-
-**Requirements**:
-- No omitted material information
-- Balanced presentation
-- Conflict of interest disclosure
-- Limitations documentation
-
-**Validation**:
-- Completeness assessment
-- Bias detection
-- Disclosure verification
-- Limitations review
+- Regulatory pathway decision support
+- Substantial equivalence logic development
+- Multi-market strategy analysis
+- Risk-benefit assessment
 
 #### 5. Documented
 
@@ -717,152 +288,79 @@ ARIA Phase 2 implements a Brief-Execute-Deliver workflow with 60%-30%-10% time a
 ### Workflow Phases
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                     Brief (60%)                               │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐              │
-│  │ Understand │→ │  Define    │→ │  Document  │              │
-│  │ Intent     │  │ Scope      │  │ Brief      │              │
-│  └────────────┘  └────────────┘  └────────────┘              │
-└──────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌──────────────────────────────────────────────────────────────┐
-│                    Execute (30%)                             │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐              │
-│  │  Plan      │→ │ Implement  │→ │ Validate   │              │
-│  │ Execution  │  │ Solution   │  │ Quality    │              │
-│  └────────────┘  └────────────┘  └────────────┘              │
-└──────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌──────────────────────────────────────────────────────────────┐
-│                    Deliver (10%)                             │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐              │
-│  │ Package    │→ │ Format     │→ │ Present    │              │
-│  │ Artifacts  │  │ Output     │  │ Results    │              │
-│  └────────────┘  └────────────┘  └────────────┘              │
-└──────────────────────────────────────────────────────────────┘
+supervise/
+├── docs/
+│   ├── CONTEXT.md              # Project context and background
+│   └── specs/
+│       └── ARCHITECTURE-REDESIGN.md  # Complete architecture specification
+├── .claude-plugin/
+│   ├── plugin.json             # Plugin manifest
+│   └── capabilities.yaml       # Capability declaration
+├── agents/
+│   ├── core/                   # Core orchestration agents (4)
+│   ├── business/               # Business workflow agents (4)
+│   └── raqa/                   # RA/QA domain agents (8)
+├── skills/
+│   ├── aria-core/              # Core orchestration skills
+│   ├── aria-domain-raqa/       # RA/QA domain knowledge
+│   ├── aria-knowledge-fda/     # FDA regulations
+│   ├── aria-knowledge-eumdr/   # EU MDR knowledge
+│   ├── aria-knowledge-standards/  # International standards
+│   └── aria-quality-valid/     # VALID framework implementation
+├── commands/
+│   └── aria.md                 # /aria command interface
+├── templates/                  # Regulatory document templates
+│   ├── 510k/
+│   ├── design-control/
+│   ├── risk-management/
+│   ├── capa/
+│   └── clinical/
+├── CHANGELOG.md
+├── CLAUDE.md                   # ARIA execution directives
+└── README.md
 ```
 
-### Phase 1: Brief (60%)
+## Documentation
 
-**Goal**: Thoroughly understand and document requirements
-
-**Activities**:
-- Intent clarification through questioning
-- Scope definition with boundaries
-- Success criteria identification
-- Risk assessment and mitigation
-- Resource requirement planning
-
-**Outputs**:
-- Structured brief document
-- Clarified intent specification
-- Execution prerequisites
-- Quality gate definitions
-
-**Quality Gates**:
-- [ ] Intent clearly understood
-- [ ] Scope well-defined
-- [ ] Success criteria measurable
-- [ ] Risks identified
-- [ ] Dependencies documented
-
-### Phase 2: Execute (30%)
-
-**Goal**: Implement solution with quality validation
-
-**Activities**:
-- Detailed execution planning
-- Agent task assignment
-- Parallel execution coordination
-- Progress monitoring
-- Quality gate validation
-
-**Outputs**:
-- Completed implementation
-- Test results
-- Validation reports
-- Execution logs
-
-**Quality Gates**:
-- [ ] All tests passing
-- [ ] LSP clean (0 errors)
-- [ ] Coverage >= 85%
-- [ ] VALID score >= 4.0
-- [ ] Documentation complete
-
-### Phase 3: Deliver (10%)
-
-**Goal**: Package and present results
-
-**Activities**:
-- Artifact collection
-- Format generation
-- Quality report creation
-- Final presentation
-
-**Outputs**:
-- Deliverable package
-- Quality reports
-- Documentation
-- Handoff notes
-
-**Quality Gates**:
-- [ ] All artifacts included
-- [ ] Formats validated
-- [ ] Documentation complete
-- [ ] Quality reports generated
-
-### Time Allocation Rationale
-
-**Brief (60%)**: Thorough planning prevents rework and ensures alignment
-
-**Execute (30%)**: Efficient execution with clear requirements and validated workflows
-
-**Deliver (10%)**: Streamlined packaging with automated generation
-
-## Next Steps
-
-### Phase 2.2: Enhanced Integration
-
-**Planned Features**:
-- Enhanced Notion MCP integration with bi-directional sync
-- Regulatory database connectors (FDA, EMA, PMDA)
-- Advanced template library with 50+ regulatory templates
-- Multi-language support (English, Korean, Japanese)
-
-**Timeline**: Q2 2026
-
-### Phase 2.3: Advanced Analytics
-
-**Planned Features**:
-- Predictive compliance analytics
-- Automated regulatory change detection
-- Risk assessment dashboards
-- Collaboration workflow optimization
-
-**Timeline**: Q3 2026
-
-### Phase 3.0: Enterprise Scale
-
-**Planned Features**:
-- Multi-tenant architecture
-- Advanced security and audit trails
-- API for custom integrations
-- Enterprise support and SLAs
-
-**Timeline**: Q4 2026
+- **[CONTEXT.md](docs/CONTEXT.md)**: Project background, MoAI-ADK benchmarking, design decisions, domain selection rationale
+- **[ARCHITECTURE-REDESIGN.md](docs/specs/ARCHITECTURE-REDESIGN.md)**: Complete system architecture, agent catalog, workflow design, implementation roadmap
+- **[CHANGELOG.md](CHANGELOG.md)**: Version history and changes
 
 ## Contributing
 
-Contributions are welcome! Please:
+ARIA is under active architecture redesign. Contributions will be welcomed after Phase 1 implementation.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+For now, please:
+1. Review the architecture documentation
+2. Provide feedback on the RA/QA domain requirements
+3. Share use cases and regulatory scenarios
+
+## Roadmap
+
+### Phase 1: Core Framework (Current)
+- Plugin skeleton and basic orchestration
+- `/aria` command implementation
+- Brief-Execute-Deliver workflow structure
+
+### Phase 2: Business Agents
+- Generic business workflow agents
+- VALID quality framework
+- Document management
+
+### Phase 3: RA/QA Specialization
+- 8 domain-specific agents
+- Regulatory knowledge bases
+- Core workflows (510(k), CAPA, Design Control)
+
+### Phase 4: MCP Integrations
+- Notion database integration
+- Google Workspace connectivity
+- Context7 and Sequential Thinking
+
+### Phase 5: Advanced Features
+- Agent memory and learning
+- Advanced analytics
+- Multi-product project management
 
 ## License
 
@@ -878,12 +376,9 @@ For issues, questions, or contributions:
 ## Acknowledgments
 
 - Built for [Claude Code](https://claude.ai/claude-code)
-- Part of the [MoAI-ADK](https://github.com/henry-1981/moai-adk) ecosystem
-- Inspired by regulatory affairs best practices
-- Enhanced by community feedback and contributions
+- Inspired by [MoAI-ADK](https://github.com/henry-1981/Agent-RA) principles
+- Part of the [Team Attention](https://github.com/team-attention) plugin ecosystem
 
 ---
 
-**Version**: 2.0.0
-**Last Updated**: 2026-02-09
-**Status**: Production Ready (Phase 2.1)
+**ARIA v2.0.0** - Specialized for Medical Device RA/QA professionals
