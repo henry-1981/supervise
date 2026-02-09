@@ -5,11 +5,9 @@ description: >
   Uses Context7 MCP for document lookup and ensures clear citation
   for medical device RA/QA professionals through ARIA.
 model: sonnet
-permissionMode: acceptEdits
+permissionMode: plan
 tools:
   - Read
-  - Write
-  - Edit
   - Grep
   - Glob
   - Bash

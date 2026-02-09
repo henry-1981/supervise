@@ -11,7 +11,7 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Bash Grep Glob AskUserQuestion Task TaskCreate TaskUpdate TaskList TaskGet mcp__context7__resolve-library-id mcp__context7__get-library-docs mcp__sequential-thinking__sequentialthinking
 user-invocable: false
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   category: "workflow"
   status: "active"
   updated: "2026-02-09"
@@ -57,6 +57,10 @@ triggers:
       "manager-docs",
       "manager-quality",
       "manager-project",
+      "expert-writer",
+      "expert-analyst",
+      "expert-reviewer",
+      "expert-researcher",
     ]
   phases: ["brief", "execute", "deliver"]
 ---
@@ -102,6 +106,8 @@ Quick Commands:
 - Finalize: /aria deliver
 - Search regulations: /aria search "ISO 13485:2016 section 8.3 requirements"
 - Check status: /aria status
+- Manage templates: /aria template
+- Query knowledge base: /aria knowledge
 
 ---
 
@@ -147,6 +153,8 @@ Route request based on command and task type:
 - /aria deliver: Run Deliver phase for final output and validation
 - /aria search: Regulatory information search and research
 - /aria status: Current task progress and checkpoint status
+- /aria template: Template lookup, preview, and management
+- /aria knowledge: Knowledge base query and update
 
 Routing Decision Tree:
 
@@ -196,26 +204,32 @@ Tools: Task, AskUserQuestion, TaskCreate, TaskUpdate, TaskList, TaskGet, Read, W
 **manager-docs**: Document lifecycle management
 - Coordinates document creation, review, and approval
 - Manages document version control and traceability
-- Ensures template compliance and formatting
+- Ensures template compliance and formatting (aria-writing-style, aria-templates skills)
 - Maintains document registry in Notion
 
 Tools: Read, Write, Edit, Grep, Glob, Bash, Task
+Permission Mode: acceptEdits
+Skills: aria-writing-style, aria-templates
+MCP Servers: notion
 
 **manager-quality**: VALID framework quality gates
 - Validates all regulatory content against VALID dimensions
-- Ensures regulatory citation compliance
-- Manages quality records and audit trails
-- Coordinates quality review processes
+- Ensures regulatory citation compliance (aria-quality-valid skill)
+- Generates quality reports and improvement recommendations
+- Read-only quality verification and audit
 
-Tools: Read, Write, Edit, Grep, Glob, Bash
+Tools: Read, Grep, Glob, Bash
+Permission Mode: plan (read-only)
+Skills: aria-quality-valid
 
 **manager-project**: Project timeline and milestone tracking
 - Tracks submission deadlines and milestones
 - Manages resource allocation and dependencies
-- Maintains project status in Notion
-- Coordinates parallel workstreams
+- Maintains risk register and project status in Notion
+- Read-only project oversight and status reporting
 
-Tools: Read, Write, Edit, Grep, Glob, Bash, Task
+Tools: Read, Grep, Glob, Bash, Task
+Permission Mode: plan (read-only)
 
 ### Business Agents (4)
 
@@ -223,35 +237,44 @@ Core business process support for regulatory operations.
 
 **expert-writer**: Technical document drafting
 - Creates regulatory documents (protocols, reports, summaries)
-- Ensures clear, concise technical writing
-- Applies appropriate document templates
+- Ensures clear, concise technical writing using aria-writing-style skill
+- Applies appropriate document templates (aria-templates skill)
 - Maintains consistency across document set
 
-Tools: Read, Write, Edit, Grep, Glob
+Tools: Read, Write, Edit, Grep, Glob, Bash
+Permission Mode: acceptEdits
+Skills: aria-writing-style, aria-templates
+MCP Servers: context7
 
 **expert-analyst**: Data analysis and interpretation
-- Performs statistical analysis for clinical data
+- Performs statistical analysis for clinical data (aria-analysis skill)
 - Interprets regulatory requirements and gaps
 - Analyzes trend data for post-market surveillance
 - Generates data-driven insights and recommendations
 
 Tools: Read, Grep, Glob, Bash
+Permission Mode: plan (read-only)
+Skills: aria-analysis
 
 **expert-reviewer**: Document review and compliance verification
 - Reviews documents for regulatory compliance
-- Verifies completeness and accuracy
+- Verifies completeness and accuracy using VALID framework
 - Checks traceability and cross-references
 - Identifies gaps and inconsistencies
 
 Tools: Read, Grep, Glob, Bash
+Permission Mode: plan (read-only)
 
 **expert-researcher**: Regulatory information research
-- Searches and retrieves regulatory requirements
+- Searches and retrieves regulatory requirements (aria-research skill)
 - Finds precedents and predicate device information
-- Researches regulatory guidance and standards
-- Maintains current regulatory knowledge
+- Researches regulatory guidance and standards via Context7 MCP
+- Maintains current regulatory knowledge with proper citations
 
-Tools: Read, Grep, Glob, Bash, Context7 MCP
+Tools: Read, Grep, Glob, Bash
+Permission Mode: plan (read-only)
+Skills: aria-research
+MCP Servers: context7
 
 ### RA/QA Domain Agents (8)
 
@@ -320,6 +343,51 @@ Tools: Read, Write, Edit, Grep, Glob, Bash
 - CAPA development from audit findings
 
 Tools: Read, Write, Edit, Grep, Glob, Bash
+
+---
+
+## ARIA Skills (Phase 2)
+
+### Quality and Standards Skills
+
+**aria-quality-valid**: VALID quality framework
+- Implements 5-dimension validation (Verified, Accurate, Linked, Inspectable, Deliverable)
+- Provides quality gate verification procedures
+- Generates quality reports and improvement recommendations
+- Used by: manager-quality agent
+
+**aria-writing-style**: Technical writing standards
+- Defines plain language style guidelines (grade 8-10 reading level)
+- Ensures regulatory precision with source citations
+- Maintains terminology consistency
+- Used by: manager-docs, expert-writer agents
+
+**aria-templates**: Document template library
+- Provides regulatory document templates (protocols, reports, submission packages)
+- Ensures submission format compliance
+- Supports template customization
+- Used by: manager-docs, expert-writer agents
+
+### Research and Analysis Skills
+
+**aria-research**: Research methodology
+- Defines systematic regulatory information gathering procedures
+- Establishes source citation standards (standard name, section, version)
+- Provides information quality assessment criteria
+- Used by: expert-researcher agent
+
+**aria-analysis**: Data analysis methodology
+- Provides statistical analysis techniques for clinical data
+- Defines data interpretation frameworks
+- Supports trend analysis for post-market surveillance
+- Used by: expert-analyst agent
+
+### Skill Loading Strategy
+
+Skills are loaded via progressive disclosure:
+- **Level 1 (Metadata)**: Always loaded for agents that reference them in frontmatter
+- **Level 2 (Body)**: Loaded when trigger keywords match or agent invokes the skill
+- **Level 3 (Bundled)**: On-demand reference materials and examples
 
 ---
 
@@ -586,7 +654,15 @@ Example: FDA 21 CFR Part 820, Section 820.30: "Each manufacturer shall establish
 
 ---
 
-Version: 1.0.0 (Phase 1 Scaffold)
+Version: 2.0.0 (Phase 2 - Universal Business Agents)
 Last Updated: 2026-02-09
 Language: English
 Core Rule: ARIA is an orchestrator; direct implementation is prohibited
+
+Phase 2 Additions:
+- 3 Core Layer agents (manager-docs, manager-quality, manager-project)
+- 4 Business Layer agents (expert-writer, expert-analyst, expert-reviewer, expert-researcher)
+- 5 ARIA skills (aria-quality-valid, aria-writing-style, aria-templates, aria-research, aria-analysis)
+- 7 Commands (aria, brief, execute, deliver, search, template, knowledge)
+- Brief-Execute-Deliver workflow orchestration
+- VALID quality framework integration

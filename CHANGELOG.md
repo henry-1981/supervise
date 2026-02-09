@@ -5,6 +5,74 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-02-09
+
+### Phase 2: Universal Business Agents Implementation
+
+This release completes the ARIA Phase 2, implementing universal business workflow agents and comprehensive skills for the Brief-Execute-Deliver workflow.
+
+### Added
+
+#### Core and Business Layer Agents (7 agents)
+- **Core Agents (3)**: orchestrator, manager-docs, manager-quality
+- **Business Expert Agents (4)**: expert-writer, expert-analyst, expert-reviewer, expert-researcher
+
+#### Command Skills (5 skills)
+- **aria-brief**: Brief Phase skill for task understanding and scope definition
+- **aria-execute**: Execute Phase skill for workflow execution and agent orchestration
+- **aria-deliver**: Deliver Phase skill for final quality validation and output delivery
+- **aria-template**: Template management skill for regulatory document templates
+- **aria-knowledge**: Knowledge base management skill with Notion MCP integration
+
+#### Integrated Skills (21+ skills)
+- **Core Skills**: aria-core, aria-quality-valid, aria-writing-style, aria-templates
+- **Workflow Skills**: aria-brief, aria-execute, aria-deliver, aria-research, aria-analysis
+- **Knowledge Skills**: aria-knowledge-fda, aria-knowledge-eumdr, aria-knowledge-mfds, aria-knowledge-standards
+- **Domain Skills**: aria-capa-process, aria-design-control, aria-risk-management, aria-submission-templates, aria-domain-raqa
+- **Integration Skills**: aria-integration-notion, aria-integration-context7, aria-integration-google
+
+#### Template Library
+- 50+ medical device regulatory document templates
+- Categories: Core Regulatory, Quality Management, Technical Documentation, Review and Audit
+- Templates include: 510(k) submission, CE technical file, clinical evaluation, design verification/validation, risk management report, CAPA report, and more
+- All templates follow consistent structure with regulatory references and VALID quality framework
+
+#### Knowledge Base Structure
+- Notion MCP database schemas (6 databases)
+- Regulatory document registry with version control
+- CAPA tracker database
+- Risk register management
+- Submission tracking dashboard
+- Audit log with decision history
+
+### Workflow Features
+- **Brief-Execute-Deliver Workflow**: Complete three-phase implementation
+- **Progressive Disclosure**: Optimized token management (Level 1: ~100 tokens, Level 2: ~5000 tokens)
+- **VALID Quality Framework**: 5-dimension validation (Verified, Accurate, Linked, Inspectable, Deliverable)
+- **MCP Integration**: Notion, Context7, Sequential Thinking, Google Workspace (Phase 4)
+- **Template-based Document Generation**: Automated regulatory document creation with quality gates
+- **Knowledge Base**: Centralized regulatory knowledge with citation verification
+
+### Technical Implementation
+- Progressive disclosure system with 3-level token optimization
+- MCP server integration (Context7 for regulatory research, Notion for knowledge base)
+- Agent skill preloading for domain expertise
+- Error handling with plain language messages and recovery guidance
+- Regulatory citation verification with source tracking
+
+### Documentation
+- All agent definitions with YAML frontmatter and skill preloading
+- All command skills with usage examples and MCP integration
+- All skills with progressive disclosure metadata
+- Template catalog with usage guidelines
+- Knowledge base schema documentation
+
+### Quality Gates
+- **VALID Framework**: All 5 dimensions implemented
+- **Template Compliance**: All templates follow ARIA writing style guide
+- **Progressive Disclosure**: Token budgets verified (~100 tokens metadata, ~5000 tokens body)
+- **MCP Integration**: Context7 and Notion server connections tested
+
 ## [2.1.0] - 2026-02-09
 
 ### Phase 1: Core Framework Implementation

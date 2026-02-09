@@ -40,13 +40,13 @@ Every ARIA output passes through the VALID quality gates:
 
 ### Specialized Domain Agents
 
-ARIA provides 16 specialized agents across 3 tiers:
+ARIA provides specialized agents across 3 tiers:
 
-**Core Layer (4 agents)**: Orchestration, document management, quality assurance, project tracking
+**Core Layer (3 agents)**: Orchestration, document management, quality assurance
 
 **Business Layer (4 agents)**: Technical writing, data analysis, document review, regulatory research
 
-**Domain Layer (8 agents)**: Regulatory strategy, standards interpretation, risk management, design controls, CAPA, clinical evaluation, submissions, audit management
+**Domain Layer (8+ agents)**: Regulatory strategy, standards interpretation, risk management, design controls, CAPA, clinical evaluation, submissions, audit management
 
 ### Natural Language Interface
 
@@ -395,20 +395,23 @@ For now, please:
 ## Roadmap
 
 ### Phase 1: Core Framework (Completed - v2.1.0)
-- x Plugin skeleton and basic orchestration
-- x `/aria` command implementation with 9 subcommands
-- x Brief-Execute-Deliver workflow structure
-- x 28 specialized agents (Core + Business + Domain + Team)
-- x VALID quality framework implementation
-- x aria-core skill with progressive disclosure
+- ✓ Plugin skeleton and basic orchestration
+- ✓ `/aria` command implementation with 9 subcommands
+- ✓ Brief-Execute-Deliver workflow structure
+- ✓ 28 specialized agents (Core + Business + Domain + Team)
+- ✓ VALID quality framework implementation
+- ✓ aria-core skill with progressive disclosure
 
-### Phase 2: Business Agents (In Progress)
-- Generic business workflow agents
-- Document management enhancements
-- Template system for regulatory documents
+### Phase 2: Universal Business Agents (Completed - v2.2.0)
+- ✓ 7 core and business agents (orchestrator, manager-docs, manager-quality, manager-project, expert-writer, expert-analyst, expert-reviewer, expert-researcher)
+- ✓ 21+ ARIA-integrated skills with progressive disclosure
+- ✓ 5 command skills (aria-brief, aria-execute, aria-deliver, aria-template, aria-knowledge)
+- ✓ Template library with 50+ medical device templates
+- ✓ Knowledge base structure with Notion MCP integration
+- ✓ VALID quality framework implementation
 
-### Phase 3: RA/QA Specialization
-- 8 domain-specific agents
+### Phase 3: RA/QA Specialization (Next)
+- 8 domain-specific agents (regulatory, standards, risk, design-control, CAPA, clinical, submission, audit)
 - Regulatory knowledge bases (FDA, EU MDR, MFDS, ISO/IEC)
 - Core workflows (510(k), CAPA, Design Control)
 
@@ -446,4 +449,4 @@ For issues, questions, or contributions:
 
 ---
 
-**ARIA v2.1.0** - Phase 1 Core Framework Completed
+**ARIA v2.2.0** - Phase 2 Universal Business Agents Completed
