@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ARIA Knowledge Base Schema",
+  "description": "Schema for ARIA cross-submission knowledge base storing reusable regulatory content",
+  "type": "object",
+  "properties": {
+    "entries": {
+      "type": "array",
+      "description": "Knowledge base entries for reusable content",
+      "items": {
+        "type": "object",
+        "required": ["entry_id", "content_type", "submission_id", "outcome", "content", "regulatory_domain", "device_type", "tags"],
+        "properties": {
+          "entry_id": {
+            "type": "string",
+            "description": "Unique identifier (KB-YYYYMMDD-NNNN)",
+            "pattern": "^KB-\\d{8}-\\d{4}$"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "Type of content",
+            "enum": [
+              "substantial_equivalence_argument",
+              "predicate_device_analysis",
+              "clinical_evidence_summary",
+              "risk_analysis",
+              "benefit_risk_assessment",
+              "intended_use_statement",
+              "indications_for_use",
+              "contraindications",
+              "warnings_and_precautions",
+              "software_validation",
+              "cybersecurity_rationale",
+              "labeling_content",
+              "promotional_material"
+            ]
+          },
+          "submission_id": {
+            "type": "string",
+            "description": "Source submission identifier (e.g., 510k-2024-123)",
+            "pattern": "^[A-Z0-9-]+$"
+          },
+          "outcome": {
+            "type": "string",
+            "description": "Regulatory outcome of the submission",
+            "enum": ["approved", "approvable", "not_approved", "pending", "withdrawn"]
+          },
+          "outcome_details": {
+            "type": "object",
+            "description": "Additional outcome details",
+            "properties": {
+              "approval_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "approval_number": {
+                "type": "string"
+              },
+              "rejection_reason": {
+                "type": "string"
+              },
+              "additional_information": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "type": "string",
+            "description": "The actual content text (can be Markdown)"
+          },
+          "regulatory_domain": {
+            "type": "string",
+            "description": "Regulatory domain for this content",
+            "enum": ["FDA", "EU MDR", "MFDS", "PMDA", "ANVISA", "Health Canada", "TGA", "MHRA"]
+          },
+          "device_type": {
+            "type": "string",
+            "description": "Device classification and type",
+            "examples": ["Class II SaMD", "Class IIb Medical Device", "Class I Device", "Class III Device"]
+          },
+          "product_family": {
+            "type": "string",
+            "description": "Product family or category"
+          },
+          "tags": {
+            "type": "array",
+            "description": "Searchable tags for the entry",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applicability_context": {
+            "type": "object",
+            "description": "Context information for reuse applicability",
+            "properties": {
+              "intended_use": {
+                "type": "string"
+              },
+              "technology_type": {
+                "type": "string",
+                "examples": ["AI/ML", "Mobile App", "Cloud Service", "IoT Device", "Traditional Software"]
+              },
+              "anatomy": {
+                "type": "string"
+              },
+              "patient_population": {
+                "type": "string"
+              },
+              "clinical_indication": {
+                "type": "string"
+              }
+            }
+          },
+          "regulation_version": {
+            "type": "string",
+            "description": "Version of regulation at time of creation",
+            "examples": ["21 CFR 820", "EU MDR 2017/745", "MFDS Medical Device Act"]
+          },
+          "predicate_devices": {
+            "type": "array",
+            "description": "Predicate devices referenced (for 510(k) content)",
+            "items": {
+              "type": "object",
+              "properties": {
+                "product_code": {
+                  "type": "string"
+                },
+                "device_name": {
+                  "type": "string"
+                },
+                "510k_number": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "quality_indicators": {
+            "type": "object",
+            "description": "Quality and success metrics",
+            "properties": {
+              "reused_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "reuse_success_rate": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "user_rating": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string",
+            "description": "User or agent who created the entry"
+          },
+          "last_reviewed": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date",
+            "description": "Expiration date if content is time-limited"
+          },
+          "confidence_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence score for content quality and accuracy"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or comments"
+          },
+          "archived": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether the entry is archived"
+          },
+          "archive_reason": {
+            "type": "string",
+            "description": "Reason for archiving (if archived)"
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tag index with occurrence counts",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "outcomes": {
+      "type": "object",
+      "description": "Outcome statistics",
+      "properties": {
+        "approved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "approvable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not_approved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pending": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "withdrawn": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Knowledge base metadata",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "total_entries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "storage_backend": {
+          "type": "string",
+          "enum": ["json", "notion", "hybrid"]
+        }
+      }
+    }
+  },
+  "required": ["entries", "tags", "outcomes", "metadata"]
+}

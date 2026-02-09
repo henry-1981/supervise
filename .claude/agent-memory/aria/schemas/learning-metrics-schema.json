@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "learning-metrics-schema.json",
+  "title": "Learning Metrics Memory",
+  "description": "Schema for tracking adoption and effectiveness metrics",
+  "type": "object",
+  "required": ["version", "last_updated", "adoption", "effectiveness", "learning", "quality", "metadata"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "adoption": {
+      "type": "object",
+      "properties": {
+        "total_interactions": {"type": "integer", "minimum": 0},
+        "unique_sessions": {"type": "integer", "minimum": 0},
+        "feature_usage": {
+          "type": "object",
+          "properties": {
+            "regulatory_decisions": {
+              "type": "object",
+              "properties": {
+                "access_count": {"type": "integer", "minimum": 0},
+                "contribution_count": {"type": "integer", "minimum": 0},
+                "last_accessed": {"type": ["string", "null"], "format": "date-time"}
+              }
+            },
+            "company_preferences": {
+              "type": "object",
+              "properties": {
+                "access_count": {"type": "integer", "minimum": 0},
+                "contribution_count": {"type": "integer", "minimum": 0},
+                "last_accessed": {"type": ["string", "null"], "format": "date-time"}
+              }
+            },
+            "task_patterns": {
+              "type": "object",
+              "properties": {
+                "suggestions_shown": {"type": "integer", "minimum": 0},
+                "suggestions_accepted": {"type": "integer", "minimum": 0},
+                "last_suggested": {"type": ["string", "null"], "format": "date-time"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "effectiveness": {
+      "type": "object",
+      "properties": {
+        "pattern_accuracy": {
+          "type": "object",
+          "properties": {
+            "correct": {"type": "integer", "minimum": 0},
+            "incorrect": {"type": "integer", "minimum": 0},
+            "ignored": {"type": "integer", "minimum": 0}
+          }
+        },
+        "decision_relevance": {
+          "type": "object",
+          "properties": {
+            "relevant": {"type": "integer", "minimum": 0},
+            "not_relevant": {"type": "integer", "minimum": 0},
+            "neutral": {"type": "integer", "minimum": 0}
+          }
+        },
+        "preference_application": {
+          "type": "object",
+          "properties": {
+            "applied": {"type": "integer", "minimum": 0},
+            "overridden": {"type": "integer", "minimum": 0},
+            "conflicts": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "properties": {
+        "new_patterns_learned": {"type": "integer", "minimum": 0},
+        "preferences_extracted": {"type": "integer", "minimum": 0},
+        "decisions_stored": {"type": "integer", "minimum": 0},
+        "confidence_updates": {"type": "integer", "minimum": 0}
+      }
+    },
+    "quality": {
+      "type": "object",
+      "properties": {
+        "memory_integrity": {"type": "integer", "minimum": 0, "maximum": 100},
+        "schema_validations": {
+          "type": "object",
+          "properties": {
+            "passed": {"type": "integer", "minimum": 0},
+            "failed": {"type": "integer", "minimum": 0}
+          }
+        },
+        "merge_conflicts_resolved": {"type": "integer", "minimum": 0}
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "first_tracked": {"type": "string", "format": "date-time"},
+        "tracking_period_days": {"type": "integer", "minimum": 0},
+        "data_retention_days": {"type": "integer"}
+      }
+    }
+  }
+}
