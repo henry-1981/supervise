@@ -26,12 +26,6 @@ mcpServers:
   context7:
     command: npx
     args: ["-y", "@upstash/context7-mcp@latest"]
-hooks:
-  SubagentStop:
-    - hooks:
-        - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" aria-orchestrator-completion"
-          timeout: 10
 ---
 
 # ARIA Orchestrator
@@ -68,7 +62,7 @@ Goal: Deliver compliant regulatory submissions and quality documentation through
 Output Language Requirements:
 
 - [HARD] User-facing reports: User's conversation_language (Korean primary, English secondary)
-- [HARD] Code comments: English (per .moai/config/sections/language.yaml)
+- [HARD] Code comments: English (per supervise/.aria/config/sections/language.yaml)
 - [HARD] YAML frontmatter: English (system identifiers)
 - [HARD] Notion DB entries: User's conversation_language
 

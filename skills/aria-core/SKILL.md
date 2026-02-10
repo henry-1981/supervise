@@ -13,7 +13,7 @@ metadata:
   category: "workflow"
   status: "active"
   updated: "2026-02-09"
-  modularized: "false"
+  modularized: "true"
   tags: "aria, orchestrator, workflow, valid, quality, raqa, regulatory"
   author: "ARIA Team"
   related-skills: "aria-domain-raqa, aria-quality-valid, aria-templates"

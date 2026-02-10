@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-02-09
+
+### Phase 1 Implementation Complete
+
+#### Added
+- **Core Orchestrator Agent**: Complete agent definition with Brief-Execute-Deliver workflow
+- **/aria Command**: Full command implementation with natural language routing
+- **aria-core Skill**: Core orchestration patterns and VALID quality framework
+- **Plugin Manifest**: plugin.json and capabilities.yaml with complete capability declaration
+- **Configuration System**: aria.yaml with language, workflow, quality, and integration settings
+- **CLAUDE.md**: Complete execution directives for ARIA framework
+
+#### Documentation
+- Updated README.md with Phase 1 completion status
+- Comprehensive agent routing logic documentation
+- VALID quality framework implementation guide
+- MCP integration architecture documentation
+- Brief-Execute-Deliver workflow specification
+
+#### Quality Verification
+- All YAML configuration files validated
+- Plugin structure compliant with Claude Code Plugin Specification v1.0
+- File structure follows ARIA Phase 1 specifications (SPEC-ARIA-001)
+
 ## [2.0.0] - 2026-02-09
 
 ### Major Changes

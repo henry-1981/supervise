@@ -21,12 +21,6 @@ mcpServers:
     args: ["-y", "@notionhq/client"]
     env:
       NOTION_API_KEY: "${NOTION_API_KEY}"
-hooks:
-  SubagentStop:
-    - hooks:
-        - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" aria-clinical-completion"
-          timeout: 10
 ---
 
 # ARIA Clinical Expert

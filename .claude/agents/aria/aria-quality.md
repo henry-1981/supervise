@@ -23,12 +23,6 @@ mcpServers:
     args: ["-y", "@anthropic/google-workspace-mcp"]
     env:
       GOOGLE_CREDENTIALS: "${GOOGLE_CREDENTIALS}"
-hooks:
-  SubagentStop:
-    - hooks:
-        - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" aria-quality-completion"
-          timeout: 10
 ---
 
 # ARIA Quality Expert

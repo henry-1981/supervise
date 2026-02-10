@@ -36,7 +36,7 @@ The `/aria deliver` command generates the final deliverable package, consolidati
 ## Deliverable Package Structure
 
 ```
-.moai/deliveries/{task_id}/
+.aria/deliveries/{task_id}/
 ├── README.md                    # Delivery overview
 ├── summary.md                   # Executive summary
 ├── implementation/              # Implementation artifacts
@@ -192,7 +192,7 @@ aria-validate --task-id={task_id} --delivery
 
 ## Integration
 
-- Reads from: `.moai/briefs/`, `.moai/execution/`
-- Writes to: `.moai/deliveries/`
+- Reads from: `.aria/briefs/`, `.aria/execution/`
+- Writes to: `.aria/deliveries/`
 - Requires: Completed execution phase
 - Outputs: Multi-format deliverable package

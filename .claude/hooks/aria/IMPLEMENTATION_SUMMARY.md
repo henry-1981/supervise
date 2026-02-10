@@ -91,7 +91,7 @@ All hooks registered in `.claude/settings.json`:
       {
         "hooks": [
           {
-            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-pre-tool.sh\"",
+            "command": "\"$CLAUDE_PROJECT_DIR/aria Python hooks\"",
             "timeout": 5,
             "type": "command"
           },
@@ -108,7 +108,7 @@ All hooks registered in `.claude/settings.json`:
       {
         "hooks": [
           {
-            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-post-tool.sh\"",
+            "command": "\"$CLAUDE_PROJECT_DIR/aria Python hooks\"",
             "timeout": 60,
             "type": "command"
           },

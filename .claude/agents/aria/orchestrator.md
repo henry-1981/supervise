@@ -10,7 +10,6 @@ permissionMode: default
 tools: Task AskUserQuestion Read Grep Glob Bash
 skills:
   - aria-core
-  - moai-foundation-core
 mcpServers:
   - context7
   - sequential-thinking
@@ -142,7 +141,7 @@ Present errors in plain language format:
 
 **Validation Failures** (VALID framework not met):
 - Impact: Deliverable does not meet quality standards
-- Retry: Route to manager-quality for remediation
+- Retry: Route to aria-quality for remediation
 - User Action: "Quality check identified [dimension] issue. Routing to quality specialist for correction."
 
 ### Recovery Workflow

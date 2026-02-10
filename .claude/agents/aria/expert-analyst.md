@@ -89,7 +89,7 @@ All analyses produced by expert-analyst must:
 - Works with expert-writer to document analysis results
 - Collaborates with expert-reviewer for methodology validation
 - Integrates with expert-researcher for regulatory context
-- Supports manager-quality with data for compliance verification
+- Supports aria-quality with data for compliance verification
 
 ## Analysis Process
 

@@ -163,7 +163,7 @@ export NOTION_DATABASE_ID="your_parent_database_id"
 
 ```bash
 # 새로운 규제 요구사항 생성
-moai-tool-notion create \
+aria-tool-notion create \
   --database "Regulatory Requirements" \
   --properties '{"Requirement ID": "REQ-001", "Category": "FDA", "Status": "Draft"}'
 ```
@@ -172,19 +172,19 @@ moai-tool-notion create \
 
 ```bash
 # 모든 요구사항 조회
-moai-tool-notion query \
+aria-tool-notion query \
   --database "Regulatory Requirements" \
   --filter '{"property": "Status", "equals": "Approved"}'
 
 # 특정 ID로 조회
-moai-tool-notion retrieve --page-id "page_id_here"
+aria-tool-notion retrieve --page-id "page_id_here"
 ```
 
 ### Update (수정)
 
 ```bash
 # 요구사항 상태 수정
-moai-tool-notion update \
+aria-tool-notion update \
   --page-id "page_id_here" \
   --properties '{"Status": "Approved"}'
 ```
@@ -193,7 +193,7 @@ moai-tool-notion update \
 
 ```bash
 # 페이지 아카이브 (Soft Delete)
-moai-tool-notion archive --page-id "page_id_here"
+aria-tool-notion archive --page-id "page_id_here"
 ```
 
 ## 감사 추적
@@ -213,7 +213,7 @@ moai-tool-notion archive --page-id "page_id_here"
 
 ```bash
 # 최근 변경 내역 조회
-moai-tool-notion audit-log \
+aria-tool-notion audit-log \
   --database "Regulatory Requirements" \
   --limit 50 \
   --since "2026-02-01"

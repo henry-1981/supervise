@@ -37,7 +37,7 @@ The `/aria knowledge` command manages the organizational knowledge base, capturi
 ## Knowledge Base Structure
 
 ```
-.moai/knowledge/
+.aria/knowledge/
 ├── patterns/                  # Design and implementation patterns
 │   ├── authentication.md
 │   ├── error-handling.md
@@ -256,7 +256,7 @@ auto_capture:
 
 ## Integration
 
-- Reads from: `.moai/knowledge/`, `.moai/execution/`
-- Writes to: `.moai/knowledge/`
+- Reads from: `.aria/knowledge/`, `.aria/execution/`
+- Writes to: `.aria/knowledge/`
 - Used by: All ARIA commands for context
 - Output: Knowledge items and application results

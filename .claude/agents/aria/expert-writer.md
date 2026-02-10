@@ -74,7 +74,7 @@ All documentation produced by expert-writer must:
 - Works with expert-analyst to include data visualizations
 - Collaborates with expert-reviewer for compliance verification
 - Integrates expert-researcher findings with proper citations
-- Coordinates with manager-docs for documentation strategy
+- Coordinates with aria-document for documentation strategy
 
 ## Writing Process
 

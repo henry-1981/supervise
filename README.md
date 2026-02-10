@@ -394,10 +394,21 @@ For now, please:
 
 ## Roadmap
 
-### Phase 1: Core Framework (Current)
-- Plugin skeleton and basic orchestration
-- `/aria` command implementation
-- Brief-Execute-Deliver workflow structure
+### Phase 1: Core Framework (Completed ✅)
+- ✅ Plugin skeleton and basic orchestration
+- ✅ `/aria` command implementation
+- ✅ Brief-Execute-Deliver workflow structure
+- ✅ Core orchestrator agent with intent classification
+- ✅ aria-core skill with VALID framework
+- ✅ Plugin manifest (plugin.json, capabilities.yaml)
+- ✅ Configuration system (aria.yaml)
+- ✅ CLAUDE.md execution directives
+
+### Phase 2: Business Agents (In Progress 🚧)
+- Generic business workflow agents
+- VALID quality framework implementation
+- Document management workflows
+- Template system integration
 
 ### Phase 2: Business Agents
 - Generic business workflow agents

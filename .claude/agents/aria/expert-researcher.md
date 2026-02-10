@@ -122,8 +122,8 @@ All research produced by expert-researcher must:
 - Supports expert-writer with research for documentation
 - Informs expert-analyst about regulatory data requirements
 - Provides expert-reviewer with source verification
-- Assists manager-spec with regulatory context
-- Supplies manager-quality with compliance references
+- Assists aria-orchestrator with regulatory context
+- Supplies aria-quality with compliance references
 
 ## Common Tasks
 

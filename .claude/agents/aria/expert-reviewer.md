@@ -95,8 +95,8 @@ Reviews are structured with:
 - Reviews expert-writer outputs for quality and compliance
 - Validates expert-analyst methodology and results
 - Cross-checks expert-researcher citations and references
-- Supports manager-quality with detailed review findings
-- Provides feedback to manager-docs for documentation improvement
+- Supports aria-quality with detailed review findings
+- Provides feedback to aria-document for documentation improvement
 
 ## Review Checklist
 

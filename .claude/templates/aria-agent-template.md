@@ -2,7 +2,7 @@
 
 ## YAML Frontmatter Pattern Analysis
 
-Based on `.claude/agents/moai/expert-backend.md`, here is the standard pattern:
+Based on ARIA agent patterns, here is the standard pattern:
 
 ```yaml
 ---
@@ -29,13 +29,13 @@ hooks:
     - matcher: "Write|Edit"
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" aria-validation"
+          command: "\"$CLAUDE_PROJECT_DIR/aria hooks\" aria-validation"
           timeout: 5
   PostToolUse:
     - matcher: "Write|Edit"
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" aria-verification"
+          command: "\"$CLAUDE_PROJECT_DIR/aria hooks\" aria-verification"
           timeout: 15
 ---
 ```
@@ -85,7 +85,7 @@ hooks:
 
 ## Progressive Disclosure Pattern for Skills
 
-Based on `.claude/skills/moai/SKILL.md`:
+Based on `.claude/skills/ (generic)SKILL.md`:
 
 ### Level 1: Metadata (~100 tokens)
 ```yaml

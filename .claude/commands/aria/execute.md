@@ -41,7 +41,7 @@ The `/aria execute` command manages the implementation workflow, coordinating ex
 aria-validate --task-id={task_id}
 
 # Create execution workspace
-mkdir -p .moai/execution/{task_id}
+mkdir -p .aria/execution/{task_id}
 
 # Capture baseline state
 aria-baseline --capture=lsp,tests,coverage
@@ -161,7 +161,7 @@ Each execution step must pass:
 
 ## Integration
 
-- Reads from: `.moai/briefs/`, `.moai/specs/`
-- Writes to: `.moai/execution/`, `.moai/reports/`
+- Reads from: `.aria/briefs/`, `.aria/specs/`
+- Writes to: `.aria/execution/`, `.aria/reports/`
 - Triggers: `/aria deliver` on completion
 - Uses: LSP quality gates, test runners

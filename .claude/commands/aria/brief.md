@@ -79,7 +79,7 @@ The `/aria brief` command initiates the task understanding phase by analyzing re
 2. **Context Gathering**: Read relevant SPEC documents, codebase context
 3. **Brief Generation**: Create structured brief using template
 4. **Validation**: Check for completeness and clarity
-5. **Output**: Save brief to `.moai/briefs/{task_id}.md`
+5. **Output**: Save brief to `.aria/briefs/{task_id}.md`
 
 ## Quality Gates
 
@@ -91,6 +91,6 @@ The `/aria brief` command initiates the task understanding phase by analyzing re
 
 ## Integration
 
-- Reads from: `.moai/specs/`, `.claude/rules/`
-- Writes to: `.moai/briefs/`
+- Reads from: `.aria/specs/`, `.claude/rules/`
+- Writes to: `.aria/briefs/`
 - Triggers: `/aria execute` command

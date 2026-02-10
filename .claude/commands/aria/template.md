@@ -37,7 +37,7 @@ The `/aria template` command manages workflow templates that standardize ARIA pr
 ## Template Structure
 
 ```
-.moai/templates/
+.aria/templates/
 ├── brief/
 │   ├── default.md           # Default brief template
 │   ├── web-app.md           # Web application template
@@ -227,7 +227,7 @@ overrides:
 
 ## Integration
 
-- Reads from: `.moai/templates/`
-- Writes to: `.moai/templates/`, `.moai/briefs/`, `.moai/execution/`
+- Reads from: `.aria/templates/`
+- Writes to: `.aria/templates/`, `.aria/briefs/`, `.aria/execution/`
 - Used by: All ARIA commands
 - Output: Template application results

@@ -28,8 +28,8 @@ triggers:
     - 규제
     - 시장승인
   agents:
-    - manager-spec
-    - manager-docs
+    - aria-orchestrator
+    - aria-document
   phases:
     - plan
     - run
@@ -48,7 +48,7 @@ Last Updated: 2026-02-09
 
 can_resume: false
 typical_chain_position: middle
-depends_on: ["manager-spec"]
+depends_on: ["aria-orchestrator"]
 spawns_subagents: false
 token_budget: high
 context_retention: high
