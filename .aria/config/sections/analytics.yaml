@@ -249,7 +249,7 @@ analytics:
     level: info
 
     # Log file path
-    file: .moai/logs/analytics.log
+    file: .aria/logs/analytics.log
 
     # Log format
     format: json

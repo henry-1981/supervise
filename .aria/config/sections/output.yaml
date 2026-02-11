@@ -27,7 +27,7 @@ formats:
   html:
     extension: ".html"
     encoding: "utf-8"
-    css_theme: "regulatory-standard"  # CSS theme in .moai/templates/css/
+    css_theme: "regulatory-standard"  # CSS theme in .aria/templates/css/
     accessibility: "wcag-2.1-aa"  # WCAG 2.1 AA compliance
     semantic_markup: true  # Use semantic HTML5 elements
     include_outline: true  # Document outline for navigation
@@ -60,7 +60,7 @@ formats:
   # Word format settings
   word:
     extension: ".docx"
-    template: "regulatory-template.dotx"  # Template in .moai/templates/word/
+    template: "regulatory-template.dotx"  # Template in .aria/templates/word/
     toc_enabled: true
     styles_enabled: true
     track_changes: false
@@ -79,8 +79,8 @@ branding:
   # Company name and logo
   company:
     name: "Medical Device Company"
-    logo_path: ".moai/templates/images/logo.png"
-    favicon_path: ".moai/templates/images/favicon.ico"
+    logo_path: ".aria/templates/images/logo.png"
+    favicon_path: ".aria/templates/images/favicon.ico"
 
   # Color scheme
   colors:
@@ -196,7 +196,7 @@ validation:
 
 # Template paths
 templates:
-  base_path: ".moai/templates"
+  base_path: ".aria/templates"
 
   css:
     base: "css/regulatory-standard.css"
@@ -219,7 +219,7 @@ templates:
 # Output destination settings
 destinations:
   # Default output directory
-  default_output: ".moai/output"
+  default_output: ".aria/output"
 
   # Organize output by document type
   organize_by_type: true
@@ -274,4 +274,4 @@ logging:
   log_validation_results: true
 
   # Log file location
-  log_file: ".moai/logs/output-conversion.log"
+  log_file: ".aria/logs/output-conversion.log"

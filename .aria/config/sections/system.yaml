@@ -1,8 +1,8 @@
 # System Configuration
-# MoAI-ADK system-level settings
+# ARIA system-level settings
 
-moai:
-  # MoAI-ADK version
+aria:
+  # ARIA version
   version: "2.2.2"
 
   # Version update check frequency (daily, weekly, never)
@@ -58,7 +58,7 @@ document_management:
     # Documentation directory (no auto-deletion)
     docs:
       # Base directory for documentation files
-      base: .moai/docs/
+      base: .aria/docs/
 
       # Retention period in days (null = never delete)
       retention_days: null
@@ -66,7 +66,7 @@ document_management:
     # Logs directory (runtime data)
     logs:
       # Base directory for log files
-      base: .moai/logs/
+      base: .aria/logs/
 
       # Retention period in days (30 days default)
       retention_days: 30
@@ -74,7 +74,7 @@ document_management:
     # Temporary files directory
     temp:
       # Base directory for temporary files
-      base: .moai/temp/
+      base: .aria/temp/
 
       # Retention period in days (7 days default)
       retention_days: 7
@@ -85,7 +85,7 @@ document_management:
     # Cache directory
     cache:
       # Base directory for cache files
-      base: .moai/cache/
+      base: .aria/cache/
 
       # Retention period in days (30 days default)
       retention_days: 30

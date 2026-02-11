@@ -1,20 +1,20 @@
-# MoAI Project Configuration
-# Main configuration file for MoAI-ADK
+# ARIA Project Configuration
+# Main configuration file for ARIA
 
-moai:
+aria:
   # Project initialization status
   initialized: true
 
   # Timestamp when project was initialized (ISO 8601 format)
   initialized_at: ""
 
-  # MoAI-ADK version used during initialization
-  version: "2.2.2"
+  # ARIA version
+  version: "1.0.0"
 
 # Project Metadata
 project:
   # Project name (derived from directory name or user input)
-  name: "SPEC-ARIA-001"
+  name: "ARIA"
 
   # Project mode: personal, team, or enterprise
   # - personal: Single developer, lightweight workflows
@@ -29,7 +29,7 @@ project:
   created_at: ""
 
   # Template version used to create this project
-  template_version: "2.2.2"
+  template_version: "1.0.0"
 
   # Optimization status (true if project structure has been optimized)
   optimized: false
