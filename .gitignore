@@ -22,3 +22,7 @@
 # Temporary
 *.tmp
 *.temp
+.claude/
+.moai
+Claude.MD
+.mcp.json
