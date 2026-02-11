@@ -1,37 +1,24 @@
-# Dependencies
-node_modules/
-.npm/
+# ARIA Build Artifacts
+.aria/plans/
+.aria/memory/
+
+# Claude Code
+.claude/settings.local.json
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 
 # IDE
-.idea/
 .vscode/
+.idea/
 *.swp
 *.swo
 *~
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-npm-debug.log*
-
-# Cache
-.cache/
-*.cache
-
-# Environment
-.env
-.env.local
-.env.*.local
-
-# Build
-dist/
-build/
-out/
-
 # Temporary
-tmp/
-temp/
 *.tmp
+*.temp
